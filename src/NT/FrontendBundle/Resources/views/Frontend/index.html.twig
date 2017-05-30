@@ -1,51 +1,130 @@
 {% extends '::base.html.twig' %}
 
 {% block main %}
-
     {% if 'NTSliderBundle' | bundle_exists %}
         {{ render(controller("NTSliderBundle:SliderFrontend:homepageSlider")) }}
     {% endif %}
 
-    <div class="site-showcase">
-        <div class="slider-mask overlay-transparent"></div>
+    <?php include 'ssi/search.php'; ?>
 
-        <div class="site-search-module">
-            <div class="container">
-                <div class="site-search-module-inside">
-                    {{render(controller('NTEstatesBundle:EstatesFrontend:homepageSearch'))}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+                <p class="allCategories">
+                    <a href="categoriesListing.php">Всички категории</a>
+                </p>
+                <h2 class="page-header">Категории</h2>
+            </div>
+            <div class="homepageCategories">
+                <div class="categoryAccent col-md-3 col-sm-6">
+                    <h3>
+                        <a href="categoryListing.php">Автосервизи</a>
+                    </h3>
+                    <a class="categoryImage" href="categoryListing.php">
+                        <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/business/" alt="">
+                    </a>
+                </div>
+                <div class="categoryAccent col-md-3 col-sm-6">
+                    <h3>
+                        <a href="categoryListing.php">Дограма</a>
+                    </h3>
+                    <a href="categoryListing.php">
+                        <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/abstract/" alt="">
+                    </a>
+                </div>
+                <div class="categoryAccent col-md-3 col-sm-6">
+                    <h3>
+                        <a href="categoryListing.php">Мебели</a>
+                    </h3>
+                    <a href="categoryListing.php">
+                        <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/city/" alt="">
+                    </a>
+                </div>
+                <div class="categoryAccent col-md-3 col-sm-6">
+                    <h3>
+                        <a href="categoryListing.php">Категория 1</a>
+                    </h3>
+                    <a href="categoryListing.php">
+                        <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/food/" alt="">
+                    </a>
+                </div>
+                <div class="categoryAccent col-md-3 col-sm-6">
+                    <h3>
+                        <a href="categoryListing.php">Категория 2</a>
+                    </h3>
+                    <a href="categoryListing.php">
+                        <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/nature/" alt="">
+                    </a>
+                </div>
+                <div class="categoryAccent col-md-3 col-sm-6">
+                    <h3>
+                        <a href="categoryListing.php">Категория 3</a>
+                    </h3>
+                    <a href="categoryListing.php">
+                        <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/transport/" alt="">
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+    <!-- /.row -->
 
-    {{render(controller('NTEstatesBundle:EstatesFrontend:homepageEstates'))}}
+    <!-- Marketing Icons Section -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Някакви по-малки банери или акценти
+            </h1>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><i class="fa fa-fw fa-check"></i> Акцент 1</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <p class="text-justify">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?
+                            </p>
+                        </div>
+                        
+                        <div class="col-md-5">
+                            <img src="http://lorempixel.com/200/215/nature/" alt="">
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn btn-default">Научи повече</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><i class="fa fa-fw fa-check"></i> Акцент 2</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <p class="text-justify">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?
+                            </p>
+                        </div>
+                        
+                        <div class="col-md-5">
+                            <img src="http://lorempixel.com/200/215/nature/" alt="">
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn btn-default">Научи повече</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
 {% endblock %}
 
 {% block javascripts %}
     {{parent()}}
-    <script type="text/javascript">
-        $(function(){
-            $('#ads-trigger').click(function () {
-                var additionalRow = $('.row.additional');
-            	if ($(this).hasClass('advanced')) {
-                    additionalRow.addClass('hidden');
-                    $(this).removeClass('advanced');
-            		$(".site-search-module").animate({
-            			'bottom': '-107px'
-            		});
-            		$(this).html('<i class="fa fa-plus"></i> {{ 'estate.advanced'|trans({}, 'messages')}}');
-            		$('.slider-mask').fadeOut(500);
-            	} else {
-                    additionalRow.removeClass('hidden');
-            		$(this).addClass('advanced');
-            		$(".site-search-module").animate({
-            			'bottom': '-15px'
-            		});
-            		$(this).html('<i class="fa fa-minus"></i> {{ 'estate.basic'|trans({}, 'messages')}}');
-            		$('.slider-mask').fadeIn(500);
-            	}
-            	return false;
-            });
-        })
-    </script>
 {% endblock %}

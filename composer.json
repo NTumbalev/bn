@@ -30,7 +30,7 @@
         "sonata-project/admin-bundle": "2.x-dev",
         "sonata-project/block-bundle": "~2.2,>=2.2.7,<2.3",
         "sonata-project/doctrine-orm-admin-bundle": "2.3.3",
-        "sonata-project/datagrid-bundle" : "dev-master",
+        "sonata-project/datagrid-bundle" : "~2.2",
         "sonata-project/user-bundle" : "2.x",
         "sonata-project/easy-extends-bundle": "~2.1",
         "sonata-project/intl-bundle": "~2.2",
@@ -39,15 +39,15 @@
         "nelmio/api-doc-bundle": "dev-master",
         "jms/serializer-bundle": "~0.11",
         "jms/di-extra-bundle": "dev-master",
-        "stenik-cms/skeleton": "dev-master",
         "dario_swain/ds-recaptcha-bundle": "dev-master",
+        "imagine/imagine": "0.7.1",
+        "knplabs/gaufrette": "0.3.1",
+        "kriswallsmith/buzz": "0.15",
+        "sonata-project/notification-bundle": "2.3.4",
+        "zendframework/zenddiagnostics": "1.0.9",
+        "doctrine/doctrine-fixtures-bundle": "2.2.1",
+        "doctrine/data-fixtures": "1.2.2"
 
-        "stenik/translations-bundle": "dev-master",
-        "stenik/settings-bundle": "dev-master",
-        "stenik/seo-bundle": "dev-master",
-        "stenik/publish-workflow-bundle": "dev-master",
-        "stenik-sonata-project/media-bundle": "dev-master",
-        "stenik/core-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -93,16 +93,5 @@
         "branch-alias": {
             "dev-master": "2.7-dev"
         }
-    },
-    "repositories":[
-        {
-            "type": "composer",
-            "url": "https://packages.stenikgroup.com/symfony"
-        },
-        {
-            "type": "vcs",
-            "url": "git@dev.stenikgroup.com:symfony-cms/skeleton.git"
-        }
-
-    ]
+    }
 }

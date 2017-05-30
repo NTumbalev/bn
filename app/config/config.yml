@@ -243,7 +243,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                index:  { width: 1200, height: 450, quality: 75 }
+                index:  { width: 1170, height: 200, quality: 75 }
                 admin:  { width: 150, height: 80, quality: 75 }
 
         nt_news_images:
@@ -475,10 +475,10 @@ sensio_framework_extra:
 
 nt_translations:
     fallback_locale: bg      # (required) default locale to use
-    managed_locales: [bg, en]    # (required) locales that the bundle have to manage
+    managed_locales: [bg]    # (required) locales that the bundle have to manage
 
 a2lix_translation_form:
-    locales: [bg, en]       # [1]
+    locales: [bg]       # [1]
     required_locales: [bg]      # [2]
     manager_registry: doctrine      # [3]
     templating: "A2lixTranslationFormBundle::default.html.twig"      # [4]

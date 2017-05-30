@@ -31,7 +31,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            // new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new DS\ReCaptchaBundle\ReCaptchaBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
