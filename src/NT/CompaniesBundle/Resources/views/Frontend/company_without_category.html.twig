@@ -1,0 +1,247 @@
+{% extends '::base.html.twig' %}
+
+{% import '::renderSocials.html.twig' as renderSocials %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(window).on('load', function() {
+            // gallery init
+            var $galleryWrap = $('#galleryMain');
+
+            if ($galleryWrap.find('li').length > 1) {
+                var gallerySlider = $galleryWrap.find('ul').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    auto: false,
+                    thumbItem: 3,
+                    slideMargin:  0,
+                    thumbMargin: 10,
+                    speed: 1000,
+                    loop: false,
+                    adaptiveHeight: true,
+                    currentPagerPosition: 'middle',
+                    controls: true,
+                    onSliderLoad: function() {
+                        // add colorbox to photos
+                        $('.galleryPhoto').colorbox({
+                            rel:'editorPhoto',
+                            transition: "elastic",
+                            arrowKey: true,
+                            maxWidth: '90%',
+                            maxHeight: '90%',
+                            returnFocus: false
+                        });
+                    }
+                });
+            } else if ($galleryWrap.find('li').length === 1) {
+                // add colorbox to photo
+                $('.galleryPhoto').colorbox({
+                    rel:'editorPhoto',
+                    transition: "elastic",
+                    arrowKey: true,
+                    maxWidth: '90%',
+                    maxHeight: '90%',
+                    returnFocus: false
+                });
+            };
+        });
+    </script>
+{% endblock %}
+
+{% block main %}
+    {% include '::breadCrumbs.html.twig' with {'breadCrumbs':breadCrumbs} %}
+
+    <section id="main">
+        {% include '::headerImage.html.twig' with {'content':company} %}
+
+        <div class="mainBody">
+            <div class="wrapper">
+                {% set haveSideBar = false %}
+                {% if sideBar is defined and sideBar is not null and sideBar|length %}
+                    {% set haveSideBar = true %}
+                {% endif %}
+                
+                {% set featuredImage = null %}
+                {% if company.translations[app.request.locale].image is defined and company.translations[app.request.locale].image is not null and company.translations[app.request.locale].image|length %}
+                    {% set featuredImage = company.translations[app.request.locale].image %}
+                {% endif %}
+                <div class="mainContent{% if haveSideBar == false %} full{% endif %}">
+                    <h1 class="titleMain">{{ company.title }}</h1>
+
+                    <div class="module moduleCompanyView{% if gallery|length == 0 and featuredImage is null %} moduleFull{% endif %}">
+                        {% if gallery is not null or featuredImage is not null %}
+                            <div class="gallery" id="galleryMain">
+                                <ul>
+                                    {% if featuredImage is not null %}
+                                        <li data-thumb="{% path featuredImage, 'thumb' %}">
+                                            <a href="{% path featuredImage, 'reference' %}" class="galleryPhoto">
+                                                {% thumbnail featuredImage, 'gallery_index' with {'title':featuredImage.title, 'alt':featuredImage.title} %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% if gallery is not null %}
+                                        {% for item in gallery %}
+                                            {% if item.media is defined and item.media is not null and item.media|length and item.enabled %}
+                                                <li data-thumb="{% path item.media, 'thumb' %}">
+                                                    <a href="{% path item.media, 'reference' %}" class="galleryPhoto">
+                                                        {% thumbnail item.media, 'index' with {'title':item.media.title, 'alt':item.media.title} %}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div><!-- /.gallery -->
+                        {% endif %}
+
+                        <div class="companyDescription">
+                            {% if company.referenceNo is defined and company.referenceNo is not null and company.referenceNo|length %}
+                                <p class="refNumber">{{ 'reference_no'|trans({}, 'NTFrontendBundle')}} {{ company.referenceNo }}</p>
+                            {% endif %}
+                            {% if company.price is defined and company.price is not null and company.price|length %}
+                                <p class="companyPrice">{{ 'price'|trans({}, 'NTFrontendBundle')}} {{ company.price }}</p>
+                            {% endif %}
+
+                            {% if company.description is defined and company.description is not null and company.description|length %}
+                                <article class="article">
+                                    {{ company.description|graw }}
+                                </article><!-- /.article -->
+                            {% endif %}
+
+                            {% if company.buttonTitle is defined and company.buttonTitle is not null and company.buttonTitle|length %}
+                                <div class="btns">
+                                    <a href="{{ path('contact_company', {'item':company.slug}) }}#form" class="btnPrimary" rel="nofollow">
+                                        {{ company.buttonTitle }}
+                                    </a>
+                                </div><!-- /.btns -->
+                            {% endif %}
+                        </div><!-- /.companyDescription -->
+                    </div>
+
+                    {% set haveTabDescription = false %}
+                    {% if company.tabDescription is defined and company.tabDescription is not null and company.tabDescription|length %}
+                        {% set haveTabDescription = true %}
+                    {% endif %}
+
+                    {% set haveTabTech = false %}
+                    {% if company.tabTech is defined and company.tabTech is not null and company.tabTech|length %}
+                        {% set haveTabTech = true %}
+                    {% endif %}
+
+                    {% set haveTabVideo = false %}
+                    {% if company.translations[app.request.locale].youTubeVideo is defined and company.translations[app.request.locale].youTubeVideo is not null and company.translations[app.request.locale].youTubeVideo|length %}
+                        {% set haveTabVideo = true %}
+                    {% endif %}
+
+                    {% if haveTabDescription or haveTabTech or haveTabVideo %}
+                        <div class="tabs companyTabs">
+                            <div class="tabsNav">
+                                <ul>
+                                    {% if haveTabDescription %}
+                                        <li><a href="#tabDescription">{{ 'tabDescription'|trans({}, 'NTFrontendBundle')}}</a></li>
+                                    {% endif %}
+
+                                    {% if haveTabTech %}
+                                        <li><a href="#tabSpecs">{{ 'tabTech'|trans({}, 'NTFrontendBundle')}}</a></li>
+                                    {% endif %}
+
+                                    {% if haveTabVideo %}
+                                        <li><a href="#tabVideo">{{ 'tabVideo'|trans({}, 'NTFrontendBundle')}}</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div><!-- /.tabsNav -->
+
+                            <div class="tabsContent">
+                                {% if haveTabDescription %}
+                                    <div class="tab" id="tabDescription">
+                                        <article class="article">
+                                            {{ company.tabDescription|graw }}
+                                        </article>
+                                    </div><!-- /.tab -->
+                                {% endif %}
+
+                                {% if haveTabTech %}
+                                    <div class="tab" id="tabSpecs">
+                                        <article class="article">
+                                            {{ company.tabTech|graw }}
+                                        </article>
+                                    </div><!-- /.tab -->
+                                {% endif %}
+
+                                {% if haveTabVideo %}
+                                    <div class="tab" id="tabVideo">
+                                        <article class="article">
+                                            {{ company.translations[app.request.locale].youTubeVideo|raw }}
+                                        </article>
+                                    </div><!-- /.tab -->
+                                {% endif %}
+                            </div><!-- /.tabsContent -->
+                        </div><!-- /.tabs -->
+                    {% endif %}
+
+                    {% if company.shareIcons %}
+                        <div class="shareBar">
+                            <p>{{ 'share'|trans({}, 'NTFrontendBundle')}}</p>
+
+                            <div class="socials socialsShare">
+                                {{ renderSocials.renderSocials }}
+                            </div><!-- /.socials -->
+                        </div><!-- /.shareBar -->
+                    {% endif %}
+
+                    {% if sameCategoryCompanies is defined and sameCategoryCompanies is not null and sameCategoryCompanies|length %}
+                        <div class="module moduleRelated">
+                            <div class="moduleHead">
+                                <p class="title">{{ 'same_category_companies'|trans({}, 'NTFrontendBundle')}}</p>
+
+                                <div class="more">
+                                    <a href="{{ path(category.route, category.routeParams) }}">{{ 'see_all'|trans({}, 'NTFrontendBundle')}}</a>
+                                </div>
+                            </div><!-- /.moduleHead -->
+
+                            <div class="moduleBody">
+                                <div class="boxes">
+                                    {% for item in sameCategoryCompanies %}
+                                        {% set itemRoute = item.route %}
+                                        {% if category is defined and category is not null and category|length and item.route != 'company_category' %}
+                                            {% set itemRoute = 'company' %}
+                                        {% endif %}
+                                        <div class="box">
+                                            <a href="{{ path(itemRoute, item.routeParams({'categorySlug':category.slug})) }}" class="photo" style="background-image: url({% if item.translations[app.request.locale].image is defined and item.translations[app.request.locale].image is not null and item.translations[app.request.locale].image|length %}{% path item.translations[app.request.locale].image, 'index' %}{% else %}'/assets/images/no-img.jpg'{% endif %});"></a>
+
+                                            <div class="content">
+                                                <p class="title">
+                                                    <a href="{{ path(itemRoute, item.routeParams({'categorySlug':category.slug})) }}">
+                                                        {{ item.title }}
+                                                    </a>
+                                                </p>
+
+                                                {% if item.simpleDescription is defined and item.simpleDescription is not null and item.simpleDescription|length %}
+                                                <div class="text">
+                                                    <p>{{ item.simpleDescription }}</p>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div><!-- /.box -->
+                                    {% endfor %}
+                                </div><!-- /.boxes -->
+                            </div><!-- /.moduleBody -->
+                        </div><!-- /.module -->
+                    {% endif %}
+                </div><!-- /.mainContent -->
+
+                {% if haveSideBar %}
+                    <aside class="sidebar">
+                        <p class="titleAside">{{ content.title }}</p>
+
+                        <nav class="navAside">
+                            {{ sideBar|raw }}
+                        </nav><!-- /.navAside -->
+                    </aside><!-- /.sidebar -->
+                {% endif %}
+            </div><!-- /.wrapper -->
+        </div><!-- /.mainBody -->
+    </section>
+{% endblock %}

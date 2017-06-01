@@ -13,10 +13,10 @@
                         <div class="col-md-6 col-sm-6">
                             <h3>
                                 {% if item is defined and item is not null and item | length %}
-                                    {{ 'contact.enquiryFor'|trans({}, 'messages')}}
+                                    {{ 'contact.enquiryFor'|trans({}, 'NTFrontendBundle')}}
                                     {{ item.title }}
                                 {% else %}
-                                    {{ 'contact.title'|trans({}, 'messages')}}
+                                    {{ 'contact.title'|trans({}, 'NTFrontendBundle')}}
                                 {% endif %}
                             </h3>
                             <div class="row">
@@ -50,7 +50,7 @@
                             <div id="message">
                                 {% if app.session.flashbag.get('success') %}
                                     <div class="alert alert-success fade in"> <a class="close" data-dismiss="alert" href="#">×</a>
-                                        {{'contact.success'|trans({}, 'messages')}}
+                                        {{'contact.success'|trans({}, 'NTFrontendBundle')}}
                                     </div>
                                 {% endif %}
 
@@ -91,7 +91,7 @@
         //                 $(el).parent('div.field').addClass('fieldSuccess');
         //             } else {
         //                 if ($(el).hasClass('g-recaptcha-response') && !$('#captcha_error').length) {
-        //                     $('#captcha').append('<p id="captcha_error" class="textError">{{ 'fill_captcha'|trans({}, 'messages')}}</p>');
+        //                     $('#captcha').append('<p id="captcha_error" class="textError">{{ 'fill_captcha'|trans({}, 'NTFrontendBundle')}}</p>');
         //                 }
         //                 if (!$(el).parent('div.field').hasClass('fieldError')) {
         //                     $(el).parent('div.field').removeClass('fieldSuccess');

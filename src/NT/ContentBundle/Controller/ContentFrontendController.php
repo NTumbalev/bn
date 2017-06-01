@@ -16,37 +16,17 @@ use Knp\Menu\Matcher\Voter\UriVoter;
 class ContentFrontendController extends Controller
 {
     /**
-     * Route("/terms-and-conditions", name="terms-and-conditions")
-     * @Template("NTContentBundle:Frontend:index.html.twig")
+     * Route("/search", name="search")
+     * @Template("NTContentBundle:Frontend:search.html.twig")
      */
-    public function termsAndConditionsAction(Request $request)
+    public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $content = $em->getRepository('NTContentBundle:Content')->findOneById(5);
-        if (!$content) {
-            throw $this->createNotFoundException("Page not found");
-        }
-
-        $breadCrumbs = array($content->getTitle() => null);
-
-        $dispatcher = $this->get('event_dispatcher');
-        $event = new \NT\SEOBundle\Event\SeoEvent($content);
-        $dispatcher->dispatch('nt.seo', $event);
-
-        if ($image = $content->getTranslations()->get($locale)->getHeaderImage()) {
-            $provider = $this->container->get($image->getProviderName());
-            $params = array(
-                'image_url' => $request->getSchemeAndHttpHost() . $provider->generatePublicUrl($image, 'reference')
-            );
-        } else {
-            $params = array();
-        }
-
-        $this->get('nt.og_tags')->loadOgTags($content, $params);
+        $masterRoute = $this->container->get('request_stack')->getMasterRequest()->get("_route");
+        $locale = $request->getLocale();
 
         return array(
-            'content'     => $content,
-            'breadCrumbs' => $breadCrumbs,
+            'masterRoute' => $masterRoute
         );
     }
 
@@ -113,7 +93,7 @@ class ContentFrontendController extends Controller
                 $data = $form->getData();
 
                 $adminMessage = \Swift_Message::newInstance()
-                    ->setSubject($translator->trans('contact.subject', array(), 'messages'))
+                    ->setSubject($translator->trans('contact.subject', array(), 'NTFrontendBundle'))
                     ->setFrom($settings->get('sender_email'))
                     ->setTo(explode(',', $settings->get('contact_email')))
                     ->setBody(
@@ -129,7 +109,7 @@ class ContentFrontendController extends Controller
                 ;
 
                 $userMessage = \Swift_Message::newInstance()
-                    ->setSubject($translator->trans('contact.user_message_subject', array(), 'messages'))
+                    ->setSubject($translator->trans('contact.user_message_subject', array(), 'NTFrontendBundle'))
                     ->setFrom($settings->get('sender_email'))
                     ->setTo($data['email'])
                     ->setBody(

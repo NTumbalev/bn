@@ -54,7 +54,7 @@ class SeoListener
     public function onLoadSeo(\NT\SEOBundle\Event\SeoEvent $event)
     {
         if ($event->getTitle() && strlen($event->getTitle()) > 0) {
-            $seoTitleText = $this->translator->trans('seoTitleText', array(), 'messages');
+            $seoTitleText = $this->translator->trans('seoTitleText', array(), 'NTFrontendBundle');
             if ($event->haveSuffix) {
                 $title = $event->getTitle() . $seoTitleText;
             } else {

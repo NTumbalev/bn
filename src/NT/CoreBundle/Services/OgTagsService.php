@@ -67,7 +67,7 @@ class OgTagsService
 
         $seoSerivice
             ->addMeta('property', 'og:url',  $request->getUri())
-            ->addMeta('property', 'og:site_name', $translator->trans('site_name', array(), 'messages'));
+            ->addMeta('property', 'og:site_name', $translator->trans('site_name', array(), 'NTFrontendBundle'));
 
         if (!isset($params['image_url'])) {
             $translation = $object->getTranslations()->get($request->getLocale());

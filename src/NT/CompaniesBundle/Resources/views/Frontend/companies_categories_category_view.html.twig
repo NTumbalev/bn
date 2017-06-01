@@ -1,0 +1,66 @@
+{% extends '::base.html.twig' %}
+
+{% import "::paginatorWithRouteAndSlug.html.twig" as pager %}
+
+{% block main %}
+    {% include '::breadCrumbs.html.twig' with {'breadCrumbs':breadCrumbs} %}
+
+    <section id="main">
+        {% include '::headerImage.html.twig' with {'content':companyCategory} %}
+
+        <div class="mainBody">
+            <div class="wrapper">
+                {% set haveSideBar = false %}
+                {% if sideBar is defined and sideBar is not null and sideBar|length %}
+                    {% set haveSideBar = true %}
+                {% endif %}
+                <div class="mainContent{% if haveSideBar == false %} full{% endif %}">
+                    <h1 class="titleMain">{{ companyCategory.title }}</h1>
+
+                    {% if companyCategory.description is defined and companyCategory.description is not null and companyCategory.description|length %}
+                        <article class="article">
+                            {{ companyCategory.description|raw }}
+                        </article>
+                    {% endif %}
+
+                    <div class="boxes boxesCompanies">
+                        {% for companyCategoryChild in companyCategoryChildren %}
+                            <div class="box">
+                                <a href="{{ path(companyCategoryChild.route, companyCategoryChild.routeParams) }}" class="photo" style="background-image: url({% if companyCategoryChild.translations[app.request.locale].image is defined and companyCategoryChild.translations[app.request.locale].image is not null and companyCategoryChild.translations[app.request.locale].image|length %}{% path companyCategoryChild.translations[app.request.locale].image, 'index' %}{% else %}'/assets/images/no-img.jpg'{% endif %});"></a>
+
+                                <div class="content">
+                                    <p class="title">
+                                        <a href="{{ path(companyCategoryChild.route, companyCategoryChild.routeParams) }}">
+                                            {{ companyCategoryChild.title }}
+                                        </a>
+                                    </p>
+
+                                    {% if companyCategoryChild.simpleDescription is defined and companyCategoryChild.simpleDescription is not null and companyCategoryChild.simpleDescription|length %}
+                                        <div class="text">
+                                            <p>{{ companyCategoryChild.simpleDescription }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div><!-- /.box -->
+                        {% endfor %}
+                    </div><!-- /.boxes -->
+
+
+                    {% if companyCategoryChildren is defined and companyCategoryChildren|length %}
+                        {{ pager.pager(companyCategoryChildren, companyCategory.route, companyCategory.slug, 'categorySlug') }}
+                    {% endif %}
+                </div><!-- /.mainContent -->
+
+                {% if haveSideBar %}
+                    <aside class="sidebar">
+                        <p class="titleAside">{{ content.title }}</p>
+
+                        <nav class="navAside">
+                            {{ sideBar|raw }}
+                        </nav><!-- /.navAside -->
+                    </aside><!-- /.sidebar -->
+                {% endif %}
+            </div><!-- /.wrapper -->
+        </div><!-- /.mainBody -->
+    </section>
+{% endblock %}

@@ -1,0 +1,39 @@
+nt_companies: 'Companies'
+nt_company_categories: 'Company categories'
+
+form:
+    translations: 'Translations'
+    slug: 'Slug'
+    title: 'Title'
+    image: 'Listing image'
+    gallery: 'Gallery'
+    company: 'Companies'
+    category: 'Company categories'
+    description: 'Description'
+    simpleDescription: 'Simple Description'
+    youTubeVideo: "YouTube Video"
+    parent: 'Parent'
+    referenceNo: 'Reference number'
+    price: 'Price'
+    tabDescription: 'Tab Description'
+    tabTech: 'Tab Technical Specification'
+    tabVideo: 'Tab Video'
+    showSocialIcons: 'Show social icons'
+    categories: 'Categories'
+    button_title: 'Enquiry button name'
+
+tab:
+    general: 'General'
+    seo: 'SEO'
+    publish_workflow: 'Publish Workflow'
+    tabs: 'Tabs'
+
+list:
+    title: 'Title'
+    tab: 'Tab'
+    isActive: 'Is Active?'
+    category: 'Company category'
+
+actions: 'Actions'
+select:
+  parent: '-- Please choose --'
