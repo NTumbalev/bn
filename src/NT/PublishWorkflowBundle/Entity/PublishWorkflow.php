@@ -2,7 +2,7 @@
 /**
  * This file is part of NTPublishWorkflowBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Gedmo\Loggable
  *
  * @package NTPublishWorkflowBundle
- * @author  <n.tumbalev@nt.bg>
+ * @author  <ntumbalev@gmail.com>
  */
 class PublishWorkflow
 {

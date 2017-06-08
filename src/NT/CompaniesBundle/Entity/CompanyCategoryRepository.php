@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTCompaniesBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +18,7 @@ use NT\PublishWorkflowBundle\PublishWorkflowQueryBuilderTrait;
  * repository methods below.
  *
  * @package NTCompaniesRepository
- * @author  Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * @author  Nikolay Tumbalev <ntumbalev@gmail.com>
  */
 class CompanyCategoryRepository extends NestedTreeRepository
 {
@@ -42,7 +42,7 @@ class CompanyCategoryRepository extends NestedTreeRepository
             ->setParameter('now', new \DateTime())
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-	    ->orderBy('c.rank', 'ASC');
+	        ->orderBy('c.rank', 'ASC');
         $query = $qb->getQuery();
 
         return $query->getResult();

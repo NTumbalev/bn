@@ -1,66 +1,80 @@
 {% extends '::base.html.twig' %}
 
-{% import "::paginatorWithRouteAndSlug.html.twig" as pager %}
-
 {% block main %}
-    {% include '::breadCrumbs.html.twig' with {'breadCrumbs':breadCrumbs} %}
+    {{ render(controller("NTContentBundle:ContentFrontend:search")) }}
+    
+    <h1>{{ category.title }}</h1>
+    
+    <a href="{{ path('categories_list') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> {{ 'catalogue.back_to_all_categories'|trans({}, 'NTFrontendBundle')}}
+    </a>
 
-    <section id="main">
-        {% include '::headerImage.html.twig' with {'content':content} %}
-
-        <div class="mainBody">
-            <div class="wrapper">
-                {% set haveSideBar = false %}
-                {% if sideBar is defined and sideBar is not null and sideBar|length %}
-                    {% set haveSideBar = true %}
-                {% endif %}
-                <div class="mainContent{% if haveSideBar == false %} full{% endif %}">
-                    <h1 class="titleMain">{{ content.title }}</h1>
-
-                    {% if content.description is defined and content.description is not null and content.description|length %}
-                        <article class="article">
-                            {{ content.description|raw }}
-                        </article>
-                    {% endif %}
-
-                    <div class="boxes boxesCompanies">
+    <div class="row">
+        <!-- Companies -->
+        <div class="col-lg-10">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{ 'catalogue.company_name'|trans({}, 'NTFrontendBundle')}}</th>
+                            <th>
+                                {% if locations is defined and locations is not null and locations|length %}
+                                    <select id="locations">
+                                        {% for location in locations %}
+                                            <option value="{{ location.id }}">
+                                                {{ location.title }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for company in companies %}
-                            <div class="box">
-                                <a href="{{ path(company.route, company.routeParams({'slug':company.slug})) }}" class="photo" style="background-image: url({% if company.translations[app.request.locale].image is defined and company.translations[app.request.locale].image is not null and company.translations[app.request.locale].image|length %}{% path company.translations[app.request.locale].image, 'index' %}{% else %}'/assets/images/no-img.jpg'{% endif %});"></a>
-
-                                <div class="content">
-                                    <p class="title">
-                                        <a href="{{ path(company.route, company.routeParams) }}">
-                                            {{ company.title }}
-                                        </a>
-                                    </p>
-
-                                    {% if company.simpleDescription is defined and company.simpleDescription is not null and company.simpleDescription|length %}
-                                        <div class="text">
-                                            <p>{{ company.simpleDescription }}</p>
-                                        </div>
+                            <tr>
+                                <td>
+                                    {% if company.isTop %}
+                                        <span class="yellow-star glyphicon glyphicon-star"></span>
                                     {% endif %}
-                                </div>
-                            </div><!-- /.box -->
+                                    <a href="{{ path('company_view', {'categorySlug':category.slug, 'companySlug': company.slug}) }}">
+                                        {{ company.title }} ({{ category.title }})
+                                    </a>
+                                </td>
+                                <td>{{ company.location }}</td>
+                            </tr>
                         {% endfor %}
-                    </div><!-- /.boxes -->
+                    </tbody>
+                </table>
 
+                <nav class="paginator">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">&laquo;</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li class="disabled"><a href="#">...</a></li>
+                        <li><a href="#">215</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- Banners -->
+        <div class="col-lg-2 mediumBanner">
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+        </div>
 
-                    {% if companies is defined and companies|length %}
-                        {{ pager.pager(companies, 'companies_list') }}
-                    {% endif %}
-                </div><!-- /.mainContent -->
-
-                {% if haveSideBar %}
-                    <aside class="sidebar">
-                        <p class="titleAside">{{ content.title }}</p>
-
-                        <nav class="navAside">
-                            {{ sideBar|raw }}
-                        </nav><!-- /.navAside -->
-                    </aside><!-- /.sidebar -->
-                {% endif %}
-            </div><!-- /.wrapper -->
-        </div><!-- /.mainBody -->
-    </section>
+        <?php include 'ssi/publish.php'; ?>           
+    </div>
+    <!-- /.row -->
 {% endblock %}

@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTCompaniesBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,7 +22,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
  *  Admin class for Companies
  *
  * @package NTCompaniesBundle
- * @author Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * @author Nikolay Tumbalev <ntumbalev@gmail.com>
  */
 class CompaniesAdmin extends Admin
 {
@@ -99,9 +99,9 @@ class CompaniesAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('history', $this->getRouterIdParameter().'/history');
-        $collection->add('history_view_revision', $this->getRouterIdParameter().'/preview/{revision}');
-        $collection->add('history_revert_to_revision', $this->getRouterIdParameter().'/revert/{revision}');
+        // $collection->add('history', $this->getRouterIdParameter().'/history');
+        // $collection->add('history_view_revision', $this->getRouterIdParameter().'/preview/{revision}');
+        // $collection->add('history_revert_to_revision', $this->getRouterIdParameter().'/revert/{revision}');
         $collection->add('order', 'order');
     }
 
@@ -129,7 +129,7 @@ class CompaniesAdmin extends Admin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                        'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
+                        // 'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
                     ), 'label' => 'actions',
                 ))
             ;
@@ -150,12 +150,15 @@ class CompaniesAdmin extends Admin
         $formMapper
             ->with('tab.general', array('tab' => true))
                 ->add('companyCategories', 'sonata_type_model', array(
-                    'label' => 'form.category',
+                    'label' => 'form.categories',
                     'required' => false,
                     'multiple' => true,
                     'btn_add' => false
                 ))
-                ->add('shareIcons', null, array('label' => 'form.showSocialIcons'))
+                ->add('location', null, array(
+                    'required' => false,
+                    'label' => 'form.location'
+                ))
                 ->add('translations', 'a2lix_translations', array(
                     'fields' => array(
                         'slug' => array(
@@ -176,32 +179,9 @@ class CompaniesAdmin extends Admin
                             'field_type' => 'text',
                             'label' => 'form.title'
                         ),
-                        'simpleDescription' => array(
-                            'field_type' => 'textarea',
-                            'label' => 'form.simpleDescription',
-                            'required' => false,
-                        ),
                         'description' => array(
                             'field_type' => 'textarea',
                             'label' => 'form.description',
-                            'required' => false,
-                            'attr' => array(
-                                'class' => 'tinymce',
-                                'data-theme' => 'bbcode'
-                            )
-                        ),
-                        'tabDescription' => array(
-                            'field_type' => 'textarea',
-                            'label' => 'form.tabDescription',
-                            'required' => false,
-                            'attr' => array(
-                                'class' => 'tinymce',
-                                'data-theme' => 'bbcode'
-                            )
-                        ),
-                        'tabTech' => array(
-                            'field_type' => 'textarea',
-                            'label' => 'form.tabTech',
                             'required' => false,
                             'attr' => array(
                                 'class' => 'tinymce',
@@ -221,33 +201,33 @@ class CompaniesAdmin extends Admin
                         'gallery' => array(
                             'label' => 'form.gallery',
                             'required' => false,
-                            'field_type' => 'nt_gallery_type',
-                            'context' => 'nt_companies_gallery',
+                            'field_type' => 'sonata_type_model_list',
+                            // 'context' => 'nt_companies_gallery',
+                            // 'field_type' => 'nt_gallery_type',
+                            // 'video' => false,
                             'model_manager' => $this->getModelManager(),
                             'sonata_field_description' => $ffds['gallery'],
                             'class' => $galleryAdmin->getClass(),
-                            'translation_domain' => 'NTNewsBundle',
-                            'video' => false,
-                        ),
-                        'price' => array(
-                            'field_type' => 'text',
-                            'label' => 'form.price',
-                            'required' => false
-                        ),
-                        'youTubeVideo' => array(
-                            'field_type' => 'text',
-                            'label' => 'form.youTubeVideo',
-                            'required' => false
-                        ),
-                        'buttonTitle' => array(
-                            'field_type' => 'text',
-                            'label' => 'form.button_title',
                             'translation_domain' => 'NTCompaniesBundle',
-                            'required' => false
                         ),
                     ),
                     'translation_domain' => 'NTCompaniesBundle',
                     'label' => 'form.translations',
+                ))
+                ->add('addresses', 'sonata_type_collection', array(
+                    'required' => false,
+                    'label' => 'form.addresses',
+                    'cascade_validation' => true,
+                    'sonata_admin' => 'nt.companies.admin.companies_addresses'
+                ), array(
+                    'edit'       => 'inline',
+                    'inline'     => 'table',
+                    'admin_code' => 'nt.companies.admin.companies_addresses',
+                    
+                ))
+                ->add('isTop', null, array(
+                    'required' => false,
+                    'label' => 'form.isTop'
                 ))
                 ->end()
             ->end()
@@ -259,7 +239,7 @@ class CompaniesAdmin extends Admin
             ->with('tab.publish_workflow', array('tab' => true))
                 ->with('Publish Workflow', array('class' => 'col-md-12', 'label' => 'form.general', 'translation_domain' => 'NTAttributesBundle'))
                     ->add('publishWorkflow', 'nt_publish_workflow', array(
-                        'is_active' => $this->getSubject()->getPublishWorkflow() ? $this->getSubject()->getPublishWorkflow()->getIsActive() : true,
+                        'is_active' => $this->getSubject() ? $this->getSubject()->getPublishWorkflow() ? $this->getSubject()->getPublishWorkflow()->getIsActive() : true : true,
                     ))
                 ->end()
             ->end();

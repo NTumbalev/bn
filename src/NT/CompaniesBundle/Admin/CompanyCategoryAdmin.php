@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTCompaniesBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,7 +22,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
  *  Admin class for CompanyCategory
  *
  * @package NTCompaniesBundle
- * @author Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * @author Nikolay Tumbalev <ntumbalev@gmail.com>
  */
 class CompanyCategoryAdmin extends Admin
 {
@@ -108,9 +108,9 @@ class CompanyCategoryAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('history', $this->getRouterIdParameter().'/history');
-        $collection->add('history_view_revision', $this->getRouterIdParameter().'/preview/{revision}');
-        $collection->add('history_revert_to_revision', $this->getRouterIdParameter().'/revert/{revision}');
+        // $collection->add('history', $this->getRouterIdParameter().'/history');
+        // $collection->add('history_view_revision', $this->getRouterIdParameter().'/preview/{revision}');
+        // $collection->add('history_revert_to_revision', $this->getRouterIdParameter().'/revert/{revision}');
         $collection->add('order', 'order');
         $collection->add('tree', 'tree');
     }
@@ -139,7 +139,7 @@ class CompanyCategoryAdmin extends Admin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                        'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
+                        // 'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
                     ), 'label' => 'actions',
                 ))
             ;

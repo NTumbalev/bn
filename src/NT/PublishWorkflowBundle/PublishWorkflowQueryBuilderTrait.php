@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTPublishWorkflowBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,7 @@ namespace NT\PublishWorkflowBundle;
  *  Trait returning ready query builder for needed query of PublishWorkflow
  *
  * @package NTPublishWorkflowBundle
- * @author  Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * @author  Nikolay Tumbalev <ntumbalev@gmail.com>
  */
 
 trait PublishWorkflowQueryBuilderTrait

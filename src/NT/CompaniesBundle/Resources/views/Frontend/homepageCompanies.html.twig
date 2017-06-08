@@ -1,61 +1,30 @@
-<div class="row">
-    <div class="col-lg-12">
-        <div>
-            <p class="allCategories">
-                <a href="categoriesListing.php">Всички категории</a>
-            </p>
-            <h2 class="page-header">Категории</h2>
-        </div>
-        <div class="homepageCategories">
-            <div class="categoryAccent col-md-3 col-sm-6">
-                <h3>
-                    <a href="categoryListing.php">Автосервизи</a>
-                </h3>
-                <a class="categoryImage" href="categoryListing.php">
-                    <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/business/" alt="">
-                </a>
+{% if companies is defined and companies is not null and companies|length %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+                <p class="allCategories">
+                    <a href="{{ path('categories_list') }}">
+                        {{ 'catalogue.all_categories'|trans({}, 'NTFrontendBundle')}}
+                    </a>
+                </p>
+                <h2 class="page-header">{{ 'catalogue.categories'|trans({}, 'NTFrontendBundle')}}</h2>
             </div>
-            <div class="categoryAccent col-md-3 col-sm-6">
-                <h3>
-                    <a href="categoryListing.php">Дограма</a>
-                </h3>
-                <a href="categoryListing.php">
-                    <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/abstract/" alt="">
-                </a>
-            </div>
-            <div class="categoryAccent col-md-3 col-sm-6">
-                <h3>
-                    <a href="categoryListing.php">Мебели</a>
-                </h3>
-                <a href="categoryListing.php">
-                    <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/city/" alt="">
-                </a>
-            </div>
-            <div class="categoryAccent col-md-3 col-sm-6">
-                <h3>
-                    <a href="categoryListing.php">Категория 1</a>
-                </h3>
-                <a href="categoryListing.php">
-                    <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/food/" alt="">
-                </a>
-            </div>
-            <div class="categoryAccent col-md-3 col-sm-6">
-                <h3>
-                    <a href="categoryListing.php">Категория 2</a>
-                </h3>
-                <a href="categoryListing.php">
-                    <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/nature/" alt="">
-                </a>
-            </div>
-            <div class="categoryAccent col-md-3 col-sm-6">
-                <h3>
-                    <a href="categoryListing.php">Категория 3</a>
-                </h3>
-                <a href="categoryListing.php">
-                    <img class="img-responsive img-portfolio img-hover" src="http://lorempixel.com/700/450/transport/" alt="">
-                </a>
+            <div class="homepageCategories">
+                {% for company in companies %}
+                    <div class="categoryAccent col-md-3 col-sm-6">
+                        <h3>
+                            <a href="categoryListing.php">{{ company.title }}</a>
+                        </h3>
+
+                        {% if company.translations[app.request.locale].image is defined and company.translations[app.request.locale].image is not null and company.translations[app.request.locale].image|length %}
+                            <a class="categoryImage" href="categoryListing.php">
+                                <img class="img-responsive img-portfolio img-hover" src="{% path company.translations[app.request.locale].image, 'index' %}" alt="">
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-</div>
-<!-- /.row -->
+    <!-- /.row -->
+{% endif %}

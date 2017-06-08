@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTCompaniesBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -26,13 +26,12 @@ use NT\SEOBundle\SeoAwareTrait;
  * @Gedmo\Loggable
  *
  * @package NTCompaniesBundle
- * @author  Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * @author  Nikolay Tumbalev <ntumbalev@gmail.com>
  */
 class Company implements PublishWorkflowInterface, SeoAwareInterface
 {
     use SeoAwareTrait;
     use PublishWorkflowTrait;
-    use \NT\FrontendBundle\Traits\SocialIconsTrait;
     use \A2lix\TranslationFormBundle\Util\Gedmo\GedmoTranslatable;
 
     /**
@@ -69,27 +68,16 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
 
     /**
      * @var string
-     *
-     * @Gedmo\Translatable
-     * @Gedmo\Versioned
-     * @ORM\Column(name="button_title", type="string", length=250, nullable=true)
-     */
-    protected $buttonTitle;
-
-    /**
-     * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="simple_description", type="text", nullable=true)
-     */
-    protected $simpleDescription;
-
-    /**
-     * @var string
      * @Gedmo\Versioned
      * @Gedmo\Translatable
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyAddress", mappedBy="company", cascade={"persist", "remove"})
+     */
+    protected $addresses;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
@@ -104,45 +92,20 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
     protected $gallery;
 
     /**
-     * @Gedmo\Versioned
-     * @ORM\Column(name="reference_no", type="string", length=255, nullable=true)
-     */
-    protected $referenceNo;
-
-    /**
-     * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="price", type="string", length=255, nullable=true)
-     */
-    protected $price;
-
-    /**
-     * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="tab_description", type="text", nullable=true)
-     */
-    protected $tabDescription;
-
-    /**
-     * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="tab_tech", type="text", nullable=true)
-     */
-    protected $tabTech;
-
-    /**
-     * @var string
-     * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="youtube_video", type="string", length=255, nullable=true)
-     */
-    protected $youTubeVideo;
-
-    /**
      * @ORM\ManyToMany(targetEntity="NT\CompaniesBundle\Entity\CompanyCategory", inversedBy="companies")
      * @ORM\JoinTable(name="companies_categories")
      */
     protected $companyCategories;
+
+    /**
+     * @ORM\Column(name="is_top", type="boolean")
+     */
+    protected $isTop = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="NT\LocationsBundle\Entity\Location", inversedBy="companies")
+     */
+    protected $location;
 
     /**
      * @var \DateTime
@@ -170,6 +133,7 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
     {
         $this->translations = new ArrayCollection();
         $this->companyCategories = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     /**
@@ -367,30 +331,6 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
     }
 
     /**
-     * Gets the value of simpleDescription.
-     *
-     * @return mixed
-     */
-    public function getSimpleDescription()
-    {
-        return $this->simpleDescription;
-    }
-
-    /**
-     * Sets the value of simpleDescription.
-     *
-     * @param mixed $simpleDescription the simple description
-     *
-     * @return self
-     */
-    public function setSimpleDescription($simpleDescription)
-    {
-        $this->simpleDescription = $simpleDescription;
-
-        return $this;
-    }
-
-    /**
      * Gets the value of rank.
      *
      * @return mixed
@@ -440,141 +380,92 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
     }
 
     /**
-     * Get the value of You Tube Video
-     *
-     * @return string
-     */
-    public function getYouTubeVideo()
-    {
-        return $this->youTubeVideo;
-    }
-
-    /**
-     * Set the value of You Tube Video
-     *
-     * @param string youTubeVideo
-     *
-     * @return self
-     */
-    public function setYouTubeVideo($youTubeVideo)
-    {
-        $this->youTubeVideo = $youTubeVideo;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of Price
+     * Gets the value of isTop.
      *
      * @return mixed
      */
-    public function getPrice()
+    public function getIsTop()
     {
-        return $this->price;
+        return $this->isTop;
     }
 
     /**
-     * Set the value of Price
+     * Sets the value of isTop.
      *
-     * @param mixed price
+     * @param mixed $isTop the is top
      *
      * @return self
      */
-    public function setPrice($price)
+    public function setIsTop($isTop)
     {
-        $this->price = $price;
+        $this->isTop = $isTop;
 
         return $this;
     }
 
     /**
-     * Get the value of Reference No
+     * Gets the value of location.
      *
      * @return mixed
      */
-    public function getReferenceNo()
+    public function getLocation()
     {
-        return $this->referenceNo;
+        return $this->location;
     }
 
     /**
-     * Set the value of Reference No
+     * Sets the value of location.
      *
-     * @param mixed referenceNo
+     * @param mixed $location the location
      *
      * @return self
      */
-    public function setReferenceNo($referenceNo)
+    public function setLocation($location)
     {
-        $this->referenceNo = $referenceNo;
+        $this->location = $location;
 
         return $this;
     }
 
     /**
-     * Get the value of Tab Description
+     * Gets the value of addresses.
      *
      * @return mixed
      */
-    public function getTabDescription()
+    public function getAddresses()
     {
-        return $this->tabDescription;
+        return $this->addresses;
     }
 
     /**
-     * Set the value of Tab Description
+     * Sets the value of addresses.
      *
-     * @param mixed tabDescription
-     *
-     * @return self
-     */
-    public function setTabDescription($tabDescription)
-    {
-        $this->tabDescription = $tabDescription;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of Tab Tech
-     *
-     * @return mixed
-     */
-    public function getTabTech()
-    {
-        return $this->tabTech;
-    }
-
-    /**
-     * Set the value of Tab Tech
-     *
-     * @param mixed tabTech
+     * @param mixed $addresses the addresses
      *
      * @return self
      */
-    public function setTabTech($tabTech)
+    public function setAddresses($addresses)
     {
-        $this->tabTech = $tabTech;
+        foreach ($addresses as $address) {
+            $this->addAddress($address);
+        }
 
         return $this;
     }
 
-    /**
-    * Get buttonTitle
-    * @return
-    */
-    public function getButtonTitle()
+    public function addAddress(CompanyAddress $address)
     {
-        return $this->buttonTitle;
+        if (!$this->addresses->contains($address)) {
+            $this->addresses->add($address);
+            $address->setCompany($this);
+        }
     }
 
-    /**
-    * Set buttonTitle
-    * @return $this
-    */
-    public function setButtonTitle($buttonTitle)
+    public function removeAddress(CompanyAddress $address)
     {
-        $this->buttonTitle = $buttonTitle;
-        return $this;
+        if ($this->addresses->contains($address)) {
+            $this->addresses->removeElement($address);
+            $address->setCompany(null);
+        }
     }
 }

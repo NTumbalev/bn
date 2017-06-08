@@ -1,0 +1,37 @@
+nt_companies: 'Компании'
+nt_company_categories: 'Категории'
+
+form:
+    translations: 'Преводи'
+    slug: 'Слъг'
+    title: 'Заглавие'
+    image: 'Изображение в листинга'
+    gallery: 'Галерия'
+    description: 'Описание'
+    simpleDescription: 'Кратко описание'
+    parent: 'Родител'
+    categories: 'Категории'
+    isHomepage: 'На начална страница?'
+    isTop: 'Топ компания?'
+    location: 'Локация'
+    addresses: 'Адреси'
+    address: 'Адрес'
+    latitude: 'Ширина'
+    longitude: 'Дължина'
+    phone: 'Телефон'
+
+
+tab:
+    general: 'Основни'
+    seo: 'SEO'
+    publish_workflow: 'Видимост в сайта'
+    tabs: 'Табове'
+
+list:
+    title: 'Заглавие'
+    tab: 'Таб'
+    isActive: 'Активен?'
+
+actions: 'Действия'
+select:
+  parent: '-- Моля изберете --'

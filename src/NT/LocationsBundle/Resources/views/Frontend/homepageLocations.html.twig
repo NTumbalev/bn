@@ -1,0 +1,96 @@
+<!-- Marketing Icons Section -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Някакви по-малки банери или акценти
+        </h1>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><i class="fa fa-fw fa-check"></i> Акцент 1</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <p class="text-justify">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?
+                        </p>
+                    </div>
+                    
+                    <div class="col-md-5">
+                        <img src="http://lorempixel.com/200/215/nature/" alt="">
+                    </div>
+                </div>
+
+                <a href="#" class="btn btn-default">Научи повече</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><i class="fa fa-fw fa-check"></i> Акцент 2</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <p class="text-justify">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?
+                        </p>
+                    </div>
+                    
+                    <div class="col-md-5">
+                        <img src="http://lorempixel.com/200/215/nature/" alt="">
+                    </div>
+                </div>
+                <a href="#" class="btn btn-default">Научи повече</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+{% if locations is defined and locations is not null and locations|length %}
+    <div class="location locationFeatured">
+        <div class="wrapper">
+            <p class="locationTitle">{{ 'locations_title'|trans({}, 'NTFrontendBundle')}}</p>
+
+            <div class="boxes boxesLocation">
+                {% for location in locations %}
+                    {% set haveUrl = false %}
+                    {% if location.url is defined and location.url is not null and location.url|length %}
+                        {% set haveUrl = true %}
+                    {% endif %}
+                    <div class="boxLocation">
+                        {% if location.translations[app.request.locale].image is defined and location.translations[app.request.locale].image is not null and location.translations[app.request.locale].image|length %}
+
+                            <a {% if haveUrl %}href="{{ location.url }}" target="{{ location.target }}"{% else %}href="javascript:;"{% endif %} class="photo" style="background-image: url({% path location.translations[app.request.locale].image, 'index' %});"></a>
+                        {% endif %}
+
+                        <div class="content">
+                            <p class="title">
+                                <a {% if haveUrl %}href="{{ location.url }}" target="{{ location.target }}"{% else %}href="javascript:;"{% endif %}>
+                                    {{ location.title }}
+                                </a>
+                            </p>
+
+                            {% if location.description is defined and location.description is not null and location.description|length %}
+                                <div class="text">
+                                    {{ location.description|raw }}
+                                </div>
+                            {% endif %}
+
+                            {% if haveUrl %}
+                                <div class="more">
+                                    <a href="{{ location.url }}" target="{{ location.target }}">{% if location.buttonTitle is defined and location.buttonTitle is not null and location.buttonTitle|length %}{{ location.buttonTitle }}{% else %}{{ 'learn_more'|trans({}, 'NTFrontendBundle')}}{% endif %}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div><!-- /.boxLocation -->
+                {% endfor %}
+            </div><!-- /.boxes -->
+        </div><!-- /.wrapper -->
+    </div><!-- /.location -->
+{% endif %}

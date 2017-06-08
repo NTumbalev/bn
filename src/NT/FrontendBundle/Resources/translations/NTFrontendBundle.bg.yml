@@ -1,3 +1,10 @@
+catalogue:
+    all_categories: 'Всички категории'
+    categories: 'Категории'
+    letter_index: 'Азбучен индекс:'
+    back_to_all_categories: 'Назад към всички категории'
+    company_name: 'Име на фирма'
+
 view_all: 'Виж всички'
 facebook_footer: 'Facebook page'
 required_field: 'Полето е задължително'

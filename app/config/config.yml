@@ -159,6 +159,15 @@ sonata_admin:
                     - nt.content.admin.content
                     - nt.admin.dealers
                     - nt.custom_blocks.admin.custom_blocks
+            catalogue:
+                label: label.catalogue
+                label_catalogue: SonataAdminBundle
+                icon: '<i class="fa fa-th"></i>'
+                items:
+                    - nt.companies.admin.companies
+                    - nt.company_categories.admin.company_category
+                    - nt.locations.admin.locations
+
             settings:
                 label: label.settings
                 label_catalogue: SonataAdminBundle
@@ -246,33 +255,6 @@ sonata_media:
                 index:  { width: 1170, height: 200, quality: 75 }
                 admin:  { width: 150, height: 80, quality: 75 }
 
-        nt_news_images:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.image
-            formats:
-                index:  { width: 600, height: 400, quality: 75 }
-
-        nt_news_gallery:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.image
-            formats:
-                gallery:  { width: 814, height: 457, quality: 75 }
-
-        nt_news_categories_images:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.image
-            formats:
-                index:  { width: 100, height: 100, quality: 75 }
-
         # nt_accents:
         #     download:
         #         strategy: sonata.media.security.public_strategy
@@ -310,15 +292,6 @@ sonata_media:
         #     formats:
         #         thumb:  { width: 282, height: 211, quality: 75 }
 
-        nt_estate_category_image:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.image
-            formats:
-                index:  { width: 282, height: 211, quality: 75 }
-
         # nt_dealers_images:
         #     download:
         #         strategy: sonata.media.security.public_strategy
@@ -337,82 +310,14 @@ sonata_media:
             formats:
                 index:  { width: 1200, height: 250, quality: 75 }
 
-        # nt_partners:
-        #     download:
-        #         strategy: sonata.media.security.public_strategy
-        #         mode: http
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 211, quality: 75 }
-        #
-        # nt_referentions:
-        #     download:
-        #         strategy: sonata.media.security.public_strategy
-        #         mode: http
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 211, quality: 75 }
-        #
-        #
-        # nt_services_image:
-        #     download:
-        #         strategy: sonata.media.security.public_strategy
-        #         mode: http
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 211, quality: 75 }
-        #
-        # nt_services_gallery:
-        #     download:
-        #         strategy: sonata.media.security.public_strategy
-        #         mode: http
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 447, height: 335, quality: 75 }
-        #         thumb:  { width: 142, height: 107, quality: 75 }
-        #
-        # nt_service_category_image:
-        #     download:
-        #         strategy: sonata.media.security.public_strategy
-        #         mode: http
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 211, quality: 75 }
-        #
-        # nt_galleries_main_image:
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 211, quality: 75 }
-        #
-        # nt_galleries_gallery_images:
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 211, quality: 75 }
-        #
-        # nt_careers_image:
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 1200, height: 250, quality: 75 }
-        #
-        # nt_brands:
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 211, quality: 75 }
-        #
-        # nt_referentions_document:
-        #     providers:
-        #         - sonata.media.provider.file
-        #     formats:
-        #         index:  { width: 100, height: 100, quality: 75 }
+        nt_company_category_image:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                index:  { width: 700, height: 450, quality: 75 }
         #
         # nt_banners:
         #     providers:

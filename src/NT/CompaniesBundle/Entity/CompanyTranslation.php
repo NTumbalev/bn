@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTCompaniesBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,7 +24,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
  * @Gedmo\Loggable
  *
  * @package NTCompaniesBundle
- * @author  Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * @author  Nikolay Tumbalev <ntumbalev@gmail.com>
  */
 class CompanyTranslation extends AbstractTranslation
 {
@@ -48,20 +48,6 @@ class CompanyTranslation extends AbstractTranslation
     protected $title;
 
     /**
-     * @var string
-     *
-     * @Gedmo\Versioned
-     * @ORM\Column(name="button_title", type="string", length=250, nullable=true)
-     */
-    protected $buttonTitle;
-
-    /**
-     * @Gedmo\Versioned
-     * @ORM\Column(name="simple_description", type="text", nullable=true)
-     */
-    protected $simpleDescription;
-
-    /**
      * @Gedmo\Versioned
      * @ORM\Column(name="description", type="text", nullable=true)
      */
@@ -78,31 +64,6 @@ class CompanyTranslation extends AbstractTranslation
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id",  onDelete="SET NULL")
      */
     protected $gallery;
-
-    /**
-     * @Gedmo\Versioned
-     * @ORM\Column(name="price", type="string", length=255, nullable=true)
-     */
-    protected $price;
-
-    /**
-     * @Gedmo\Versioned
-     * @ORM\Column(name="tab_description", type="text", nullable=true)
-     */
-    protected $tabDescription;
-
-    /**
-     * @Gedmo\Versioned
-     * @ORM\Column(name="tab_tech", type="text", nullable=true)
-     */
-    protected $tabTech;
-
-    /**
-     * @var string
-     * @Gedmo\Versioned
-     * @ORM\Column(name="youtube_video", type="string", length=255, nullable=true)
-     */
-    protected $youTubeVideo;
 
     /**
      * Gets the value of Title.
@@ -177,30 +138,6 @@ class CompanyTranslation extends AbstractTranslation
     }
 
     /**
-     * Gets the value of simpleDescription.
-     *
-     * @return mixed
-     */
-    public function getSimpleDescription()
-    {
-        return $this->simpleDescription;
-    }
-
-    /**
-     * Sets the value of simpleDescription.
-     *
-     * @param mixed $simpleDescription the simple description
-     *
-     * @return self
-     */
-    public function setSimpleDescription($simpleDescription)
-    {
-        $this->simpleDescription = $simpleDescription;
-
-        return $this;
-    }
-
-    /**
      * Gets the value of image.
      *
      * @return mixed
@@ -247,120 +184,4 @@ class CompanyTranslation extends AbstractTranslation
 
         return $this;
     }
-
-    /**
-     * Get the value of You Tube Video
-     *
-     * @return string
-     */
-    public function getYouTubeVideo()
-    {
-        return $this->youTubeVideo;
-    }
-
-    /**
-     * Set the value of You Tube Video
-     *
-     * @param string youTubeVideo
-     *
-     * @return self
-     */
-    public function setYouTubeVideo($youTubeVideo)
-    {
-        $this->youTubeVideo = $youTubeVideo;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of Price
-     *
-     * @return mixed
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set the value of Price
-     *
-     * @param mixed price
-     *
-     * @return self
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of Tab Description
-     *
-     * @return mixed
-     */
-    public function getTabDescription()
-    {
-        return $this->tabDescription;
-    }
-
-    /**
-     * Set the value of Tab Description
-     *
-     * @param mixed tabDescription
-     *
-     * @return self
-     */
-    public function setTabDescription($tabDescription)
-    {
-        $this->tabDescription = $tabDescription;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of Tab Tech
-     *
-     * @return mixed
-     */
-    public function getTabTech()
-    {
-        return $this->tabTech;
-    }
-
-    /**
-     * Set the value of Tab Tech
-     *
-     * @param mixed tabTech
-     *
-     * @return self
-     */
-    public function setTabTech($tabTech)
-    {
-        $this->tabTech = $tabTech;
-
-        return $this;
-    }
-
-    /**
-    * Get buttonTitle
-    * @return
-    */
-    public function getButtonTitle()
-    {
-        return $this->buttonTitle;
-    }
-
-    /**
-    * Set buttonTitle
-    * @return $this
-    */
-    public function setButtonTitle($buttonTitle)
-    {
-        $this->buttonTitle = $buttonTitle;
-        return $this;
-    }
-
 }

@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTPublishWorkflowBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\Loader;
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  *
  * @package NTPublishWorkflowBundle
- * @author  <n.tumbalev@nt.bg>
+ * @author  <ntumbalev@gmail.com>
  */
 class NTPublishWorkflowExtension extends Extension
 {

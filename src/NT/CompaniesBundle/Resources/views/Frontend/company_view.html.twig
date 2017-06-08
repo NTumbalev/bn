@@ -1,0 +1,132 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller("NTContentBundle:ContentFrontend:search")) }}
+    
+    <div class="row">
+        <h1>{{ company.title }}</h1>
+        
+        <div class="col-lg-6">
+            <table class="table table-striped">
+                <tbody>
+                    {% if company.description is defined and company.description is not null and company.description|length %}
+                        <tr>
+                            <td colspan="2">
+                                {{ company.description|graw }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Адрес</td>
+                        <td>
+                            <p>гр. Пловдив, бул. Цариградско шосе №92</p>
+                            <p>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a class="clearHref navigate" onclick="navigate(31.046051,34.85161199999993)">
+                                    Заведи ме
+                                </a>
+                            </p>
+                            <p>
+                                <span class="glyphicon glyphicon-phone"></span>
+                                <a class="clearHref callMe" href="tel:0883123321">Обади се</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Адрес</td>
+                        <td>
+                            <p>гр. Пловдив, бул. Цариградско шосе №92</p>
+                            <p>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a class="clearHref navigate" onclick="navigate(31.046051,34.85161199999993)">
+                                    Заведи ме
+                                </a>
+                            </p>
+                            <p>
+                                <span class="glyphicon glyphicon-phone"></span>
+                                <a class="clearHref callMe" href="tel:0883123321">Обади се</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Адрес</td>
+                        <td>
+                            <p>гр. Пловдив, бул. Цариградско шосе №92</p>
+                            <p>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a class="clearHref navigate" onclick="navigate(31.046051,34.85161199999993)">
+                                    Заведи ме
+                                </a>
+                            </p>
+                            <p>
+                                <span class="glyphicon glyphicon-phone"></span>
+                                <a class="clearHref callMe" href="tel:0883123321">Обади се</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Телефони</td>
+                        <td>
+                            032 - 80 89 86 (0884 75 03 06)
+                            0888 32 60 74 - Стоян Андонов
+                            0889 50 65 00 - Николай Трайков
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>E-mail</td>
+                        <td><a href="mailto:andonovauto@abv.bg">andonovauto@abv.bg</a></td>
+                    </tr>
+                    <tr>
+                        <td>Уеб сайт</td>
+                        <td><a target="_blank" href="http://infomediabg.com">http://infomediabg.com</a></td>
+                    </tr>
+                    <tr>
+                        <td>Лице за контакти</td>
+                        <td>Стоян Андонов</td>
+                    </tr>
+                    <tr>
+                        <td>Разгледано</td>
+                        <td>7634 пъти</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6 text-center">
+            <div id="galleryBox" class="mobileHidden">
+                <div class="gallery-main-images">
+                    <a class="main-image" href="images/500x500-1.jpeg"><img src="images/500x500-1.jpeg" alt="main img"></a>
+                    <a class="main-image" href="images/500x500-2.jpeg"><img src="images/500x500-2.jpeg" alt="main img"></a>
+                    <a class="main-image" href="images/500x500-3.jpeg"><img src="images/500x500-3.jpeg" alt="main img"></a>
+                    <a class="main-image" href="images/500x500-1.jpeg"><img src="images/500x500-1.jpeg" alt="main img"></a>
+                    <a class="main-image" href="images/500x500-3.jpeg"><img src="images/500x500-3.jpeg" alt="main img"></a>
+                    <a class="main-image" href="images/500x500-2.jpeg"><img src="images/500x500-2.jpeg" alt="main img"></a>
+                    <a class="main-image" href="images/500x500-1.jpeg"><img src="images/500x500-1.jpeg" alt="main img"></a>
+                </div>
+                <div class="gallery-thumbnails">
+                    <div class="thumb"><img src="images/78x78-1.jpeg" alt="thumb"></div>
+                    <div class="thumb"><img src="images/78x78-2.jpeg" alt="thumb"></div>
+                    <div class="thumb"><img src="images/78x78-3.jpeg" alt="thumb"></div>
+                    <div class="thumb"><img src="images/78x78-1.jpeg" alt="thumb"></div>
+                    <div class="thumb"><img src="images/78x78-3.jpeg" alt="thumb"></div>
+                    <div class="thumb"><img src="images/78x78-2.jpeg" alt="thumb"></div>
+                    <div class="thumb"><img src="images/78x78-1.jpeg" alt="thumb"></div>
+                </div>
+            </div>
+
+            <div class="desktopHidden">
+                <img src="images/banners/medium/1.jpg" alt="">
+            </div>
+        </div>
+
+        <a href="categoryListing.php">
+            <span class="glyphicon glyphicon-arrow-left"></span> Назад към категория Автосервизи
+        </a>
+
+        <?php include 'ssi/publish.php'; ?>
+    </div>
+    <!-- /.row -->
+{% endblock %}

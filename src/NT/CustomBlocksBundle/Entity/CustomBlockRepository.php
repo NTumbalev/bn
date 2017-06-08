@@ -2,7 +2,7 @@
 /**
  * This file is part of the NTCustomBlocksBundle.
  *
- * (c) Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * (c) Nikolay Tumbalev <ntumbalev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,7 @@ use NT\PublishWorkflowBundle\PublishWorkflowQueryBuilderTrait;
  *  Repository class for CustomBlocks
  *
  * @package NTCustomBlocksBundle
- * @author  Nikolay Tumbalev <n.tumbalev@nt.bg>
+ * @author  Nikolay Tumbalev <ntumbalev@gmail.com>
  */
 class CustomBlockRepository extends EntityRepository
 {

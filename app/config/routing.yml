@@ -1,3 +1,11 @@
+# NTCompaniesBundle routes
+companies_bundle:
+    resource: "@NTCompaniesBundle/Controller"
+    type:     annotation
+    prefix:   /{_locale}
+    requirements:
+        _locale: "[a-z]{2}"
+
 # NTDealersBundle routes
 dealers_bundle:
     resource: "@NTDealersBundle/Controller"

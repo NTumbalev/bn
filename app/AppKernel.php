@@ -50,6 +50,7 @@ class AppKernel extends Kernel
             new NT\DealersBundle\NTDealersBundle(),
             new NT\CompaniesBundle\NTCompaniesBundle(),
             new NT\AccentsBundle\NTAccentsBundle(),
+            new NT\LocationsBundle\NTLocationsBundle(),
             new NT\CoreBundle\NTCoreBundle(),
         );
 

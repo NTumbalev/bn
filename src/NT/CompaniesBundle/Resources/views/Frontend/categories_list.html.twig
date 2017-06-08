@@ -1,0 +1,148 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+    {{ render(controller("NTContentBundle:ContentFrontend:search")) }}
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="productView.php">
+                <img class="img-responsive" src="/images/banners/large/1.jpg">
+            </a>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-lg-12">
+            {{ 'catalogue.letter_index'|trans({}, 'NTFrontendBundle')}}
+            {% for letter,category in companiesCategories %}
+                <a href="#{{letter}}">{{letter}}</a>{% if not loop.last %}, {% endif %}    
+            {% endfor %}
+            {# <a href="#Б">Б</a>,
+            <a href="#В">В</a>,
+            <a href="#Г">Г</a>,
+            <a href="#Д">Д</a>,
+            <a href="#Е">Е</a>,
+            <a href="#Ж">Ж</a>,
+            <a href="#З">З</a>,
+            <a href="#И">И</a>,
+            <a href="#Й">Й</a>,
+            <a href="#К">К</a>,
+            <a href="#Л">Л</a>,
+            <a href="#М">М</a>,
+            <a href="#Н">Н</a>,
+            <a href="#О">О</a>,
+            <a href="#П">П</a>,
+            <a href="#Р">Р</a>,
+            <a href="#С">С</a>,
+            <a href="#Т">Т</a>,
+            <a href="#У">У</a>,
+            <a href="#Ф">Ф</a>,
+            <a href="#Х">Х</a>,
+            <a href="#Ц">Ц</a>,
+            <a href="#Ч">Ч</a>,
+            <a href="#Ш">Ш</a>,
+            <a href="#Щ">Щ</a>,
+            <a href="#Я">Я</a> #}
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-lg-2 mediumBanner">
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+        </div>
+        <div class="col-lg-8">
+            <table class="table table-striped">
+                <tbody>
+                    {% for letter,categories in companiesCategories %}
+                        {% for category in categories %}
+                            <tr>
+                                {% if loop.first %}
+                                    <td><a name="{{letter}}">{{letter}}</a></td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                                <td>
+                                    <a href="{{ path('companies_list', {'categorySlug':category.slug}) }}">
+                                        {{ category.title }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-2 mediumBanner">
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+
+            <a href="productView.php">
+                <img src="images/banners/medium/1.jpg">
+            </a>
+        </div>
+
+        <?php include 'ssi/publish.php'; ?>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+{% endblock %}
