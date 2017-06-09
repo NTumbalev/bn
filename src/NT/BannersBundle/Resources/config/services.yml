@@ -1,0 +1,22 @@
+services:
+    nt.admin.banners:
+        class: NT\BannersBundle\Admin\BannersAdmin
+        arguments: [~, NT\BannersBundle\Entity\Banner, NTCoreBundle:HistoryCRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "nt_site", label: "nt_banners", audit: true}
+        calls:
+            - [ setTranslationDomain, [NTBannersBundle]]
+
+    nt.admin.banners.translation:
+        class: NT\BannersBundle\Admin\BannersTranslationsAdmin
+        arguments: [~, NT\BannersBundle\Entity\BannerTranslation, ~]
+        tags:
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+
+    nt.admin.banners_pages:
+        class: NT\BannersBundle\Admin\BannersPagesAdmin
+        arguments: [~, NT\BannersBundle\Entity\BannersPages, NTCoreBundle:SortableCRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "nt_site", label: "nt_banners_pages", audit: true}
+        calls:
+            - [ setTranslationDomain, [NTBannersBundle]]

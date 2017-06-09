@@ -1,3 +1,21 @@
+search:
+    title: 'Търсене'
+    label: 'Търси'
+    placeholder: 'Търси продукт или услуга'
+    city: 'Град'
+    city_empty: 'населено място'
+    submit: 'Търси'
+    see_more: 'Виж още ...'
+    no_result: 'Няма намерени резултати!'
+
+publish_company:
+    box_title: 'Може да пуснете своята фирма сами, като ние ще я публикуваме след одобрение'
+    publish: 'Публикувай'
+    
+accents:
+    title: 'Секция с акценти'
+    learn_more: 'Научи повече'
+    
 catalogue:
     all_categories: 'Всички категории'
     categories: 'Категории'

@@ -59,9 +59,9 @@ class AccentsAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('history', $this->getRouterIdParameter().'/history');
-        $collection->add('history_view_revision', $this->getRouterIdParameter().'/preview/{revision}');
-        $collection->add('history_revert_to_revision', $this->getRouterIdParameter().'/revert/{revision}');
+        // $collection->add('history', $this->getRouterIdParameter().'/history');
+        // $collection->add('history_view_revision', $this->getRouterIdParameter().'/preview/{revision}');
+        // $collection->add('history_revert_to_revision', $this->getRouterIdParameter().'/revert/{revision}');
         $collection->add('order', 'order');
     }
 
@@ -89,7 +89,7 @@ class AccentsAdmin extends Admin
                 'actions' => array(
                     'edit' => array(),
                     'delete' => array(),
-                    'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
+                    // 'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
                 ), 'label' => 'table.label_actions',
             ))
         ;
@@ -138,19 +138,19 @@ class AccentsAdmin extends Admin
                                 'translation_domain' => 'NTAccentsBundle',
                                 'required' => false,
                             ),
-                            'buttonTitle' => array(
-                                'field_type' => 'text',
-                                'label' => 'form.button_title',
-                                'translation_domain' => 'NTAccentsBundle',
-                                'required' => false
-                            ),
+                            // 'buttonTitle' => array(
+                            //     'field_type' => 'text',
+                            //     'label' => 'form.button_title',
+                            //     'translation_domain' => 'NTAccentsBundle',
+                            //     'required' => false
+                            // ),
                             'target' => array(
                                 'field_type' => 'choice',
                                 'label' => 'form.target',
                                 'choices' => $target,
                             ),
                             'image' => array(
-                                'label' => 'Изображение препоръчителен размер (280px x 162px)',
+                                'label' => 'Изображение',
                                 'required' => false,
                                 'field_type' => 'sonata_type_model_list',
                                 'model_manager' => $this->getModelManager(),
@@ -159,6 +159,7 @@ class AccentsAdmin extends Admin
                                 'translation_domain' => 'NTAccentsBundle',
                             )
                         ),
+                        'exclude_fields' => array('buttonTitle'),
                         'label' => 'form.translations',
                         'translation_domain' => 'NTAccentsBundle',
                     ))

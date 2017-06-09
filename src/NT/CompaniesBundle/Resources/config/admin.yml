@@ -2,6 +2,11 @@ parameters:
     nt.companies.admin.companies.translation: NTCompaniesBundle
 
 services:
+    nt.publish_company.form.type:
+        class: NT\CompaniesBundle\Form\Type\PublishCompanyType
+        tags:
+            - { name: form.type, alias: publish_company }
+
     nt.companies.admin.companies:
         class: NT\CompaniesBundle\Admin\CompaniesAdmin
         tags:

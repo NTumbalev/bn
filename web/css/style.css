@@ -204,7 +204,8 @@ a.clearHref {
 	margin-top: 25px;
 }
 
-ul.nav li.first { text-align: center; } 
+ul.nav li.first { text-align: center; }
+.publishBox { margin-top: 65px; } 
 
 /* Responsive Styles */
 

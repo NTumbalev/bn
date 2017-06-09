@@ -128,32 +128,20 @@ class CompanyRepository extends EntityRepository
         return $qb->getQuery();
     }
 
-    /**
-     * Find all by category and locale
-     * @var companyCategoryId integer
-     * @var companyId integer
-     * @var locale string
-     * @var limit integer
-     * @var offset integer
-     * @return array
-     */
-    public function findSameCategoryCompanies($companyCategoryId, $companyId, $locale, $limit = null, $offset = null)
+    public function doSearch($search, $location)
     {
-        $qb = $this->getPublishWorkFlowQueryBuilder();
+        $qb = $this->getPublishWorkFlowQueryBuilder(null);
         $qb
             ->leftJoin('c.translations', 't')
-            ->leftJoin('c.companyCategories', 'cat')
-            ->andWhere('t.locale = :locale')
-            ->andWhere('t.slug IS NOT NULL')
-            ->andWhere('cat.id = :companyCategoryId')
-            ->andWhere('c.id != :companyId')
-            ->setParameter('companyCategoryId', $companyCategoryId)
-            ->setParameter('companyId', $companyId)
-            ->setParameter('locale', $locale)
-            ->setParameter('now', new \DateTime())
-            ->orderBy('c.rank', 'ASC')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit);
+            ->andWhere("t.title LIKE '%$search%'");
+
+        if (!empty($location)) {
+            $qb
+                ->andWhere('c.location = :location')
+                ->setParameter('location', $location)
+            ;
+        }
+
         $query = $qb->getQuery();
 
         return $query->getResult();

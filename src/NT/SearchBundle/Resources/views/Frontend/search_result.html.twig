@@ -1,0 +1,85 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+    {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
+    
+    <div class="row">
+        <div class="col-lg-9">
+            {% if totalResults > 0 %}
+                {% if companies is defined and companies is not null and companies|length %}
+                    {% for company in companies %}
+                        <div class="result">
+                            <h3>{{ company.title }}</h3>
+                            {% if company.description is defined and company.description is not null and company.description|length %}
+                                {{ company.description|raw }} 
+                            {% endif %}
+
+                            <a href="{{ path('company_without_category', {'slug':company.slug}) }}">
+                                {{ 'search.see_more'|trans({}, 'NTFrontendBundle')}}
+                            </a>
+                        </div>
+                        <hr />
+                    {% endfor %}
+                {% endif %}
+                
+                {% if companyCategories is defined and companyCategories is not null and companyCategories|length %}
+                    {% for companyCategory in companyCategories %}
+                        <div class="result">
+                            <h3>{{ companyCategory.title }}</h3>
+                            {% if companyCategory.description is defined and companyCategory.description is not null and companyCategory.description|length %}
+                                {{ companyCategory.description|raw }} 
+                            {% endif %}
+
+                            <a href="{{ path('companies_list', {'categorySlug':companyCategory.slug}) }}">
+                                {{ 'search.see_more'|trans({}, 'NTFrontendBundle')}}
+                            </a>
+                        </div>
+                        <hr />
+                    {% endfor %}
+                {% endif %}
+
+                {% if contentPages is defined and contentPages is not null and contentPages|length %}
+                    {% for contentPage in contentPages %}
+                        <div class="result">
+                            <h3>{{ contentPage.title }}</h3>
+                            {% if contentPage.description is defined and contentPage.description is not null and contentPage.description|length %}
+                                {{ contentPage.description|slice(0, 300)|raw }} ...  
+                            {% endif %}
+
+                            <a href="{{ path('content', {'slug':contentPage.slug}) }}">
+                                {{ 'search.see_more'|trans({}, 'NTFrontendBundle')}}
+                            </a>
+                        </div>
+                        <hr />
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                <p>{{ 'search.no_result'|trans({}, 'NTFrontendBundle')}}</p>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-3 smallBanner">
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="productView.php">
+                <img class="img-responsive" src="images/banners/large/1.jpg">
+            </a>
+        </div>
+
+        {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
+    </div>
+{% endblock %}

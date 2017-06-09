@@ -31,12 +31,12 @@
 			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;"><strong>{{ 'contact.name'|trans({}, "messages")}}</strong></td>
 			<td style="border-bottom: 1px solid #e6e6e6;">{{data.name}}</td>
 		</tr>
-		{#
+		
 		<tr>
 			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;"><strong>{{ 'contact.family'|trans({}, "messages")}}</strong></td>
 			<td style="border-bottom: 1px solid #e6e6e6;">{{data.family}}</td>
 		</tr>
-		#}
+		
 		{% if data.phone is defined and data.phone is not null and data.phone|length %}
 			<tr>
 				<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;"><strong>{{ 'contact.phone'|trans({}, "messages")}}</strong></td>
@@ -47,6 +47,18 @@
 			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;"><strong>{{ 'contact.email'|trans({}, "messages")}}</strong></td>
 			<td style="border-bottom: 1px solid #e6e6e6;">{{data.email}}</td>
 		</tr>
+		{% if data.address is defined and data.address is not null and data.address|length %}
+		    <tr>
+		    	<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;"><strong>{{ 'contact.address'|trans({}, "messages")}}</strong></td>
+		    	<td style="border-bottom: 1px solid #e6e6e6;">{{data.address}}</td>
+		    </tr>
+		{% endif %}
+		{% if data.city is defined and data.city is not null and data.city|length %}
+		    <tr>
+		    	<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;"><strong>{{ 'contact.city'|trans({}, "messages")}}</strong></td>
+		    	<td style="border-bottom: 1px solid #e6e6e6;">{{data.city}}</td>
+		    </tr>
+		{% endif %}
 		<tr>
 			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;"><strong>{{ 'contact.message'|trans({}, "messages")}}</strong></td>
 			<td style="border-bottom: 1px solid #e6e6e6;">{{data.message}}</td>

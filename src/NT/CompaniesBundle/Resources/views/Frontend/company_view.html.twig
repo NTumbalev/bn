@@ -86,7 +86,7 @@
 {% endblock %}
 
 {% block main %}
-    {{ render(controller("NTContentBundle:ContentFrontend:search")) }}
+    {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
     
     <div class="row">
         <h1>{{ company.title }}</h1>
@@ -181,17 +181,17 @@
         </div>
         <div class="col-lg-6 text-center">
 
-            {% if company.translations[app.request.locale].gallery is defined and company.translations[app.request.locale].gallery is not null and company.translations[app.request.locale].gallery|length and company.translations[app.request.locale].gallery.galleryHasMedias|length %}
+            {% if gallery is defined and gallery is not null and gallery|length %}
                 <div id="galleryBox" class="mobileHidden">
                     <div class="gallery-main-images">
-                        {% for image in company.translations[app.request.locale].gallery.galleryHasMedias %}
+                        {% for image in gallery %}
                             <a class="main-image" href="{% path image, 'index' %}">
                                 <img src="{% path image, 'index' %}" alt="main img">
                             </a>
                         {% endfor %}
                     </div>
                     <div class="gallery-thumbnails">
-                        {% for image in company.translations[app.request.locale].gallery.galleryHasMedias %}
+                        {% for image in gallery %}
                             <div class="thumb">
                                 <img src="{% path image, 'thumb' %}" alt="thumb">
                             </div>
@@ -217,12 +217,12 @@
             </a>
         {% endif %}
 
-        <?php include 'ssi/publish.php'; ?>
+        {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
     </div>
     <!-- /.row -->
 
     <div class="menuWrapper menuWrapperOpen desktopHidden">
-        <!-- <div class="mobileActionsMenuknob"></div> -->
+        {# <div class="mobileActionsMenuknob"></div> #}
         <div id="MOBILE_ACTIONS_MENUmenuContainer" class="mobileActionsMenumenuContainer">
             <ul>
                 <li class="mobileActionsMenu_phone">

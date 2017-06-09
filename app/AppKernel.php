@@ -41,7 +41,6 @@ class AppKernel extends Kernel
             new NT\TranslationsBundle\NTTranslationsBundle(),
             new NT\PublishWorkflowBundle\NTPublishWorkflowBundle(),
             new NT\SEOBundle\NTSEOBundle(),
-            new NT\CustomBlocksBundle\NTCustomBlocksBundle(),
             new NT\ContentBundle\NTContentBundle(),
             new NT\FrontendBundle\NTFrontendBundle(),
             new NT\TinyMCEBundle\NTTinyMCEBundle(),
@@ -51,6 +50,8 @@ class AppKernel extends Kernel
             new NT\CompaniesBundle\NTCompaniesBundle(),
             new NT\AccentsBundle\NTAccentsBundle(),
             new NT\LocationsBundle\NTLocationsBundle(),
+            new NT\BannersBundle\NTBannersBundle(),
+            new NT\SearchBundle\NTSearchBundle(),
             new NT\CoreBundle\NTCoreBundle(),
         );
 

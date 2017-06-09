@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block main %}
-    {{ render(controller("NTContentBundle:ContentFrontend:search")) }}
+    {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
 
     {% set haveSidebar = false %}
     {% if sideBar is defined and sideBar is not null and sideBar|length %}
@@ -13,13 +13,6 @@
                 <nav>
                     {{ sideBar|raw }}
                 </nav>
-                {# <nav>
-                    <ul class="nav nav-pills nav-stacked navCustom">
-                        <li class="active"><a href="about-us.php">За нас</a></li>
-                        <li><a href="about-us.php">За компанията</a></li>
-                        <li><a href="about-us.php">Дейност</a></li>
-                    </ul>
-                </nav> #}
             </div>
         {% endif %}  
         <div class="col-lg-{% if haveSidebar %}10{% else %}12{% endif %}">
@@ -28,7 +21,7 @@
             {% endif %}
         </div>
 
-        <?php include 'ssi/publish.php'; ?>
+        {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
     </div>
     <!-- /.row -->
 {% endblock %}

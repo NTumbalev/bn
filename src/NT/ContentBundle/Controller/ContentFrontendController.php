@@ -16,21 +16,6 @@ use Knp\Menu\Matcher\Voter\UriVoter;
 class ContentFrontendController extends Controller
 {
     /**
-     * Route("/search", name="search")
-     * @Template("NTContentBundle:Frontend:search.html.twig")
-     */
-    public function searchAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $masterRoute = $this->container->get('request_stack')->getMasterRequest()->get("_route");
-        $locale = $request->getLocale();
-
-        return array(
-            'masterRoute' => $masterRoute
-        );
-    }
-
-    /**
      * @Route("/contacts", name="contacts")
      * @Route("/contacts/service/{item}", name="contact_service")
      * @Route("/contacts/product/{item}", name="contact_product")
@@ -108,25 +93,25 @@ class ContentFrontendController extends Controller
                     )
                 ;
 
-                $userMessage = \Swift_Message::newInstance()
-                    ->setSubject($translator->trans('contact.user_message_subject', array(), 'NTFrontendBundle'))
-                    ->setFrom($settings->get('sender_email'))
-                    ->setTo($data['email'])
-                    ->setBody(
-                        $this->renderView(
-                            'NTContentBundle:Email:contact_mail.html.twig', array(
-                                'data' => $data,
-                                'item' => $item,
-                                'path' => $path
-                            )
-                        ),
-                        'text/html'
-                    )
-                ;
+                // $userMessage = \Swift_Message::newInstance()
+                //     ->setSubject($translator->trans('contact.user_message_subject', array(), 'NTFrontendBundle'))
+                //     ->setFrom($settings->get('sender_email'))
+                //     ->setTo($data['email'])
+                //     ->setBody(
+                //         $this->renderView(
+                //             'NTContentBundle:Email:contact_mail.html.twig', array(
+                //                 'data' => $data,
+                //                 'item' => $item,
+                //                 'path' => $path
+                //             )
+                //         ),
+                //         'text/html'
+                //     )
+                // ;
 
                 $mailer = $this->get('mailer');
                 $mailer->send($adminMessage);
-                $mailer->send($userMessage);
+                // $mailer->send($userMessage);
 
                 $this->get('session')->getFlashBag()->add('success', 'Your message has been sent.');
                 return $this->redirect($this->generateUrl('contact_success'));

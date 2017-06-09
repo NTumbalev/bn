@@ -175,4 +175,16 @@ class CompanyCategoryRepository extends NestedTreeRepository
 
         return $query->getResult();
     }
+
+    public function doSearch($search, $location)
+    {
+        $qb = $this->getPublishWorkFlowQueryBuilder(null);
+        $qb
+            ->leftJoin('c.translations', 't')
+            ->andWhere("t.title LIKE '%$search%'");
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

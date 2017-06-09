@@ -1,3 +1,11 @@
+# NTSearchBundle routes
+search_bundle:
+    resource: "@NTSearchBundle/Controller"
+    type:     annotation
+    prefix:   /{_locale}
+    requirements:
+        _locale: "[a-z]{2}"
+
 # NTCompaniesBundle routes
 companies_bundle:
     resource: "@NTCompaniesBundle/Controller"
@@ -25,14 +33,6 @@ slider_bundle:
 # NTFrontendBundle routes
 frontend_bundle:
     resource: "@NTFrontendBundle/Controller"
-    type:     annotation
-    prefix:   /{_locale}
-    requirements:
-        _locale: "[a-z]{2}"
-
-# NTCustomBlocksBundle routes
-custom_blocks:
-    resource: "@NTCustomBlocksBundle/Controller"
     type:     annotation
     prefix:   /{_locale}
     requirements:

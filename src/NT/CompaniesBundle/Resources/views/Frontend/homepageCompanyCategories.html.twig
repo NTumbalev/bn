@@ -1,0 +1,30 @@
+{% if companyCategories is defined and companyCategories is not null and companyCategories|length %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+                <p class="allCategories">
+                    <a href="{{ path('categories_list') }}">
+                        {{ 'catalogue.all_categories'|trans({}, 'NTFrontendBundle')}}
+                    </a>
+                </p>
+                <h2 class="page-header">{{ 'catalogue.categories'|trans({}, 'NTFrontendBundle')}}</h2>
+            </div>
+            <div class="homepageCategories">
+                {% for companyCategory in companyCategories %}
+                    <div class="categoryAccent col-md-3 col-sm-6">
+                        <h3>
+                            <a href="{{ path('companies_list', {'categorySlug': companyCategory.slug}) }}">{{ companyCategory.title }}</a>
+                        </h3>
+
+                        {% if companyCategory.translations[app.request.locale].image is defined and companyCategory.translations[app.request.locale].image is not null and companyCategory.translations[app.request.locale].image|length %}
+                            <a class="categoryImage" href="{{ path('companies_list', {'categorySlug': companyCategory.slug}) }}">
+                                <img class="img-responsive img-portfolio img-hover" src="{% path companyCategory.translations[app.request.locale].image, 'index' %}" alt="">
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+{% endif %}

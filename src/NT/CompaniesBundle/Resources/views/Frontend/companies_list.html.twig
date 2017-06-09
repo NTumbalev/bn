@@ -1,7 +1,9 @@
 {% extends '::base.html.twig' %}
 
+{% import "::paginatorWithRouteAndSlug.html.twig" as pager %}
+
 {% block main %}
-    {{ render(controller("NTContentBundle:ContentFrontend:search")) }}
+    {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
     
     <h1>{{ category.title }}</h1>
     
@@ -47,34 +49,23 @@
                     </tbody>
                 </table>
 
-                <nav class="paginator">
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li class="disabled"><a href="#">...</a></li>
-                        <li><a href="#">215</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </nav>
+                {% if companies is defined and companies is not null and companies|length %}
+                    {{ pager.pager(companies, "companies_list", category.slug, 'categorySlug') }}
+                {% endif %}
             </div>
         </div>
         <!-- Banners -->
         <div class="col-lg-2 mediumBanner">
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/medium/1.jpg"></a>
+            {{ 
+                render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
+                    'position': 'right',
+                    'isMain': false,
+                    'pageId': category.id
+                })) 
+            }}
         </div>
 
-        <?php include 'ssi/publish.php'; ?>           
+        {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
     </div>
     <!-- /.row -->
 {% endblock %}

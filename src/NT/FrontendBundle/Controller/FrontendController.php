@@ -42,11 +42,8 @@ class FrontendController extends Controller
         $settings = $this->container->get('nt.settings_manager');
         $locale = $request->getLocale();
 
-        $footerBlock = $em->getRepository('NTCustomBlocksBundle:CustomBlock')->findOneByIdAndLocale(1, $locale);
-
         return array(
-            'settings'     => $settings,
-            'footerBlock'  => $footerBlock
+            'settings' => $settings
         );
     }
 
@@ -103,23 +100,10 @@ class FrontendController extends Controller
             }
         }
 
-        $headerBlock1 = $em->getRepository('NTCustomBlocksBundle:CustomBlock')->findOneByIdAndLocale(2, $currLocale);
-        $headerBlock2 = $em->getRepository('NTCustomBlocksBundle:CustomBlock')->findOneByIdAndLocale(3, $currLocale);
-        $headerBlock3 = $em->getRepository('NTCustomBlocksBundle:CustomBlock')->findOneByIdAndLocale(4, $currLocale);
-
-        $headerBlocks = array(
-            $headerBlock1 != null ? $headerBlock1->getRank() : '1' => $headerBlock1,
-            $headerBlock2 != null ? $headerBlock2->getRank() : '2' => $headerBlock2,
-            $headerBlock3 != null ? $headerBlock3->getRank() : '3' => $headerBlock3,
-        );
-
-        ksort($headerBlocks);
-
         return $this->render("NTFrontendBundle:Frontend:header.html.twig", array(
-            'locales'    => $locales,
-            'urls'       => $urls,
-            'settings'   => $settings,
-            'headerBlocks' => $headerBlocks
+            'locales'  => $locales,
+            'urls'     => $urls,
+            'settings' => $settings
         ));
     }
 

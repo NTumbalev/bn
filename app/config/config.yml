@@ -156,9 +156,17 @@ sonata_admin:
                 items:
                     - nt_menu.admin.menu
                     - nt.slider.admin.slider
+                    - nt.accents.admin.accents
                     - nt.content.admin.content
                     - nt.admin.dealers
-                    - nt.custom_blocks.admin.custom_blocks
+            banners:
+                label: label.banners
+                label_catalogue: SonataAdminBundle
+                icon: '<i class="fa fa-th"></i>'
+                items:
+                    - nt.admin.banners
+                    - nt.admin.banners_pages
+
             catalogue:
                 label: label.catalogue
                 label_catalogue: SonataAdminBundle
@@ -255,14 +263,14 @@ sonata_media:
                 index:  { width: 1170, height: 200, quality: 75 }
                 admin:  { width: 150, height: 80, quality: 75 }
 
-        # nt_accents:
-        #     download:
-        #         strategy: sonata.media.security.public_strategy
-        #         mode: http
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 282, height: 332, quality: 75 }
+        nt_accents:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                index:  { width: 200, height: 215, quality: 75 }
 
         nt_companies_image:
             download:
@@ -292,15 +300,6 @@ sonata_media:
         #     formats:
         #         thumb:  { width: 282, height: 211, quality: 75 }
 
-        # nt_dealers_images:
-        #     download:
-        #         strategy: sonata.media.security.public_strategy
-        #         mode: http
-        #     providers:
-        #         - sonata.media.provider.image
-        #     formats:
-        #         index:  { width: 465, height: 348, quality: 75 }
-
         nt_content_header_image:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -318,12 +317,12 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 index:  { width: 700, height: 450, quality: 75 }
-        #
-        # nt_banners:
-        #     providers:
-        #         - sonata.media.provider.file
-        #     formats:
-        #         index:  { width: 100, height: 100, quality: 75 }
+        
+        nt_banners_images:
+            providers:
+                - sonata.media.provider.file
+            formats:
+                index:  { width: 100, height: 100, quality: 75 }
 
     cdn:
         server:
@@ -405,52 +404,19 @@ nt_tiny_mce:
 
 sonata_seo:
     page:
-        title: 'imoti'
+        title: 'businessnavigator'
         metas:
             property:
                 # Open Graph information
                 # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
-                'og:title':     imoti
-                'og:site_name':       imoti
-                'og:description':     imoti описание
-                'og:image':     http://imoti.com/images/logo.png
-                'og:url':     http://imoti.com
+                'og:title':     businessnavigator
+                'og:site_name':       businessnavigator
+                'og:description':     businessnavigator описание
+                'og:image':     http://businessnavigator.bg/images/logo.png
+                'og:url':     http://businessnavigator.bg
                 'og:type':     website
     sitemap:
         doctrine_orm:
-            #DELETE THIS IF NEWS CATEGORIES
-            news:
-                connection: doctrine.dbal.default_connection
-                route: post_without_category
-                parameters:
-                    slug: null
-                    _locale: bg
-                query: "SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`, n.`updated_at` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority` FROM `news` AS n LEFT JOIN `news_i18n` as ni18n on n.id = ni18n.object_id LEFT JOIN publish_workflow as `pw` on n.publishWorkflow_id = pw.id WHERE pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW())  OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW()))"
-            #--------------------------------------
-            news_category:
-                connection: doctrine.dbal.default_connection
-                route: posts_categories_category_view
-                parameters:
-                    categorySlug: null
-                    _locale: bg
-                query: "SELECT ni18n.locale as `_locale`, ni18n.slug as `categorySlug`, n.`updated_at` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority` FROM `news_categories` AS n LEFT JOIN `news_categories_i18n` as ni18n on n.id = ni18n.object_id LEFT JOIN publish_workflow as `pw` on n.publishWorkflow_id = pw.id WHERE pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW())  OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW()))"
-
-            news_listing:
-                connection: doctrine.dbal.default_connection
-                route: posts_list
-                parameters:
-                    _locale: bg
-                query: "SELECT updated_at as lastmod, 'weekly' as changefreq, '0.5' as priority FROM news LIMIT 1"
-            #DELETE THIS IF NO NEWS CATEGORIES
-            news_view_with_category:
-                connection: doctrine.dbal.default_connection
-                route: posts_category_post_view
-                parameters:
-                    categorySlug: null
-                    slug: null
-                    _locale: bg
-                query: "SELECT categorySlug, slug, `_locale`, lastmod AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority`  FROM (SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`,c.newscategory_id as `categoryId`, pc.id as `pcid`, pci18n.slug as `categorySlug`, n.`updated_at` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority`FROM news AS n LEFT JOIN news_i18n as ni18n ON n.id = ni18n.object_id LEFT JOIN publish_workflow as pw on n.publishWorkflow_id = pw.id LEFT JOIN news_categories_m2m as c ON n.id = c.news_id LEFT JOIN news_categories as pc ON pc.id = c.newscategory_id LEFT JOIN news_categories_i18n as pci18n ON pc.id = pci18n.object_id LEFT JOIN publish_workflow as pwCat on pc.publishWorkflow_id = pwCat.id WHERE (pwCat.is_active = 1 AND ((pwCat.from_date IS NULL AND pwCat.to_date IS NULL) OR (pwCat.from_date <= NOW() AND pwCat.to_date >= NOW())) OR (pwCat.from_date IS NOT NULL AND pwCat.from_date <= NOW()) OR (pwCat.to_date IS NOT NULL AND pwCat.to_date >= NOW())) AND (pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW()) OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW())))) as catinfo WHERE catinfo.pcid = catinfo.categoryId"
-                #--------------------------------------
             #DELETE THIS IF NO PRODUCTS BUNDLE
             estates_listing:
                 connection: doctrine.dbal.default_connection
@@ -476,102 +442,6 @@ sonata_seo:
                     slug: null
                     _locale: bg
                 query: "SELECT categorySlug, slug, `_locale`, lastmod AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority`  FROM (SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`,c.estatecategory_id as `categoryId`, pc.id as `pcid`, pci18n.slug as `categorySlug`, n.`updated_at` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority`FROM estates AS n LEFT JOIN estates_i18n as ni18n ON n.id = ni18n.object_id LEFT JOIN publish_workflow as pw on n.publishWorkflow_id = pw.id LEFT JOIN estates_categories as c ON n.id = c.estate_id LEFT JOIN estate_categories as pc ON pc.id = c.estatecategory_id LEFT JOIN estate_categories_i18n as pci18n ON pc.id = pci18n.object_id LEFT JOIN publish_workflow as pwCat on pc.publishWorkflow_id = pwCat.id WHERE (pwCat.is_active = 1 AND ((pwCat.from_date IS NULL AND pwCat.to_date IS NULL) OR (pwCat.from_date <= NOW() AND pwCat.to_date >= NOW())) OR (pwCat.from_date IS NOT NULL AND pwCat.from_date <= NOW()) OR (pwCat.to_date IS NOT NULL AND pwCat.to_date >= NOW())) AND (pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW()) OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW())))) as catinfo WHERE catinfo.pcid = catinfo.categoryId"
-            #--------------------------------------
-            #DELETE THIS IF NO SERVICES BUNDLE
-            service_listing:
-                connection: doctrine.dbal.default_connection
-                route: services_list
-                parameters:
-                    _locale: bg
-                query: "SELECT updated_at as lastmod, 'weekly' as changefreq, '0.5' as priority FROM services LIMIT 1"
-
-            service_category:
-                connection: doctrine.dbal.default_connection
-                route: service_without_category
-                parameters:
-                    slug: null
-                    _locale: bg
-                query: "SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`, n.`updated_at` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority` FROM `service_categories` AS n LEFT JOIN `service_categories_i18n` as ni18n on n.id = ni18n.object_id LEFT JOIN publish_workflow as `pw` on n.publishWorkflow_id = pw.id WHERE pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW()) OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW()))"
-
-            service_view:
-                connection: doctrine.dbal.default_connection
-                route: services_category_service_view
-                parameters:
-                    categorySlug: null
-                    slug: null
-                    _locale: bg
-                query: "SELECT categorySlug, slug, `_locale`, lastmod AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority`  FROM (SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`,c.servicecategory_id as `categoryId`, pc.id as `pcid`, pci18n.slug as `categorySlug`, n.`updated_at` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority`FROM services AS n LEFT JOIN services_i18n as ni18n ON n.id = ni18n.object_id LEFT JOIN publish_workflow as pw on n.publishWorkflow_id = pw.id LEFT JOIN services_categories as c ON n.id = c.service_id LEFT JOIN service_categories as pc ON pc.id = c.servicecategory_id LEFT JOIN service_categories_i18n as pci18n ON pc.id = pci18n.object_id LEFT JOIN publish_workflow as pwCat on pc.publishWorkflow_id = pwCat.id WHERE (pwCat.is_active = 1 AND ((pwCat.from_date IS NULL AND pwCat.to_date IS NULL) OR (pwCat.from_date <= NOW() AND pwCat.to_date >= NOW())) OR (pwCat.from_date IS NOT NULL AND pwCat.from_date <= NOW()) OR (pwCat.to_date IS NOT NULL AND pwCat.to_date >= NOW())) AND (pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW()) OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW())))) as catinfo WHERE catinfo.pcid = catinfo.categoryId"
-            #--------------------------------------
-            #DELETE THIS IF NO GALLERIES BUNDLE
-            gallery:
-                connection: doctrine.dbal.default_connection
-                route: gallery_view
-                parameters:
-                    slug: null
-                    _locale: bg
-                query: "SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`, n.`updated_at` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority` FROM `galleries` AS n LEFT JOIN `galleries_i18n` as ni18n on n.id = ni18n.object_id LEFT JOIN publish_workflow as `pw` on n.publishWorkflow_id = pw.id WHERE pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW())  OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW()))"
-            #--------------------------------------
-            galleries_listing:
-                connection: doctrine.dbal.default_connection
-                route: galleries
-                parameters:
-                    slug: null
-                    _locale: bg
-                query: "SELECT updated_at as lastmod, 'weekly' as changefreq, '0.5' as priority FROM galleries LIMIT 1"
-            #DELETE THIS IF NO DISTRIBUTORS BUNDLE
-            distributors:
-                connection: doctrine.dbal.default_connection
-                route: distributors
-                parameters:
-                    _locale: bg
-                query: "SELECT updated_at as lastmod, 'weekly' as changefreq, '0.5' as priority FROM dealer LIMIT 1"
-            #--------------------------------------
-            #DELETE THIS IF NO CAREERS BUNDLE
-            careers:
-                connection: doctrine.dbal.default_connection
-                route: careers
-                parameters:
-                    _locale: bg
-                query: "SELECT updatedAt as lastmod, 'weekly' as changefreq, '0.5' as priority FROM careers LIMIT 1"
-
-            career_view:
-                connection: doctrine.dbal.default_connection
-                route: career_view
-                parameters:
-                    slug: null
-                    _locale: bg
-                query: "SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`, n.`updatedAt` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority` FROM `careers` AS n LEFT JOIN `careers_i18n` as ni18n on n.id = ni18n.object_id LEFT JOIN publish_workflow as `pw` on n.publishWorkflow_id = pw.id WHERE pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW())  OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW()))"
-            #--------------------------------------
-            contacts:
-                connection: doctrine.dbal.default_connection
-                route: contacts
-                parameters:
-                    _locale: bg
-                query: "SELECT updated_at as lastmod, 'weekly' as changefreq, '0.5' as priority FROM content LIMIT 1"
-
-            #DELETE THIS IF NO REFERENTIONS BUNDLE
-            referentions:
-                connection: doctrine.dbal.default_connection
-                route: referentions
-                parameters:
-                    _locale: bg
-                query: "SELECT updated_at as lastmod, 'weekly' as changefreq, '0.5' as priority FROM referentions LIMIT 1"
-            #--------------------------------------
-            #DELETE THIS IF NO BRANDS BUNDLE
-            brands_list:
-                connection: doctrine.dbal.default_connection
-                route: brands_list
-                parameters:
-                    _locale: bg
-                query: "SELECT updated_at as lastmod, 'weekly' as changefreq, '0.5' as priority FROM brands LIMIT 1"
-            brands_brand_view:
-                connection: doctrine.dbal.default_connection
-                route: brands_brand_view
-                parameters:
-                    slug: null
-                    _locale: bg
-                query: "SELECT ni18n.locale as `_locale`, ni18n.slug as `slug`, n.`updatedAt` AS `lastmod`, 'weekly' AS `changefreq`, '0.8' AS `priority` FROM `brands` AS n LEFT JOIN `brands_i18n` as ni18n on n.id = ni18n.object_id LEFT JOIN publish_workflow as `pw` on n.publishWorkflow_id = pw.id WHERE pw.is_active = 1 AND ((pw.from_date IS NULL AND pw.to_date IS NULL) OR (pw.from_date <= NOW() AND pw.to_date >= NOW())  OR (pw.from_date IS NOT NULL AND pw.from_date <= NOW()) OR (pw.to_date IS NOT NULL AND pw.to_date >= NOW()))"
-            #--------------------------------------
             images:
                 types: [image]
                 route: sonata_media_view

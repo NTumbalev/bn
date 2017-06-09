@@ -25,59 +25,61 @@
     {% endif %}
 
     {% if end > 1 or currentPage != 1 %}
-        <ul class="pagination">
-            <li style="{% if currentPage == 1 %}display:none{% endif %}">
-                {% if slug is defined and slug is not null and slug|length %}
-                    <a href="{{ path(routeName, {(slugName): slug, 'page' : currentPage - 1}) }}">
-                        <i class="fa fa-chevron-left"></i>
-                    </a>
-                {% else %}
-                    <a href="{{ path(routeName, {'page' : currentPage - 1}) }}">
-                        <i class="fa fa-chevron-left"></i>
-                    </a>
-                {% endif %}
-            </li>
-            {% if end > 5 %}
-                <li>
+        <nav class="paginator">
+            <ul class="pagination">
+                <li style="{% if currentPage == 1 %}display:none{% endif %}">
                     {% if slug is defined and slug is not null and slug|length %}
-                        <a href="{{ path(routeName, {(slugName): slug, 'page' : 1}) }}">1</a>
+                        <a href="{{ path(routeName, {(slugName): slug, 'page' : currentPage - 1}) }}">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
                     {% else %}
-                        <a href="{{ path(routeName, {'page' : 1}) }}">1</a>
+                        <a href="{{ path(routeName, {'page' : currentPage - 1}) }}">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
                     {% endif %}
                 </li>
-                <li class="dots">...</li>
-            {% endif %}
+                {% if end > 5 %}
+                    <li>
+                        {% if slug is defined and slug is not null and slug|length %}
+                            <a href="{{ path(routeName, {(slugName): slug, 'page' : 1}) }}">1</a>
+                        {% else %}
+                            <a href="{{ path(routeName, {'page' : 1}) }}">1</a>
+                        {% endif %}
+                    </li>
+                    <li class="disabled">...</li>
+                {% endif %}
 
-            {% for i in startFrom..end %}
-                <li class="{% if i == currentPage %}selected{% endif %}">
+                {% for i in startFrom..end %}
+                    <li class="{% if i == currentPage %}active{% endif %}">
+                        {% if slug is defined and slug is not null and slug|length %}
+                            <a href="{{ path(routeName, {(slugName): slug, 'page' : i}) }}">{{i}}</a>
+                        {% else %}
+                            <a href="{{ path(routeName, {'page' : i}) }}">{{i}}</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+
+                {% if currentPage + 2 < maxPage and maxPage > 5 %}
+                    <li class="dots">...</li>
                     {% if slug is defined and slug is not null and slug|length %}
-                        <a href="{{ path(routeName, {(slugName): slug, 'page' : i}) }}">{{i}}</a>
+                        <a href="{{ path(routeName, {(slugName): slug, 'page' : maxPage}) }}">{{maxPage}}</a>
                     {% else %}
-                        <a href="{{ path(routeName, {'page' : i}) }}">{{i}}</a>
+                        <a href="{{ path(routeName, {'page' : maxPage}) }}">{{maxPage}}</a>
+                    {% endif %}
+                {% endif %}
+
+                <li style="{% if currentPage == maxPage %}display:none{% endif %}">
+                    {% if slug is defined and slug is not null and slug|length %}
+                        <a href="{{ path(routeName, {(slugName): slug, 'page' : currentPage + 1}) }}">
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ path(routeName, {'page' : currentPage + 1}) }}">
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
                     {% endif %}
                 </li>
-            {% endfor %}
-
-            {% if currentPage + 2 < maxPage and maxPage > 5 %}
-                <li class="dots">...</li>
-                {% if slug is defined and slug is not null and slug|length %}
-                    <a href="{{ path(routeName, {(slugName): slug, 'page' : maxPage}) }}">{{maxPage}}</a>
-                {% else %}
-                    <a href="{{ path(routeName, {'page' : maxPage}) }}">{{maxPage}}</a>
-                {% endif %}
-            {% endif %}
-
-            <li style="{% if currentPage == maxPage %}display:none{% endif %}">
-                {% if slug is defined and slug is not null and slug|length %}
-                    <a href="{{ path(routeName, {(slugName): slug, 'page' : currentPage + 1}) }}">
-                        <i class="fa fa-chevron-right"></i>
-                    </a>
-                {% else %}
-                    <a href="{{ path(routeName, {'page' : currentPage + 1}) }}">
-                        <i class="fa fa-chevron-right"></i>
-                    </a>
-                {% endif %}
-            </li>
-        </ul>
+            </ul>
+        </nav>
     {% endif %}
 {% endmacro %}

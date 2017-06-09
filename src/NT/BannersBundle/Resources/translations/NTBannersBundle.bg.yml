@@ -1,0 +1,20 @@
+nt_banners: 'Управление на банери'
+nt_banners_pages: 'Асоциация на банери'
+
+General: 'Главни'
+default: 'Главни'
+Publish Workflow: 'Видимост'
+Meta Data: 'Метадата'
+MetaData: 'Метадата'
+link_actions: 'Действия'
+form:
+  id: 'ID'
+  position: 'Позиция'
+  translations: 'Преводи'
+  title: 'Заглавие'
+  isActive: 'Активен'
+  banner: 'Банер'
+  page: 'Категория'
+  isMain: 'На листинг с категории?'
+
+select.page: 'Моля изберете'
