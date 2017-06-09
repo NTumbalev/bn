@@ -94,15 +94,13 @@ class Dealer implements SeoAwareInterface, PublishWorkflowInterface
 
     /**
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="isContact", type="boolean")
+     * @ORM\Column(name="isContact", type="boolean", options={"default" : 1})
      */
     protected $isContact = true;
 
     /**
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="not_in_distributors", type="boolean")
+     * @ORM\Column(name="not_in_distributors", type="boolean", nullable=true)
      */
     protected $notInDistributors = true;
 
@@ -384,7 +382,7 @@ class Dealer implements SeoAwareInterface, PublishWorkflowInterface
     * Get isContact
     * @return
     */
-    public function isContact()
+    public function getIsContact()
     {
         return $this->isContact;
     }
@@ -395,7 +393,7 @@ class Dealer implements SeoAwareInterface, PublishWorkflowInterface
     */
     public function setIsContact($isContact)
     {
-        $this->isContact = $isContact;
+        $this->isContact = true;
         return $this;
     }
 

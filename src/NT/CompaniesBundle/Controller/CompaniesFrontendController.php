@@ -110,6 +110,8 @@ class CompaniesFrontendController extends Controller
         $params = $this->getImageUrlFromGallery($company->getTranslations()->get($locale)->getGallery());
         $this->generateSeoAndOgTags($company, $params);
 
+        $this->addVisit($company);
+
         return array(
             'company'              => $company,
             'companyCategory'      => $companyCategory,
@@ -172,5 +174,13 @@ class CompaniesFrontendController extends Controller
             return $gallery[0];
         }
         return $gallery;
+    }
+
+    private function addVisit(\NT\CompaniesBundle\Entity\Company $company)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $company->setVisited($company->getVisited() + 1);
+        $em->persist($company);
+        $em->flush();
     }
 }

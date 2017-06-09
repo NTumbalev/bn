@@ -177,4 +177,14 @@ class DealersAdmin extends Admin
                 ->end();
     }
 
+    public function prePersist($item)
+    {
+        $item->setIsContact(1);
+    }
+
+    public function preUpdate($item)
+    {
+        $item->setIsContact(true);
+    }
+
 }

@@ -1,5 +1,4 @@
 <header>
-    {# {{ knp_menu_render('NTFrontendBundle:Builder:mainMenu') }} #}
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top customHeaderNav" role="navigation">
@@ -18,7 +17,8 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-default navbar-right">
+                {{ knp_menu_render('NTFrontendBundle:Builder:mainMenu') }}
+               {#  <ul class="nav navbar-nav navbar-default navbar-right">
                     <li>
                         <a href="about-us.php">За нас</a>
                     </li>
@@ -56,7 +56,7 @@
                             </li>
                         </ul>
                     </li>
-                </ul>
+                </ul> #}
             </div>
             <!-- /.navbar-collapse -->
         </div>

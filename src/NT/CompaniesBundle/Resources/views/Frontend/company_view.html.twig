@@ -1,7 +1,88 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+    <link href="/css/slick.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
+    <script src="/js/slick.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        jQuery(function($){
+            $('#toTop').css('bottom', '75px');
+
+            $('.gallery-main-images').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: false,
+                arrows: false,
+                fade: true,
+                asNavFor: '.gallery-thumbnails',
+                responsive: [
+                    {
+                      breakpoint: 768,
+                      settings: {
+                        dots: true
+                      }
+                    }
+                ]
+            });
+
+            $('.gallery-thumbnails').slick({
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                dots: false,
+                arrows: true,
+                focusOnSelect: true,
+                vertical: false,
+                verticalSwiping: false,
+                asNavFor: '.gallery-main-images',
+                responsive: [
+                    {
+                      breakpoint: 992,
+                      settings: {
+                        slidesToShow: 4,
+                        vertical: false,
+                        verticalSwiping: false,
+                        arrows: false
+                      }
+                    },
+                    {
+                      breakpoint: 768,
+                      settings: "unslick"                          
+                    }
+                ]
+            });
+
+            $('#searchRow').addClass('mobileHidden');
+        });
+
+        function navigate(lat, lng) {
+            // If it's an iPhone..
+            if ((navigator.platform.indexOf("iPhone") !== -1) || (navigator.platform.indexOf("iPod") !== -1)) {
+                function iOSversion() {
+                    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+                        // supports iOS 2.0 and later: <http://bit.ly/TJjs1V>
+                        var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+                        return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+                    }
+                }
+            
+                var ver = iOSversion() || [0];
+
+                if (ver[0] >= 6) {
+                    protocol = 'maps://';
+                } else {
+                    protocol = 'http://';
+                }
+
+
+                window.location = protocol + 'maps.apple.com/maps?saddr=Current+Location&daddr=' + lat + ',' + lng + '&amp;ll=';
+            } else {
+                window.open('http://maps.google.com?saddr=Current+Location&daddr=' + lat + ',' + lng + '&amp;ll=');
+            }
+        }
+    </script>
 {% endblock %}
 
 {% block main %}
@@ -20,113 +101,140 @@
                             </td>
                         </tr>
                     {% endif %}
-                    <tr>
-                        <td>Адрес</td>
-                        <td>
-                            <p>гр. Пловдив, бул. Цариградско шосе №92</p>
-                            <p>
-                                <span class="glyphicon glyphicon-map-marker"></span>
-                                <a class="clearHref navigate" onclick="navigate(31.046051,34.85161199999993)">
-                                    Заведи ме
+
+                    {% if company.addresses is defined and company.addresses is not null and company.addresses|length %}
+                        {% for address in company.addresses %}
+                            <tr>
+                                <td>{{ 'catalogue.address'|trans({}, 'NTFrontendBundle')}}</td>
+                                <td>
+                                    {% if address.address is defined and address.address is not null and address.address|length %}
+                                        <p>{{ address.address }}</p>
+                                    {% endif %}
+                                    
+                                    {% if address.latitude is defined and address.latitude is not null and address.latitude|length and address.longitude is defined and address.longitude is not null and address.longitude|length %}
+                                        <p>
+                                            <span class="glyphicon glyphicon-map-marker"></span>
+                                            <a class="clearHref navigate" onclick="navigate({{address.latitude}},{{address.longitude}})">
+                                                {{ 'catalogue.navigate_me'|trans({}, 'NTFrontendBundle')}}
+                                            </a>
+                                        </p>
+                                    {% endif %}
+                                    
+                                    {% if address.phone is defined and address.phone is not null and address.phone|length %}
+                                        <p>
+                                            <span class="glyphicon glyphicon-phone"></span>
+                                            <a class="clearHref callMe" href="tel:{{ address.phone }}">
+                                                {{ 'catalogue.call'|trans({}, 'NTFrontendBundle')}}
+                                            </a>
+                                        </p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if company.phones is defined and company.phones is not null and company.phones|length %}
+                        <tr>
+                            <td>{{ 'catalogue.phones'|trans({}, 'NTFrontendBundle')}}</td>
+                            <td>
+                                {{ company.phones|raw }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if company.email is defined and company.email is not null and company.email|length %}
+                        <tr>
+                            <td>E-mail</td>
+                            <td>
+                                <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if company.webpage is defined and company.webpage is not null and company.webpage|length %}
+                        <tr>
+                            <td>{{ 'catalogue.webpage'|trans({}, 'NTFrontendBundle')}}</td>
+                            <td>
+                                <a target="_blank" href="{{ company.webpage }}">
+                                    {{ company.webpage }}
                                 </a>
-                            </p>
-                            <p>
-                                <span class="glyphicon glyphicon-phone"></span>
-                                <a class="clearHref callMe" href="tel:0883123321">Обади се</a>
-                            </p>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if company.contactPerson is defined and company.contactPerson is not null and company.contactPerson|length %}
+                        <tr>
+                            <td>{{ 'catalogue.contact_person'|trans({}, 'NTFrontendBundle')}}</td>
+                            <td>{{ company.contactPerson }}</td>
+                        </tr>
+                    {% endif %}
+
                     <tr>
-                        <td>Адрес</td>
+                        <td>{{ 'catalogue.visited'|trans({}, 'NTFrontendBundle')}}</td>
                         <td>
-                            <p>гр. Пловдив, бул. Цариградско шосе №92</p>
-                            <p>
-                                <span class="glyphicon glyphicon-map-marker"></span>
-                                <a class="clearHref navigate" onclick="navigate(31.046051,34.85161199999993)">
-                                    Заведи ме
-                                </a>
-                            </p>
-                            <p>
-                                <span class="glyphicon glyphicon-phone"></span>
-                                <a class="clearHref callMe" href="tel:0883123321">Обади се</a>
-                            </p>
+                            {{company.visited}} {{ 'catalogue.times'|trans({}, 'NTFrontendBundle')}}
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Адрес</td>
-                        <td>
-                            <p>гр. Пловдив, бул. Цариградско шосе №92</p>
-                            <p>
-                                <span class="glyphicon glyphicon-map-marker"></span>
-                                <a class="clearHref navigate" onclick="navigate(31.046051,34.85161199999993)">
-                                    Заведи ме
-                                </a>
-                            </p>
-                            <p>
-                                <span class="glyphicon glyphicon-phone"></span>
-                                <a class="clearHref callMe" href="tel:0883123321">Обади се</a>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Телефони</td>
-                        <td>
-                            032 - 80 89 86 (0884 75 03 06)
-                            0888 32 60 74 - Стоян Андонов
-                            0889 50 65 00 - Николай Трайков
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>E-mail</td>
-                        <td><a href="mailto:andonovauto@abv.bg">andonovauto@abv.bg</a></td>
-                    </tr>
-                    <tr>
-                        <td>Уеб сайт</td>
-                        <td><a target="_blank" href="http://infomediabg.com">http://infomediabg.com</a></td>
-                    </tr>
-                    <tr>
-                        <td>Лице за контакти</td>
-                        <td>Стоян Андонов</td>
-                    </tr>
-                    <tr>
-                        <td>Разгледано</td>
-                        <td>7634 пъти</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-lg-6 text-center">
-            <div id="galleryBox" class="mobileHidden">
-                <div class="gallery-main-images">
-                    <a class="main-image" href="images/500x500-1.jpeg"><img src="images/500x500-1.jpeg" alt="main img"></a>
-                    <a class="main-image" href="images/500x500-2.jpeg"><img src="images/500x500-2.jpeg" alt="main img"></a>
-                    <a class="main-image" href="images/500x500-3.jpeg"><img src="images/500x500-3.jpeg" alt="main img"></a>
-                    <a class="main-image" href="images/500x500-1.jpeg"><img src="images/500x500-1.jpeg" alt="main img"></a>
-                    <a class="main-image" href="images/500x500-3.jpeg"><img src="images/500x500-3.jpeg" alt="main img"></a>
-                    <a class="main-image" href="images/500x500-2.jpeg"><img src="images/500x500-2.jpeg" alt="main img"></a>
-                    <a class="main-image" href="images/500x500-1.jpeg"><img src="images/500x500-1.jpeg" alt="main img"></a>
-                </div>
-                <div class="gallery-thumbnails">
-                    <div class="thumb"><img src="images/78x78-1.jpeg" alt="thumb"></div>
-                    <div class="thumb"><img src="images/78x78-2.jpeg" alt="thumb"></div>
-                    <div class="thumb"><img src="images/78x78-3.jpeg" alt="thumb"></div>
-                    <div class="thumb"><img src="images/78x78-1.jpeg" alt="thumb"></div>
-                    <div class="thumb"><img src="images/78x78-3.jpeg" alt="thumb"></div>
-                    <div class="thumb"><img src="images/78x78-2.jpeg" alt="thumb"></div>
-                    <div class="thumb"><img src="images/78x78-1.jpeg" alt="thumb"></div>
-                </div>
-            </div>
 
-            <div class="desktopHidden">
-                <img src="images/banners/medium/1.jpg" alt="">
-            </div>
+            {% if company.translations[app.request.locale].gallery is defined and company.translations[app.request.locale].gallery is not null and company.translations[app.request.locale].gallery|length and company.translations[app.request.locale].gallery.galleryHasMedias|length %}
+                <div id="galleryBox" class="mobileHidden">
+                    <div class="gallery-main-images">
+                        {% for image in company.translations[app.request.locale].gallery.galleryHasMedias %}
+                            <a class="main-image" href="{% path image, 'index' %}">
+                                <img src="{% path image, 'index' %}" alt="main img">
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="gallery-thumbnails">
+                        {% for image in company.translations[app.request.locale].gallery.galleryHasMedias %}
+                            <div class="thumb">
+                                <img src="{% path image, 'thumb' %}" alt="thumb">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            
+            {% if company.translations[app.request.locale].image is defined and company.translations[app.request.locale].image is not null and company.translations[app.request.locale].image|length %}
+                <div class="desktopHidden">
+                    <img src="{% path company.translations[app.request.locale].image, 'reference' %}" alt="">
+                </div>
+            {% endif %}
         </div>
 
-        <a href="categoryListing.php">
-            <span class="glyphicon glyphicon-arrow-left"></span> Назад към категория Автосервизи
-        </a>
+        {% if companyCategory is defined and companyCategory is not null and companyCategory|length %}
+            <a href="{{ path('companies_list', {'categorySlug': companyCategory.slug}) }}">
+                <span class="glyphicon glyphicon-arrow-left"></span> {{ 'catalogue.back_to_category'|trans({}, 'NTFrontendBundle')}} {{ companyCategory.title }}
+            </a>
+        {% else %}
+            <a href="{{ path('categories_list') }}">
+                <span class="glyphicon glyphicon-arrow-left"></span> {{ 'catalogue.back_to_all_categories'|trans({}, 'NTFrontendBundle')}}
+            </a>
+        {% endif %}
 
         <?php include 'ssi/publish.php'; ?>
     </div>
     <!-- /.row -->
+
+    <div class="menuWrapper menuWrapperOpen desktopHidden">
+        <!-- <div class="mobileActionsMenuknob"></div> -->
+        <div id="MOBILE_ACTIONS_MENUmenuContainer" class="mobileActionsMenumenuContainer">
+            <ul>
+                <li class="mobileActionsMenu_phone">
+                    <a href="tel:{{ company.phone }}"></a>
+                </li>
+                <li class="mobileActionsMenu_email">
+                    <a href="mailto:{{ company.email }}"></a>
+                </li>
+                <li class="mobileActionsMenu_address">
+                    <a onclick="navigate({{ company.latitude }},{{ company.longitude }})"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}

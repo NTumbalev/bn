@@ -54,6 +54,18 @@ class CompanyTranslation extends AbstractTranslation
     protected $description;
 
     /**
+     * @var string
+     * @ORM\Column(name="phones", type="text", nullable=true)
+     */
+    protected $phones;
+
+    /**
+     * @var string
+     * @ORM\Column(name="contact_person", type="string", length=255, nullable=true)
+     */
+    protected $contactPerson;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id",  onDelete="SET NULL")
      */
@@ -181,6 +193,54 @@ class CompanyTranslation extends AbstractTranslation
     public function setGallery($gallery)
     {
         $this->gallery = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of phones.
+     *
+     * @return string
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
+     * Sets the value of phones.
+     *
+     * @param string $phones the phones
+     *
+     * @return self
+     */
+    public function setPhones($phones)
+    {
+        $this->phones = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of contactPerson.
+     *
+     * @return string
+     */
+    public function getContactPerson()
+    {
+        return $this->contactPerson;
+    }
+
+    /**
+     * Sets the value of contactPerson.
+     *
+     * @param string $contactPerson the contact person
+     *
+     * @return self
+     */
+    public function setContactPerson($contactPerson)
+    {
+        $this->contactPerson = $contactPerson;
 
         return $this;
     }

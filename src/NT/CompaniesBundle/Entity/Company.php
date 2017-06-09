@@ -75,9 +75,65 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
     protected $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyAddress", mappedBy="company", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="CompanyAddress", mappedBy="company", cascade={"persist"})
      */
     protected $addresses;
+
+    /**
+     * @var string
+     * @Gedmo\Translatable
+     * @ORM\Column(name="phones", type="text", nullable=true)
+     */
+    protected $phones;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     */
+    protected $phone;
+
+    /**
+     * @var string
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    protected $email;
+
+    /**
+     * @var string
+     * @Gedmo\Translatable
+     * @ORM\Column(name="contact_person", type="string", length=255, nullable=true)
+     */
+    protected $contactPerson;
+
+    /**
+     * @var string
+     * @ORM\Column(name="webpage", type="string", length=255, nullable=true)
+     */
+    protected $webpage;
+
+    /**
+     * @var string
+     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
+     */
+    protected $latitude;
+
+    /**
+     * @var string
+     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
+     */
+    protected $longitude;
+
+    /**
+     * @var string
+     * @ORM\Column(name="notes", type="text", nullable=true)
+     */
+    protected $notes;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="visited", type="integer", nullable=true)
+     */
+    protected $visited;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
@@ -467,5 +523,221 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
             $this->addresses->removeElement($address);
             $address->setCompany(null);
         }
+    }
+
+    /**
+     * Gets the value of phones.
+     *
+     * @return string
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
+     * Sets the value of phones.
+     *
+     * @param string $phones the phones
+     *
+     * @return self
+     */
+    public function setPhones($phones)
+    {
+        $this->phones = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of email.
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Sets the value of email.
+     *
+     * @param string $email the email
+     *
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of phone.
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Sets the value of phone.
+     *
+     * @param string $phone the phone
+     *
+     * @return self
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of contactPerson.
+     *
+     * @return string
+     */
+    public function getContactPerson()
+    {
+        return $this->contactPerson;
+    }
+
+    /**
+     * Sets the value of contactPerson.
+     *
+     * @param string $contactPerson the contact person
+     *
+     * @return self
+     */
+    public function setContactPerson($contactPerson)
+    {
+        $this->contactPerson = $contactPerson;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of webpage.
+     *
+     * @return string
+     */
+    public function getWebpage()
+    {
+        return $this->webpage;
+    }
+
+    /**
+     * Sets the value of webpage.
+     *
+     * @param string $webpage the webpage
+     *
+     * @return self
+     */
+    public function setWebpage($webpage)
+    {
+        $this->webpage = $webpage;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of latitude.
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Sets the value of latitude.
+     *
+     * @param string $latitude the latitude
+     *
+     * @return self
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of longitude.
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Sets the value of longitude.
+     *
+     * @param string $longitude the longitude
+     *
+     * @return self
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of notes.
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Sets the value of notes.
+     *
+     * @param string $notes the notes
+     *
+     * @return self
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of visited.
+     *
+     * @return integer
+     */
+    public function getVisited()
+    {
+        return $this->visited;
+    }
+
+    /**
+     * Sets the value of visited.
+     *
+     * @param integer $visited the visited
+     *
+     * @return self
+     */
+    public function setVisited($visited)
+    {
+        $this->visited = $visited;
+
+        return $this;
     }
 }

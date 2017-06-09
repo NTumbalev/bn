@@ -19,7 +19,13 @@ form:
     latitude: 'Ширина'
     longitude: 'Дължина'
     phone: 'Телефон'
-
+    phones: 'Телефони'
+    mainPhone: 'Основен телефон'
+    mainEmail: 'Основен e-mail'
+    notes: 'Бележки'
+    contactPerson: 'Лице за контакт'
+    visited: 'Преглеждания'
+    webpage: 'Уеб сайт'
 
 tab:
     general: 'Основни'

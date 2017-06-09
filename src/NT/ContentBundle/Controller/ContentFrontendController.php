@@ -77,7 +77,7 @@ class ContentFrontendController extends Controller
             $path = $this->generateUrl('service_without_category', array('slug' => $item->getSlug()));
         }
 
-        $content = $em->getRepository('NTContentBundle:Content')->findOneById(4);
+        $content = $em->getRepository('NTContentBundle:Content')->findOneById(6);
         if (!$content) {
             throw $this->createNotFoundException("Page not found");
         }
@@ -215,23 +215,6 @@ class ContentFrontendController extends Controller
         );
     }
 
-    private function createMenu($children, $menu, $repo, $locale)
-    {
-        foreach ($children as $itm) {
-            $subMenu = $menu->addChild($itm->getTitle(), array('uri' => $itm->getSlug(), 'currentClass' => 'selected'));
-            if ($itm->getSlug() === '/' && $itm->getSlug() == $this->container->get('request')->getRequestUri()) {
-                $subMenu->setAttribute('class', 'selected');
-            } elseif ($itm->getSlug() !== '/' && strpos($this->container->get('request')->getRequestUri(), $itm->getSlug()) !== false) {
-                $subMenu->setAttribute('class', 'selected');
-            }
-            if (count($children = $repo->findAllChildren($itm->getId(), $locale))) {
-                $subMenu->setAttribute('class', $subMenu->getAttribute('class').' hasDropdown');
-                $subMenu->setChildrenAttribute('class', 'dropdown');
-                $this->createMenu($children, $subMenu, $repo, $locale);
-            }
-        }
-    }
-
     /**
      * @Route("/{slug}", name="content")
      * @Template("NTContentBundle:Frontend:index.html.twig")
@@ -280,7 +263,13 @@ class ContentFrontendController extends Controller
         if ($root != null) {
             $menuChildrens = $repo->findAllChildren($root->getId(), $locale);
             $factory = new MenuFactory();
-            $sideBar = $factory->createItem('root', array());
+            $sideBar = $factory->createItem('root', array(
+                'childrenAttributes' => array(
+                    'class' => 'nav nav-pills nav-stacked navCustom'
+                )
+            ));
+
+            $this->addMenuItem($sideBar, $root);
 
             $this->router = $this->container->get("router");
             $this->matcher = new Matcher();
@@ -316,7 +305,37 @@ class ContentFrontendController extends Controller
             'children'    => $children,
             'breadCrumbs' => $breadCrumbs,
             'settings'    => $settings,
-            'sideBar'     => $sideBar != null ? $renderer->render($sideBar, array('currentClass' => 'selected', 'ancestorClass'=>'selected')) : false,
+            'sideBar'     => $sideBar != null ? $renderer->render($sideBar, array('currentClass' => 'active', 'ancestorClass'=>'active')) : false,
         );
+    }
+
+    private function createMenu($children, $menu, $repo, $locale)
+    {
+        foreach ($children as $itm) {
+            $this->addMenuItem($menu, $itm);
+
+            if (count($children = $repo->findAllChildren($itm->getId(), $locale))) {
+                $subMenu->setAttribute('class', $subMenu->getAttribute('class').' hasDropdown');
+                $subMenu->setChildrenAttribute('class', 'dropdown');
+                $this->createMenu($children, $subMenu, $repo, $locale);
+            }
+        }
+    }
+
+    private function addMenuItem($menu, $itm)
+    {
+        $subMenu = $menu->addChild(
+            $itm->getTitle(), 
+            array(
+                'uri' => $this->generateUrl('content', array('slug' => $itm->getSlug())), 
+                'currentClass' => 'active'
+            )
+        );
+
+        if ($itm->getSlug() === '/' && $itm->getSlug() == $this->container->get('request')->getRequestUri()) {
+            $subMenu->setAttribute('class', 'active');
+        } elseif ($itm->getSlug() !== '/' && strpos($this->container->get('request')->getRequestUri(), $itm->getSlug()) !== false) {
+            $subMenu->setAttribute('class', 'active');
+        }
     }
 }

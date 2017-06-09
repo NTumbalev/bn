@@ -264,24 +264,24 @@ sonata_media:
         #     formats:
         #         index:  { width: 282, height: 332, quality: 75 }
 
-        nt_estates_image:
+        nt_companies_image:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http
             providers:
                 - sonata.media.provider.image
             formats:
-                index:  { width: 600, height: 400, quality: 75 }
+                index:  { width: 168, height: 216, quality: 75 }
 
-        nt_estates_gallery:
+        nt_companies_gallery:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http
             providers:
                 - sonata.media.provider.image
             formats:
-                index:  { width: 600, height: 400, quality: 75 }
-                thumb:  { width: 175, height: 116, quality: 75 }
+                index:  { width: 500, height: 500, quality: 75 }
+                thumb:  { width: 78, height: 78, quality: 75 }
 
         # inline_gallery:
         #     download:

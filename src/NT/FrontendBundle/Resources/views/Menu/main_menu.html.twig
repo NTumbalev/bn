@@ -22,12 +22,13 @@
 {% block div %}
     {% spaceless %}
     {% import _self as knp_menu %}
-    <ul class="sf-menu">
+    <ul class="nav navbar-nav navbar-default navbar-right">
         {# <li{% if app.request.attributes.get('route') == 'homepage' %} class="selected"{% endif %}>
             <a href="{{ path('homepage') }}"><i class="iconHome"></i></a>
         </li> #}
     {% for item in item.children %}
         {% set listAttributes = item.childrenAttributes %}
+        
         {% set isCurrentItem = false %}
         {% if matcher.isCurrent(item) %}
             {% set isCurrentItem = true %}
@@ -37,12 +38,22 @@
         {% if item.linkAttributes is defined and item.linkAttributes is not null and item.linkAttributes|length and item.linkAttributes['class'] is defined and item.linkAttributes['class'] is not null and item.linkAttributes['class']|length %}
             {% set hasClass = true %}
         {% endif %}
+
+        {% set hasChildren = false %}
+        {% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
+            {% set hasChildren = true %}
+        {% endif %}
+
         {# save current variables #}
-        <li{% if isCurrentItem or hasClass %} class="{% if isCurrentItem %}selected{% endif %}{% if hasClass %} {{item.linkAttributes['class']}}{% endif %}"{% endif %}>
-			<a href="{{ item.uri }}" {% if not item.hasChildren %}target="{{item.linkAttributes.target}}"{% endif %}>
-                {{ item.name }}
+        <li class="{% if isCurrentItem %}active{% endif %}{% if hasClass %} {{item.linkAttributes['class']}}{% endif %}{% if hasChildren %} dropdown{% endif %}">
+
+			<a{% if hasChildren %} class="dropdown-toggle" data-toggle="dropdown"{% endif %} href="{{ item.uri }}" target="{{item.linkAttributes.target}}">
+                {{ item.name }} {% if hasChildren %}<b class="caret"></b>{% endif %}
             </a>
-            {{ block('list') }}
+
+            {% if hasChildren %}
+                {{ block('list') }}
+            {% endif %}
         </li>
     {% endfor %}
     </ul>
@@ -50,12 +61,10 @@
 {% endblock %}
 
 {% block list %}
-    {% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
-        {% import _self as knp_menu %}
-            <ul class="dropdown">
-                {{ block('children') }}
-            </ul>
-    {% endif %}
+    {% import _self as knp_menu %}
+    <ul class="dropdown-menu">
+        {{ block('children') }}
+    </ul>
 {% endblock %}
 
 {% block children %}

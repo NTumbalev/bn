@@ -2,6 +2,18 @@
     {% spaceless %}
         {% if name == 'captcha' %}
             {{ form_widget(form) }}
+        {% elseif name == 'family' %}
+            <div class="form-group">
+                {{ form_label(form) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+            </div>
         {% else %}
             {{ form_widget(form) }}
             {{ form_errors(form) }}
@@ -58,6 +70,7 @@
             {% set label = name|humanize %}
         {%- endif -%}
     {%- endif -%}
+
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}{% if required %}<span class="star">*</span>{% endif %}</label>
     {%- endif -%}
 {%- endblock form_label -%}

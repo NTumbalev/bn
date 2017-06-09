@@ -64,19 +64,6 @@ class DealerTranslation extends AbstractTranslation
     protected $image;
 
     /**
-     * @Gedmo\Versioned
-     * @ORM\Column(name="isContact", type="boolean")
-     */
-    protected $isContact;
-
-    /**
-     * @Gedmo\Versioned
-     * @ORM\Column(name="not_in_distributors", type="boolean")
-     */
-    protected $notInDistributors;
-
-
-    /**
      * Convinient constructor
      *
      * @param string $locale
@@ -85,7 +72,7 @@ class DealerTranslation extends AbstractTranslation
      * @param string $slug
      * @param Media $image
      */
-    public function __construct($locale = null, $description = null, $title = null, $slug = null, $simpleDescription = null, $pinDescription = null, $image = null, $isContact = null, $notInDistributors = null)
+    public function __construct($locale = null, $description = null, $title = null, $slug = null, $simpleDescription = null, $pinDescription = null, $image = null)
     {
         $this->locale = $locale;
         $this->slug = $slug;
@@ -94,8 +81,6 @@ class DealerTranslation extends AbstractTranslation
         $this->image = $image;
         $this->simpleDescription = $simpleDescription;
         $this->pinDescription = $pinDescription;
-        $this->isContact = $isContact;
-        $this->notInDistributors = $notInDistributors;
     }
 
     public function setTitle($title)
@@ -212,49 +197,6 @@ class DealerTranslation extends AbstractTranslation
     public function setPinDescription($pinDescription)
     {
         $this->pinDescription = $pinDescription;
-        return $this;
-    }
-
-    /**
-    * Get isContact
-    * @return
-    */
-    public function isContact()
-    {
-        return $this->isContact;
-    }
-
-    /**
-    * Set isContact
-    * @return $this
-    */
-    public function setIsContact($isContact)
-    {
-        $this->isContact = $isContact;
-        return $this;
-    }
-
-    /**
-     * Gets the value of notInDistributors.
-     *
-     * @return mixed
-     */
-    public function getNotInDistributors()
-    {
-        return $this->notInDistributors;
-    }
-
-    /**
-     * Sets the value of notInDistributors.
-     *
-     * @param mixed $notInDistributors the not in distributors
-     *
-     * @return self
-     */
-    public function setNotInDistributors($notInDistributors)
-    {
-        $this->notInDistributors = $notInDistributors;
-
         return $this;
     }
 }

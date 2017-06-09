@@ -1,79 +1,159 @@
 {% extends '::base.html.twig' %}
 
 {% block main %}
-    <div class="site-showcase">
-        <div class="parallax page-header" id="contact-map"></div>
-    </div>
+    {{ render(controller("NTContentBundle:ContentFrontend:search")) }}
 
-    <div class="main" role="main">
-        <div id="content" class="content full">
-            <div class="container">
-                <div class="page">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h3>
-                                {% if item is defined and item is not null and item | length %}
-                                    {{ 'contact.enquiryFor'|trans({}, 'NTFrontendBundle')}}
-                                    {{ item.title }}
-                                {% else %}
-                                    {{ 'contact.title'|trans({}, 'NTFrontendBundle')}}
-                                {% endif %}
-                            </h3>
-                            <div class="row">
-                                {% form_theme form with 'NTContentBundle:Form:contact_form.html.twig' %}
-                                {{ form_start(form, { 'attr': {'novalidate': 'novalidate' }}) }}
-                                    <div class="col-md-6 margin-15">
-                                        <div class="form-group">
-                                            {{ form_row(form.name) }}
-                                            {# <input type="text" id="name" name="name" class="" placeholder="Name*"> #}
-                                        </div>
-                                        <div class="form-group">
-                                            {{ form_row(form.email) }}
-                                            {# <input type="email" id="email" name="email" class="" placeholder="Email*"> #}
-                                        </div>
-                                        <div class="form-group">
-                                            {{ form_row(form.phone) }}
-                                            {# <input type="text" id="phone" name="phone" class="" placeholder="Phone"> #}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(form.message) }}
-                                            {# <textarea cols="6" rows="5" id="comments" name="comments" class="form-control input-lg" placeholder="Message"></textarea> #}
-                                            {{ form_row(form.submit) }}
-                                            {# <input id="submit" name="submit" type="submit" class="" value="Submit now!"> #}
-                                        </div>
-                                    </div>
-                                {{ form_end(form) }}
-                            </div>
-                            <div class="clearfix"></div>
-                            <div id="message">
-                                {% if app.session.flashbag.get('success') %}
-                                    <div class="alert alert-success fade in"> <a class="close" data-dismiss="alert" href="#">×</a>
-                                        {{'contact.success'|trans({}, 'NTFrontendBundle')}}
-                                    </div>
-                                {% endif %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>{{ content.title }}</h1>
+            
+            {% if content.description is defined and content.description is not null and content.description|length %}
+                <article class="article">
+                    {{ content.description|graw }}
+                </article>
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            <div class="blockMap">
+                {% if dealers is defined and dealers is not null and dealers|length %}
+                    <div id="map" class="mapContacts"></div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            {% form_theme form with 'NTContentBundle:Form:contact_form.html.twig' %}
+            {{ 
+                form_start(
+                    form, 
+                    { 
+                        'attr': {
+                            'novalidate': 'novalidate',
+                            'class': 'well form-horizontal',
+                            'id': 'contact_form'
+                        }
+                    }
+                ) 
+            }}
+            <fieldset>
 
-                                {% if app.session.flashbag.get('error') %}
-                                    <div class="alert alert-error fade in"> <a class="close" data-dismiss="alert" href="#">×</a>
-                                        {{ 'contact.error'|trans({}, "messages")}}
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h3>{{content.title}}</h3>
-                            <div class="padding-as25 lgray-bg">
-                                {% if content.description is defined and content.description is not null and content.description|length %}
-                                    {{ content.description|raw }}
-                                {% endif %}
-                            </div>
-                        </div>
+            <legend>{{ 'contact.title'|trans({}, 'NTFrontendBundle')}}</legend>
+
+            {% if app.session.flashbag.get('success') %}
+                <div class="alert alert-success fade in">
+                    <a class="close" data-dismiss="alert" href="#">×</a>
+                    {{'contact.success'|trans({}, 'NTFrontendBundle')}}
+                </div>
+            {% endif %}
+
+            {% if app.session.flashbag.get('error') %}
+                <div class="alert alert-danger fade in"> 
+                    <a class="close" data-dismiss="alert" href="#">×</a>
+                    {{ 'contact.error'|trans({}, "NTFrontendBundle")}}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                {{ form_label(form.name) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        {{form_widget(form.name) }}
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                {{ form_label(form.family) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        {{form_widget(form.family) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-envelope"></i>
+                        </span>
+                        {{form_widget(form.email) }}
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                {{ form_label(form.phone) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                        </span>
+                        {{form_widget(form.phone) }}
+                    </div>
+                </div>
+            </div>
+                
+            <div class="form-group">
+                {{ form_label(form.address) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-home"></i>
+                        </span>
+                        {{form_widget(form.address) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.city) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-home"></i>
+                        </span>
+                        {{form_widget(form.city) }}
+                    </div>
+                </div>
+            </div>
+              
+            <div class="form-group">
+                {{ form_label(form.message) }}
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </span>
+                        {{form_widget(form.message) }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success">
+                        {{ 'contact.submit'|trans({}, 'NTFrontendBundle')}} <span class="glyphicon glyphicon-send"></span>
+                    </button>
+                </div>
+            </div>
+            </fieldset>
+            {{ form_end(form) }}
+            </div><!-- /.form -->
         </div>
+
+        <?php include 'ssi/publish.php'; ?>
     </div>
+    <!-- /.row -->
 {% endblock %}
 
 {% block javascripts %}
@@ -109,7 +189,7 @@
             var haveToScroll ={% if app.session.flashbag.has('error') or app.session.flashbag.has('success') %}true{% else %}false{% endif %};
             if (haveToScroll) {
                 $('html, body').stop(true, true).animate({
-                    scrollTop: $('#content').offset().top
+                    scrollTop: $('#contact_form').offset().top
                 }, 1300);
             };
         });
@@ -119,7 +199,7 @@
         <script>
             $(function() {
                 // google map
-                var $map = $('#contact-map');
+                var $map = $('#map');
                 var locations = {};
 
                 locations = {

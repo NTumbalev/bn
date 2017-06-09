@@ -204,6 +204,8 @@ a.clearHref {
 	margin-top: 25px;
 }
 
+ul.nav li.first { text-align: center; } 
+
 /* Responsive Styles */
 
 @media(max-width:991px) {

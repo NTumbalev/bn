@@ -184,16 +184,17 @@ class ContentAdmin extends Admin
                             'data-theme' => 'bbcode'
                         )
                     ),
-                    'headerImage' => array(
-                        'label' => 'form.headerImage',
-                        'required' => false,
-                        'field_type' => 'sonata_type_model_list',
-                        'model_manager' => $this->getModelManager(),
-                        'sonata_field_description' => $ffds['headerImage'],
-                        'class' => $mediaAdmin->getClass(),
-                        'translation_domain' => 'NTContentBundle',
-                    )
+                    // 'headerImage' => array(
+                    //     'label' => 'form.headerImage',
+                    //     'required' => false,
+                    //     'field_type' => 'sonata_type_model_list',
+                    //     'model_manager' => $this->getModelManager(),
+                    //     'sonata_field_description' => $ffds['headerImage'],
+                    //     'class' => $mediaAdmin->getClass(),
+                    //     'translation_domain' => 'NTContentBundle',
+                    // )
                 ),
+                'exclude_fields' => array('headerImage'),
                 'translation_domain' => 'NTContentBundle',
                 'label' => 'form.translations'
         );

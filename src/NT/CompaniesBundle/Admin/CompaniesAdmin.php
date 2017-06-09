@@ -188,8 +188,22 @@ class CompaniesAdmin extends Admin
                                 'data-theme' => 'bbcode'
                             )
                         ),
+                        'phones' => array(
+                            'field_type' => 'textarea',
+                            'label' => 'form.phones',
+                            'required' => false,
+                            'attr' => array(
+                                'class' => 'tinymce',
+                                'data-theme' => 'bbcode'
+                            )
+                        ),
+                        'contactPerson' => array(
+                            'field_type' => 'text',
+                            'label' => 'form.contactPerson',
+                            'required' => false
+                        ),
                         'image' => array(
-                            'label' => 'Изображение (Препоръчителен минимален размер 282px x 211px)',
+                            'label' => 'Изображение',
                             'required' => false,
                             'field_type' => 'sonata_type_model_list',
                             'model_manager' => $this->getModelManager(),
@@ -214,11 +228,26 @@ class CompaniesAdmin extends Admin
                     'translation_domain' => 'NTCompaniesBundle',
                     'label' => 'form.translations',
                 ))
+                ->add('phone', null, array(
+                    'label' => 'form.mainPhone',
+                ))
+                ->add('email', null, array(
+                    'label' => 'form.mainEmail',
+                ))
+                ->add('webpage', null, array(
+                    'label' => 'form.webpage',
+                    'required' => false
+                ))
+                ->add('latitude', null, array(
+                    'label' => 'form.latitude',
+                ))
+                ->add('longitude', null, array(
+                    'label' => 'form.longitude',
+                ))
                 ->add('addresses', 'sonata_type_collection', array(
                     'required' => false,
                     'label' => 'form.addresses',
                     'cascade_validation' => true,
-                    'sonata_admin' => 'nt.companies.admin.companies_addresses'
                 ), array(
                     'edit'       => 'inline',
                     'inline'     => 'table',
@@ -228,6 +257,20 @@ class CompaniesAdmin extends Admin
                 ->add('isTop', null, array(
                     'required' => false,
                     'label' => 'form.isTop'
+                ))
+                ->add('notes', null, array(
+                    'label' => 'form.notes',
+                    'required' => false,
+                    'attr' => array(
+                        'class' => 'tinymce',
+                        'data-theme' => 'bbcode'
+                    )
+                ))
+                ->add('visited', null, array(
+                    'label' => 'form.visited',
+                    'required' => false,
+                    'attr' => array(
+                    )
                 ))
                 ->end()
             ->end()
@@ -245,6 +288,22 @@ class CompaniesAdmin extends Admin
             ->end();
     }
 
+    public function prePersist($item)
+    {
+        $this->saveAddresses($item);
+    }
+
+    public function preUpdate($item)
+    {
+        $this->saveAddresses($item);
+    }
+
+    private function saveAddresses($item)
+    {
+        foreach ($item->getAddresses() as $address) {
+            $address->setCompany($item);
+        }
+    }
 
     public function validate(\Sonata\AdminBundle\Validator\ErrorElement $errorElement, $object)
     {
