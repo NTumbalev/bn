@@ -22,9 +22,10 @@
                             <th>
                                 {% if locations is defined and locations is not null and locations|length %}
                                     <select id="locations">
-                                        {% for location in locations %}
-                                            <option value="{{ location.id }}">
-                                                {{ location.title }}
+                                        <option value="0">{{ 'catalogue.please_select'|trans({}, 'NTFrontendBundle')}}</option>}
+                                        {% for loc in locations %}
+                                            <option{% if location == loc.id %} selected{% endif %} value="{{ loc.id }}">
+                                                {{ loc.title }}
                                             </option>
                                         {% endfor %}
                                     </select>
@@ -68,4 +69,21 @@
         {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
     </div>
     <!-- /.row -->
+{% endblock %}
+
+{% block footerJS %}
+    {{ parent() }}
+    <script type="text/javascript">
+    $(function(){
+        var url = "{{app.request.getSchemeAndHttpHost()}}{{ path('companies_list', {'categorySlug':category.slug}) }}"
+        $('#locations').on('change', function(){
+            var locationId = $(this).val();
+            if(locationId != 0) {
+                window.location = url + "?location=" + locationId;
+            } else {
+                window.location = url;
+            }
+        });
+    });
+    </script>
 {% endblock %}

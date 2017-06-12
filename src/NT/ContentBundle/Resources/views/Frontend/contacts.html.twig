@@ -159,31 +159,33 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        // $(function() {
-        //     var $form = $('form[name="contacts"]');
-        //     var formValidator = $form.formValidator({
-        //         validCallback: function(el, isValid) {
-        //             if (isValid) {
-        //                 if ($(el).hasClass('g-recaptcha-response')) {
-        //                     $('#captcha_error').remove();
-        //                 }
-        //                 $(el).parent('div.field').removeClass('fieldError');
-        //                 $(el).parent('div.field').addClass('fieldSuccess');
-        //             } else {
-        //                 if ($(el).hasClass('g-recaptcha-response') && !$('#captcha_error').length) {
-        //                     $('#captcha').append('<p id="captcha_error" class="textError">{{ 'fill_captcha'|trans({}, 'NTFrontendBundle')}}</p>');
-        //                 }
-        //                 if (!$(el).parent('div.field').hasClass('fieldError')) {
-        //                     $(el).parent('div.field').removeClass('fieldSuccess');
-        //                     $(el).parent('div.field').addClass('fieldError');
-        //                 }
-        //             }
-        //         }
-        //     });
-        //
-        //     $($form.prop('elements')).keyup(formValidator.validateElement);
-        //     $($form.prop('elements')).change(formValidator.validateElement);
-        //});
+        {#
+        $(function() {
+            var $form = $('form[name="contacts"]');
+            var formValidator = $form.formValidator({
+                validCallback: function(el, isValid) {
+                    if (isValid) {
+                        if ($(el).hasClass('g-recaptcha-response')) {
+                            $('#captcha_error').remove();
+                        }
+                        $(el).parent('div.field').removeClass('fieldError');
+                        $(el).parent('div.field').addClass('fieldSuccess');
+                    } else {
+                        if ($(el).hasClass('g-recaptcha-response') && !$('#captcha_error').length) {
+                            $('#captcha').append('<p id="captcha_error" class="textError">{{ 'fill_captcha'|trans({}, 'NTFrontendBundle')}}</p>');
+                        }
+                        if (!$(el).parent('div.field').hasClass('fieldError')) {
+                            $(el).parent('div.field').removeClass('fieldSuccess');
+                            $(el).parent('div.field').addClass('fieldError');
+                        }
+                    }
+                }
+            });
+        
+            $($form.prop('elements')).keyup(formValidator.validateElement);
+            $($form.prop('elements')).change(formValidator.validateElement);
+        });
+        #}
 
         $(function(){
             var haveToScroll ={% if app.session.flashbag.has('error') or app.session.flashbag.has('success') %}true{% else %}false{% endif %};
@@ -276,7 +278,7 @@
                     if (locations[i].pinDescription) {
                         google.maps.event.addListener(marker, 'click', (function(marker, i) {
                             return function() {
-                                infowindow.setContent('<div class="tooltip">'+locations[i].pinDescription+'</div>');
+                                infowindow.setContent(locations[i].pinDescription);
                                 infowindow.open(map, marker);
                             }
                         })(marker, i));

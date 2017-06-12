@@ -105,7 +105,7 @@ class CompanyRepository extends EntityRepository
      * @var offset integer
      * @return array
      */
-    public function getCompaniesListingQuery($companyCategoryId, $locale, $page, $pageSize)
+    public function getCompaniesListingQuery($companyCategoryId, $locale, $page, $pageSize, $locationId = null)
     {
         $qb = $this->getPublishWorkFlowQueryBuilder(null);
         $qb
@@ -113,12 +113,21 @@ class CompanyRepository extends EntityRepository
             ->leftJoin('c.companyCategories', 'cat')
             ->andWhere('t.locale = :locale')
             ->andWhere('t.slug IS NOT NULL');
+            
             if ($companyCategoryId != null) {
                 $qb
                 ->andWhere('cat.id = :companyCategoryId')
                 ->setParameter('companyCategoryId', $companyCategoryId)
                 ;
             }
+
+            if ($locationId != null) {
+                $qb
+                ->andWhere('c.location = :locationId')
+                ->setParameter('locationId', $locationId)
+                ;
+            }
+
         $qb
             ->setParameter('locale', $locale)
             ->orderBy('c.rank', 'ASC')

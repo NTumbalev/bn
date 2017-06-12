@@ -31,6 +31,7 @@ catalogue:
     visited: 'Разгледано'
     times: 'пъти'
     back_to_category: 'Назад към категория'
+    please_select: 'Моля изберете'
 
 view_all: 'Виж всички'
 facebook_footer: 'Facebook page'

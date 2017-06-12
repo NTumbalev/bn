@@ -68,12 +68,16 @@ class CompaniesFrontendController extends Controller
             throw $this->createNotFoundException(sprintf("Company category with slug: %s not found!", $categorySlug));
         }
 
+        $location = $request->query->get('location', null);
+
         $query = $companiesRepo->getCompaniesListingQuery(
-            $category->getId(), 
-            $locale, 
-            $page, 
-            $this->companiesPerPage
+            $category->getId(),
+            $locale,
+            $page,
+            $this->companiesPerPage,
+            $location
         );
+
         $companies = new Paginator($query, true);
         // $companies = $companiesRepo->findAllByCategoryAndLocale($category->getId(), $locale);
 
@@ -86,6 +90,7 @@ class CompaniesFrontendController extends Controller
         return array(
             'content'   => $content,
             'category'  => $category,
+            'location'  => $location,
             'locations' => $locations,
             'companies' => $companies,
         );

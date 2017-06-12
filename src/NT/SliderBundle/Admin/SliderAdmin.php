@@ -144,10 +144,10 @@ class SliderAdmin extends Admin
                         //     ),
                         //     'required' => false
                         // ),
-                        // 'url' => array(
-                        //     'required' => false,
-                        //     'label' => 'form.url',
-                        // ),
+                        'url' => array(
+                            'required' => false,
+                            'label' => 'form.url',
+                        ),
                         // 'buttonTitle' => array(
                         //     'field_type' => 'text',
                         //     'label' => 'form.buttonTitle',
@@ -165,13 +165,13 @@ class SliderAdmin extends Admin
                         //     'required' => false,
                         //     'label' => 'form.alt',
                         // ),
-                        // 'target' => array(
-                        //     'field_type' => 'choice',
-                        //     'label' => 'form.target',
-                        //     'choices' => $this->choices
-                        // ),
+                        'target' => array(
+                            'field_type' => 'choice',
+                            'label' => 'form.target',
+                            'choices' => $this->choices
+                        ),
                     ),
-                        'exclude_fields' => array('description', 'buttonTitle', 'url', 'alt', 'target'),
+                        'exclude_fields' => array('description', 'buttonTitle', 'alt'),
                         'label' => 'form.translations',
                         'translation_domain' => 'NTSliderBundle',
                 ))
