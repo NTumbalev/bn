@@ -19,7 +19,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
  * @ORM\Entity
  * @ORM\Table(name="companies_i18n", uniqueConstraints={@ORM\UniqueConstraint(name="lookup_unique_idx", columns={
  *     "locale", "object_id"
- *   }), @ORM\UniqueConstraint(name="slug_unique_idx", columns={"slug", "locale"})}
+ *   }), @ORM\UniqueConstraint(name="slug_unique_idx", columns={"slug", "object_id", "locale"})}
  * )
  * @Gedmo\Loggable
  *

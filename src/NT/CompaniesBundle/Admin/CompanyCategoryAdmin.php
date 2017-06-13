@@ -132,7 +132,7 @@ class CompanyCategoryAdmin extends Admin
     {
         $list
             ->addIdentifier('title', null, array('label' => 'list.title'))
-            ->add('lft', 'string', array('template' => 'NTCoreBundle:Admin:list_parent.html.twig', 'label' => 'form.parent'))
+            // ->add('lft', 'string', array('template' => 'NTCoreBundle:Admin:list_parent.html.twig', 'label' => 'form.parent'))
             ->add('isHomepage', null, array('label' => 'form.isHomepage', 'editable' => true))
             ->add('publishWorkflow.isActive', null, array('label' => 'list.isActive', 'editable' => true))
             ->add('_action', 'actions', array(
@@ -175,18 +175,14 @@ class CompanyCategoryAdmin extends Admin
 
         $formMapper
             ->with('tab.general', array('tab' => true))
-                ->add('parent', 'nt_tree', array('required' => false, 'label' => 'form.parent',
-                    'class' => 'NT\CompaniesBundle\Entity\CompanyCategory',
-                    'orderFields' => array('root', 'lft'),
-                    'treeLevelField' => 'lvl',
-                    'add_empty' => $this->trans('select.parent'),
-                    'disabled_ids' => $disabled_ids,
-                    'max_level' => 0
-                ))
-                ->add('isHomepage', null, array(
-                    'label' => 'form.isHomepage',
-                    'required' => false
-                ))
+                // ->add('parent', 'nt_tree', array('required' => false, 'label' => 'form.parent',
+                //     'class' => 'NT\CompaniesBundle\Entity\CompanyCategory',
+                //     'orderFields' => array('root', 'lft'),
+                //     'treeLevelField' => 'lvl',
+                //     'add_empty' => $this->trans('select.parent'),
+                //     'disabled_ids' => $disabled_ids,
+                //     'max_level' => 0
+                // ))
                 ->add('translations', 'a2lix_translations', array(
                     'fields' => array(
                         'slug' => array(
@@ -198,20 +194,20 @@ class CompanyCategoryAdmin extends Admin
                             'field_type' => 'text',
                             'label' => 'form.title'
                         ),
-                        'simpleDescription' => array(
-                            'field_type' => 'textarea',
-                            'label' => 'form.simpleDescription',
-                            'required' => false
-                        ),
-                        'description' => array(
-                            'field_type' => 'textarea',
-                            'label' => 'form.description',
-                            'required' => false,
-                            'attr' => array(
-                                'data-theme' => 'bbcode',
-                                'class' => 'tinymce'
-                            )
-                        ),
+                        // 'simpleDescription' => array(
+                        //     'field_type' => 'textarea',
+                        //     'label' => 'form.simpleDescription',
+                        //     'required' => false
+                        // ),
+                        // 'description' => array(
+                        //     'field_type' => 'textarea',
+                        //     'label' => 'form.description',
+                        //     'required' => false,
+                        //     'attr' => array(
+                        //         'data-theme' => 'bbcode',
+                        //         'class' => 'tinymce'
+                        //     )
+                        // ),
                         'image' => array(
                             'label' => 'form.image',
                             'required' => false,
@@ -223,8 +219,13 @@ class CompanyCategoryAdmin extends Admin
                             'translation_domain' => 'NTCompaniesBundle',
                         ),
                     ),
+                    'exclude_fields' => array('simpleDescription', 'description'),
                     'translation_domain' => 'NTCompaniesBundle',
                     'label' => 'form.translations',
+                ))
+                ->add('isHomepage', null, array(
+                    'label' => 'form.isHomepage',
+                    'required' => false
                 ))
                 ->end()
             ->end()

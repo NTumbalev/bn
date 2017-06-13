@@ -67,7 +67,7 @@ class CompanyAddress implements PublishWorkflowInterface
     protected $phone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="addresses")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="addresses", cascade={"persist"})
      */
     protected $company;
 
@@ -156,7 +156,7 @@ class CompanyAddress implements PublishWorkflowInterface
 
     public function __toString()
     {
-        return $this->getId() ?: 'n/a';
+        return (string)$this->getId() ?: 'n/a';
     }
 
     /**

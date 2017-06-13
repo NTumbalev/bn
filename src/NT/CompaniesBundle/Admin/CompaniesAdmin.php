@@ -112,7 +112,8 @@ class CompaniesAdmin extends Admin
     {
         $datagridMapper
             ->add('title', null, array('label' => 'form.title'))
-            ->add('companyCategories', null, array('label' => 'Категории'));
+            ->add('companyCategories', null, array('label' => 'Категории'))
+            ->add('location', null, array('label' => 'form.location'))
         ;
     }
 

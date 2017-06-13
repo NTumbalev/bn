@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+		strong, a { color: #2d8aca; }
+		a:hover { text-decoration: none; }
+	</style>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif; background: #ededed; text-align: center; color: #444; font-size: 15px;">
+	<table cellpadding="20" style="background: #fff; width:600px; text-align: left; margin: 20px auto; border: 1px solid #e6e6e6; border-bottom: 2px solid #e1e1e1; border-collapse: collapse;">
+		<tr>
+			<th colspan="2" style="text-align: center; border-bottom: 1px solid #ededed;">
+				<img src="{{ app.request.getSchemeAndHttpHost() }}/images/logo.png" alt="Logo">
+			</th>
+		</tr>
+		<tr>
+			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+				<strong>{{ 'publish_company.title'|trans({}, "NTFrontendBundle")}}</strong>
+			</td>
+			<td style="border-bottom: 1px solid #e6e6e6;">{{data.title}}</td>
+		</tr>
+		<tr>
+			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+				<strong>{{ 'publish_company.category'|trans({}, "NTFrontendBundle")}}</strong>
+			</td>
+			<td style="border-bottom: 1px solid #e6e6e6;">{{data.companyCategories[0].title}}</td>
+		</tr>
+		<tr>
+			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+				<strong>{{ 'publish_company.contactPerson'|trans({}, "NTFrontendBundle")}}</strong>
+			</td>
+			<td style="border-bottom: 1px solid #e6e6e6;">{{data.contactPerson}}</td>
+		</tr>
+		<tr>
+			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+				<strong>{{ 'publish_company.address'|trans({}, "NTFrontendBundle")}}</strong>
+			</td>
+			<td style="border-bottom: 1px solid #e6e6e6;">{{allParams.address}}</td>
+		</tr>
+		<tr>
+			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+				<strong>{{ 'publish_company.location'|trans({}, "NTFrontendBundle")}}</strong>
+			</td>
+			<td style="border-bottom: 1px solid #e6e6e6;">{{data.location}}</td>
+		</tr>
+		<tr>
+			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+				<strong>{{ 'publish_company.email'|trans({}, "NTFrontendBundle")}}</strong>
+			</td>
+			<td style="border-bottom: 1px solid #e6e6e6;">{{data.email}}</td>
+		</tr>
+
+		{% if data.webpage is defined and data.webpage is not null and data.webpage|length %}
+			<tr>
+				<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+					<strong>{{ 'publish_company.webpage'|trans({}, "NTFrontendBundle")}}</strong>
+				</td>
+				<td style="border-bottom: 1px solid #e6e6e6;">{{data.webpage}}</td>
+			</tr>
+		{% endif %}
+
+		{% if data.metaData.keywords is defined and data.metaData.keywords is not null and data.metaData.keywords|length %}
+			<tr>
+				<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+					<strong>{{ 'publish_company.keywords'|trans({}, "NTFrontendBundle")}}</strong>
+				</td>
+				<td style="border-bottom: 1px solid #e6e6e6;">{{data.metaData.keywords}}</td>
+			</tr>
+		{% endif %}
+
+		{% if allParams.message is defined and allParams.message is not null and allParams.message|length %}
+			<tr>
+				<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+					<strong>{{ 'publish_company.message'|trans({}, "NTFrontendBundle")}}</strong>
+				</td>
+				<td style="border-bottom: 1px solid #e6e6e6;">{{allParams.message}}</td>
+			</tr>
+		{% endif %}
+	</table>
+	<div style="width: 600px; text-align: center; margin: 0 auto;">
+		<p style="font-size: 13px; font-style: italic; ">
+			{{'message_generated_from'|trans({}, 'NTFrontendBundle')}} <a href="{{ app.request.getSchemeAndHttpHost() }}">{{ app.request.getSchemeAndHttpHost() }}</a>.
+		</p>
+		<p style="font-size: 13px; font-style: italic; ">
+			{{'developed_by'|trans({}, 'NTFrontendBundle')}} <a href="mailto:ntumbalev@gmail.com?Subject=Запитване за сайт" target="blank">Nikolay Tumbalev</a>
+		</p>
+	</div>
+</body>
+</html>

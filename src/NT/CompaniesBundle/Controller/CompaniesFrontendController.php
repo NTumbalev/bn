@@ -180,19 +180,20 @@ class CompaniesFrontendController extends Controller
     }
 
     /**
-     * @Route("/publish/company", name="add_company")
-     * @Template("NTCompaniesBundle:Frontend:add_company.html.twig")
+     * @Route("/publish/company", name="publish_company")
+     * @Template("NTCompaniesBundle:Frontend:publish_company.html.twig")
      */
-    public function addCompanyAction(Request $request)
+    public function publishCompanyAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $translator = $this->get('translator');
         $settings = $this->get('nt.settings_manager');
         
         $action = array(
-            'action' => $this->generateUrl('contacts', array(), true)
+            'action' => $this->generateUrl('publish_company', array(), true)
         );
-        $form = $this->createForm('contacts', null, $action);
+
+        $form = $this->createForm('publish_company', new \NT\CompaniesBundle\Entity\Company(), $action);
 
         $content = $em->getRepository('NTContentBundle:Content')->findOneById(6);
         if (!$content) {
@@ -205,6 +206,36 @@ class CompaniesFrontendController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
+                $allParams = $request->request->all()['publish_company'];
+
+                    // echo "<pre>";var_dump($allParams, array_key_exists('address', $allParams), !empty($allParams['address']), $data);echo "</pre>";exit;
+                if (!empty($allParams['address'])) {
+                    $address = new \NT\CompaniesBundle\Entity\CompanyAddress();
+                    $address->setAddress($allParams['address']);
+                    $em->persist($address);
+                    
+                    $data->addAddress($address);
+                }
+
+                if (!empty($allParams['keywords'])) {
+                    $metaData = new \NT\SEOBundle\Entity\MetaData();
+                    $metaData->setKeywords($allParams['keywords']);
+                    $metaData->setTitle($allParams['title']);
+                    $em->persist($metaData);
+
+                    $data->setMetaData($metaData);
+                }
+
+                $publishWorkflow = new \NT\PublishWorkflowBundle\Entity\PublishWorkflow();
+                $publishWorkflow->setIsActive(false);
+                $publishWorkflow->setIsHidden(false);
+
+                $data->setPublishWorkflow($publishWorkflow);
+
+                // echo "<pre>";var_dump();echo "</pre>";exit;
+                $data->setCompanyCategories(new \Doctrine\Common\Collections\ArrayCollection(array($data->getCompanyCategories())));
+
+                $em->flush();
 
                 $adminMessage = \Swift_Message::newInstance()
                     ->setSubject($translator->trans('publish_company.subject', array(), 'NTFrontendBundle'))
@@ -213,8 +244,8 @@ class CompaniesFrontendController extends Controller
                     ->setBody(
                         $this->renderView(
                             'NTCompaniesBundle:Email:publish_company_mail.html.twig', array(
-                                'data' => $data,
-                                'item' => $item,
+                                'data'      => $data,
+                                'allParams' => $allParams
                             )
                         ),
                         'text/html'
@@ -225,7 +256,7 @@ class CompaniesFrontendController extends Controller
                 $mailer->send($adminMessage);
 
                 $this->get('session')->getFlashBag()->add('success', 'Your message has been sent.');
-                return $this->redirect($this->generateUrl('contact_success'));
+                return $this->redirect($this->generateUrl('publish_company'));
             } else {
                 $this->get('session')->getFlashBag()->add('error', 'Your message has not been sent.');
             }
@@ -238,8 +269,8 @@ class CompaniesFrontendController extends Controller
         $this->get('nt.og_tags')->loadOgTags($content, array());
 
         return array(
-            'form'        => $form->createView(),
-            'content'     => $content
+            'form'    => $form->createView(),
+            'content' => $content
         );
     }
 
