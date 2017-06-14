@@ -48,6 +48,7 @@ class BannersPagesAdmin extends Admin
             ->addIdentifier('id', null, array('label' => 'form.id'))
             ->addIdentifier('banner', null, array('label' => 'form.banner'))
             ->addIdentifier('page', null, array('label' => 'form.page'))
+            ->addIdentifier('banner.location', null, array('label' => 'form.bannerLocation'))
             ->add('position', null, array('label' => 'form.position'))
             ->add('isMain', null, array('label' => 'form.isMain'))
             ->add('_action', 'actions', array(

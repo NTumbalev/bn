@@ -12,8 +12,20 @@
     </a>
 
     <div class="row">
+        <!-- Banners -->
+        <div class="col-lg-2 mediumBanner">
+            {{ 
+                render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
+                    'position': 'left',
+                    'isMain': false,
+                    'pageId': category.id,
+                    'locationId': location
+                }))
+            }}
+        </div>
+
         <!-- Companies -->
-        <div class="col-lg-10">
+        <div class="col-lg-8">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -61,8 +73,9 @@
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'right',
                     'isMain': false,
-                    'pageId': category.id
-                })) 
+                    'pageId': category.id,
+                    'locationId': location
+                }))
             }}
         </div>
 

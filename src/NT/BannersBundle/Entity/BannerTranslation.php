@@ -31,6 +31,21 @@ class BannerTranslation extends AbstractTranslation
     protected $image;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Versioned
+     * @ORM\Column(name="url", type="text", nullable=true)
+     */
+    protected $url;
+
+    /**
+     * @var string
+     * @Gedmo\Versioned
+     * @ORM\Column(name="target", type="string", length=250, options={"default" = "_self"}), nullable=true)
+     */
+    protected $target;
+
+    /**
     * Get image
     * @return
     */
@@ -46,6 +61,54 @@ class BannerTranslation extends AbstractTranslation
     public function setImage($image)
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Gets the value of url.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Sets the value of url.
+     *
+     * @param string $url the url
+     *
+     * @return self
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of target.
+     *
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * Sets the value of target.
+     *
+     * @param string $target the target
+     *
+     * @return self
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+
         return $this;
     }
 }

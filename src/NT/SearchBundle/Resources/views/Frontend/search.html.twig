@@ -8,10 +8,10 @@
                 <form role="form" method="GET" action="{{ path('search') }}">
                     <div class="col-md-7" style="padding-left: 0px">
                         <div class="form-group">
-                            <label class="sr-only" for="search">
+                            <label class="sr-only" for="q">
                                 {{ 'search.label'|trans({}, 'NTFrontendBundle')}}
                             </label>
-                            <input type="text" class="form-control" name="search" id="search" placeholder="{{ 'search.placeholder'|trans({}, 'NTFrontendBundle')}}">
+                            <input type="text" class="form-control" name="q" id="q" placeholder="{{ 'search.placeholder'|trans({}, 'NTFrontendBundle')}}">
                         </div>
                     </div>
                     <div class="col-md-4" style="padding-left: 0px">

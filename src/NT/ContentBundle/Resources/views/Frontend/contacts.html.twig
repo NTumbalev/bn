@@ -53,10 +53,10 @@
                 </div>
             {% endif %}
 
-            <div class="form-group">
+            <div class="form-group{% if form.name.vars.errors|length %} has-error{% endif %}">
                 {{ form_label(form.name) }}
                 <div class="col-md-7 inputGroupContainer">
-                    <div class="input-group{% if form.name.vars.errors|length %} error{% endif %}">
+                    <div class="input-group">
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-user"></i>
                         </span>
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group{% if form.family.vars.errors|length %} has-error{% endif %}">
                 {{ form_label(form.family) }}
                 <div class="col-md-7 inputGroupContainer">
                     <div class="input-group">
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group{% if form.email.vars.errors|length %} has-error{% endif %}">
                 {{ form_label(form.email) }}
                 <div class="col-md-7 inputGroupContainer">
                     <div class="input-group">
@@ -89,7 +89,7 @@
                 </div>
             </div>
     
-            <div class="form-group">
+            <div class="form-group{% if form.phone.vars.errors|length %} has-error{% endif %}">
                 {{ form_label(form.phone) }}
                 <div class="col-md-7 inputGroupContainer">
                     <div class="input-group">
@@ -101,7 +101,7 @@
                 </div>
             </div>
                 
-            <div class="form-group">
+            <div class="form-group{% if form.address.vars.errors|length %} has-error{% endif %}">
                 {{ form_label(form.address) }}
                 <div class="col-md-7 inputGroupContainer">
                     <div class="input-group">
@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group{% if form.city.vars.errors|length %} has-error{% endif %}">
                 {{ form_label(form.city) }}
                 <div class="col-md-7 inputGroupContainer">
                     <div class="input-group">
@@ -125,7 +125,7 @@
                 </div>
             </div>
               
-            <div class="form-group">
+            <div class="form-group{% if form.message.vars.errors|length %} has-error{% endif %}">
                 {{ form_label(form.message) }}
                 <div class="col-md-7 inputGroupContainer">
                     <div class="input-group">

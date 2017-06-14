@@ -16,5 +16,8 @@ form:
   banner: 'Банер'
   page: 'Категория'
   isMain: 'На листинг с категории?'
+  location: 'Локация'
+  bannerLocation: 'Локация'
+  target: 'Отвори'
 
 select.page: 'Моля изберете'

@@ -34,7 +34,7 @@ class SearchFrontendController extends Controller
      */
     public function searchResultAction(Request $request)
     {
-        $search = $request->query->get('search');
+        $search = $request->query->get('q');
         $location = $request->query->get('location');
         
         $locale = $request->getLocale();
@@ -46,26 +46,28 @@ class SearchFrontendController extends Controller
         }
 
         $contentPages = array();
+        $companies = array();
+        $companyCategories = array();
+        $totalResults = 0;
 
-        $bundles = $this->container->getParameter('kernel.bundles');
-        if (array_key_exists('NTContentBundle', $bundles)) {
-            $contentPages = $this->search($em, 'NTContentBundle:Content', 'NTContentBundle:ContentTranslation', $search, $locale);
+        if (!empty($search) || !empty($location)) {
+            $bundles = $this->container->getParameter('kernel.bundles');
+            if (array_key_exists('NTContentBundle', $bundles)) {
+                $contentPages = $this->search($em, 'NTContentBundle:Content', 'NTContentBundle:ContentTranslation', $search, $locale);
+            }
+            
+            $companies = $em->getRepository('NTCompaniesBundle:Company')->doSearch($search, $location);
+            $companyCategories = $em->getRepository('NTCompaniesBundle:CompanyCategory')->doSearch($search, $location);
+
+            $results = array_merge_recursive(
+                $contentPages,
+                $companies,
+                $companyCategories
+            );
+
+            $totalResults = count($results);
         }
 
-        // if (array_key_exists('NTCompaniesBundle', $bundles)) {
-        //     $companyCategories = $this->search($em, 'NTCompaniesBundle:CompanyCategory', 'NTCompaniesBundle:CompanyCategoryTranslation', $search, $locale, $location);
-        // }
-        
-        $companies = $em->getRepository('NTCompaniesBundle:Company')->doSearch($search, $location);
-        $companyCategories = $em->getRepository('NTCompaniesBundle:CompanyCategory')->doSearch($search, $location);
-
-        $results = array_merge_recursive(
-            $contentPages,
-            $companies,
-            $companyCategories
-        );
-
-        $totalResults = count($results);
         $breadCrumbs = array($contentObj->getTitle() => null);
 
         $dispatcher = $this->get('event_dispatcher');

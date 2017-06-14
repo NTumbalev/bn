@@ -29,9 +29,32 @@ class Banner implements PublishWorkflowInterface
     protected $title;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Translatable
+     * @Gedmo\Versioned
+     * @ORM\Column(name="url", type="text", nullable=true)
+     */
+    protected $url;
+
+    /**
+     * @var string
+     * @Gedmo\Versioned
+     * @Gedmo\Translatable
+     * @ORM\Column(name="target", type="string", length=250, options={"default" = "_self"}), nullable=true)
+     */
+    protected $target;
+    
+    /**
      * @ORM\OneToMany(targetEntity="BannersPages", mappedBy="banner")
      */
     protected $bannersPages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\NT\LocationsBundle\Entity\Location")
+     */
+    protected $location;
+
 
     /**
      * @Gedmo\Versioned
@@ -183,6 +206,78 @@ class Banner implements PublishWorkflowInterface
     public function setBannersPages($bannersPages)
     {
         $this->bannersPages = $bannersPages;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of location.
+     *
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Sets the value of location.
+     *
+     * @param mixed $location the location
+     *
+     * @return self
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of url.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Sets the value of url.
+     *
+     * @param string $url the url
+     *
+     * @return self
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of target.
+     *
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * Sets the value of target.
+     *
+     * @param string $target the target
+     *
+     * @return self
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
 
         return $this;
     }

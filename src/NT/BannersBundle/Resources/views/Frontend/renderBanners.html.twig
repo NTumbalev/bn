@@ -1,7 +1,7 @@
 {% for banner in banners %}
     {% if banner.banner is defined and banner.banner is not null and banner.banner|length %}
         {% if banner.banner.translations[app.request.locale].image is defined and banner.banner.translations[app.request.locale].image is not null and banner.banner.translations[app.request.locale].image|length %}
-            <a href="productView.php">
+            <a href="{{ banner.banner.url }}" target="{{ banner.banner.target }}">
                 <img src="{% path banner.banner.translations[app.request.locale].image, 'reference' %}">
             </a>
         {% endif %}

@@ -39,7 +39,7 @@
             {% endif %}
 
             <div class="col-lg-6">
-                <div class="form-group">
+                <div class="form-group{% if form.title.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.title) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{% if form.phone.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.phone) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{% if form.keywords.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.keywords) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{% if form.contactPerson.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.contactPerson) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">
@@ -90,7 +90,7 @@
             
             <!-- SECOND COLUMN -->
             <div class="col-lg-6">
-                <div class="form-group">
+                <div class="form-group{% if form.address.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.address) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">
@@ -102,7 +102,7 @@
                     </div>
                 </div>
 
-                <div class="form-group"> 
+                <div class="form-group{% if form.location.vars.errors|length %} has-error{% endif %}"> 
                     {{ form_label(form.location) }}
                     <div class="col-md-12 selectContainer">
                         <div class="input-group">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{% if form.webpage.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.webpage) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group{% if form.email.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.email) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">
@@ -139,7 +139,7 @@
             </div>
 
             <div class="col-lg-12">
-                <div class="form-group"> 
+                <div class="form-group{% if form.companyCategories.vars.errors|length %} has-error{% endif %}"> 
                     {{ form_label(form.companyCategories) }}
                     <div class="col-md-12 selectContainer">
                         <div class="input-group">
@@ -151,7 +151,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{% if form.message.vars.errors|length %} has-error{% endif %}">
                     {{ form_label(form.message) }}
                     <div class="col-md-12 inputGroupContainer">
                         <div class="input-group">

@@ -79,6 +79,10 @@ class BannersAdmin extends Admin
                 ->add('title', null, array(
                     'label' => 'form.title'
                 ))
+                ->add('location', null, array(
+                    'label' => 'form.location',
+                    'required' => false
+                ))
                 ->add('translations', 'a2lix_translations', array(
                     'fields' => array(
                         'image' => array(
@@ -89,7 +93,21 @@ class BannersAdmin extends Admin
                             'sonata_field_description' => $ffds['image'],
                             'class' => $imageAdmin->getClass(),
                             'translation_domain' => 'NTBannersBundle',
-                        )
+                        ),
+                        'url' => array(
+                            'field_type' => 'text',
+                            'label' => 'form.url',
+                            'translation_domain' => 'NTAccentsBundle',
+                            'required' => false,
+                        ),
+                        'target' => array(
+                            'field_type' => 'choice',
+                            'label' => 'form.target',
+                            'choices' => array(
+                                '_self' => 'В същия прозорец',
+                                '_blank' => 'В нов прозорец'
+                            )
+                        ),
                     ),
                     'label' => 'form.translations',
                     'translation_domain' => 'NTBannersBundle'

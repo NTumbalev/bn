@@ -12,14 +12,17 @@ class BannersFrontendController extends Controller
     /**
      * @Template("NTBannersBundle:Frontend:renderBanners.html.twig")
      */
-    public function renderBannersAction(Request $request, $position, $isMain, $pageId = null)
+    public function renderBannersAction(Request $request, $position, $isMain, $pageId = null, $locationId = null, $offset = null, $limit = null)
     {
         $em = $this->getDoctrine()->getManager();
         $banners = $em->getRepository('NTBannersBundle:BannersPages')->findAllBannersByCriteria(
-            $request->getLocale(), 
+            $request->getLocale(),
             $position,
-            $isMain, 
-            $pageId
+            $isMain,
+            $pageId,
+            $locationId,
+            $offset,
+            $limit
         );
 
         return array(

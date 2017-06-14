@@ -14,7 +14,7 @@ class BannersPagesRepository extends EntityRepository
      * @var offset integer
      * @return array
      */
-    public function findAllBannersByCriteria($locale, $position, $isMain, $pageId, $limit = null, $offset = null)
+    public function findAllBannersByCriteria($locale, $position, $isMain, $pageId, $locationId, $offset = null, $limit = null)
     {
         $qb = $this->createQueryBuilder('c')
             ->leftJoin('c.banner', 'b')
@@ -41,10 +41,18 @@ class BannersPagesRepository extends EntityRepository
                 ->andWhere('c.page = :pageId')
                 ->setParameter('pageId', $pageId);
             } else {
+                if ($isMain != null) {
+                    $qb
+                    ->andWhere('c.isMain = :isMain')
+                    ->setParameter('isMain', $isMain)
+                    ;
+                }
+            }
+
+            if ($locationId != null) {
                 $qb
-                ->andWhere('c.isMain = :isMain')
-                ->setParameter('isMain', $isMain)
-                ;
+                ->andWhere('b.location = :locationId')
+                ->setParameter('locationId', $locationId);
             }
 
             $qb
@@ -55,7 +63,6 @@ class BannersPagesRepository extends EntityRepository
             ->setFirstResult($offset)
             ->addOrderBy('c.rank', 'ASC');
         $query = $qb->getQuery();
-        // echo "<pre>"; var_dump($query); echo "</pre>"; exit;
 
         return $query->getResult();
     }

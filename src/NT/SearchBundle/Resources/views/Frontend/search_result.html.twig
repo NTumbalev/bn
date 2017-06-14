@@ -59,14 +59,16 @@
         </div>
 
         <div class="col-lg-3 smallBanner">
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
-            <a href="productView.php"><img src="images/banners/small/1.jpg"></a>
+            {{ 
+                render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
+                    'position': 'right',
+                    'isMain': null,
+                    'pageId': null,
+                    'locationId': null,
+                    'offset': 0,
+                    'limit': 4
+                }))
+            }}
         </div>
     </div>
     <!-- /.row -->
@@ -74,12 +76,6 @@
     <hr />
 
     <div class="row">
-        <div class="col-lg-12">
-            <a href="productView.php">
-                <img class="img-responsive" src="images/banners/large/1.jpg">
-            </a>
-        </div>
-
         {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
     </div>
 {% endblock %}
