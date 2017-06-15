@@ -123,7 +123,8 @@
                                     {% if address.phone is defined and address.phone is not null and address.phone|length %}
                                         <p>
                                             <span class="glyphicon glyphicon-phone"></span>
-                                            <a class="clearHref callMe" href="tel:{{ address.phone }}">
+                                            <span class="mobileHidden">{{ address.phone }}</span>
+                                            <a class="clearHref desktopHiddenIB" href="tel:{{ address.phone }}">
                                                 {{ 'catalogue.call'|trans({}, 'NTFrontendBundle')}}
                                             </a>
                                         </p>

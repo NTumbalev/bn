@@ -146,6 +146,7 @@ nav .navCustom {
 }
 
 .desktopHidden { display: none; }
+.desktopHiddenIB { display: none; }
 
 .gallery-thumbnails .slick-arrow { width: 30px; height: 30px; padding: 0px; background: #fff; border: 1px solid #e4e4e4; position: absolute; z-index: 30; bottom: 0px; font-size: 1px; text-indent: -999px; -webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear; }
 .gallery-thumbnails .slick-arrow.slick-prev { left: 0px; top: 30%;}
@@ -217,6 +218,7 @@ ul.nav li.first { text-align: center; }
 
     .mobileHidden { display: none; }
     .desktopHidden { display: block; }
+    .desktopHiddenIB { display: inline-block; }
     .categoryAccent a > img { display: none; }
 
     .menuWrapper {
