@@ -16,10 +16,10 @@ use NT\PublishWorkflowBundle\PublishWorkflowInterface;
 class BannersPages
 {
     public static $positions = array(
-        'left' => 'Ляво',
-        'right' => 'Дясно',
-        'top' => 'Горе'
-
+        'left'     => 'Ляво',
+        'right'    => 'Дясно',
+        'top'      => 'Горе',
+        'homepage' => 'Начална страница',
     );
 
     /** @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer") */

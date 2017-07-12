@@ -325,4 +325,7 @@ ul.nav li.first { text-align: center; }
     }
 
     .navbar-brand > img {max-width: 260px;}
+
+    .banner {margin-top: 30px}
+    .banner img {width: 98%}
 }

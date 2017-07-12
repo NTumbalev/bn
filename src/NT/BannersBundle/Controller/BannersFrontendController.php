@@ -14,19 +14,53 @@ class BannersFrontendController extends Controller
      */
     public function renderBannersAction(Request $request, $position, $isMain, $pageId = null, $locationId = null, $offset = null, $limit = null)
     {
+        return array(
+            'banners' => $this->getBanners(
+                $request->getLocale(),
+                $position,
+                $isMain,
+                $pageId,
+                $locationId,
+                $offset,
+                $limit
+            )
+        );
+    }
+
+    /**
+     * @Template("NTBannersBundle:Frontend:renderBanners.html.twig")
+     */
+    public function renderHomepageBannerAction(Request $request)
+    {
+        $banners = $this->getBanners($request->getLocale(), 'homepage', false);
+
+        $number = rand(0, count($banners) - 1);
+
+        return array(
+            'banners' => [count($banners) > 0 ? $banners[$number] : []],
+        );
+    }
+
+    private function getBanners(
+        $locale,
+        $position, 
+        $isMain, 
+        $pageId = null, 
+        $locationId = null, 
+        $offset = null, 
+        $limit = null
+    )
+    {
         $em = $this->getDoctrine()->getManager();
-        $banners = $em->getRepository('NTBannersBundle:BannersPages')->findAllBannersByCriteria(
-            $request->getLocale(),
+        
+        return $em->getRepository('NTBannersBundle:BannersPages')->findAllBannersByCriteria(
+            $locale,
             $position,
             $isMain,
             $pageId,
             $locationId,
             $offset,
             $limit
-        );
-
-        return array(
-            'banners' => $banners
-        );
+        );   
     }
 }
