@@ -33,6 +33,7 @@ class BannersPages
 
     /**
      * @ORM\ManyToOne(targetEntity="Banner", inversedBy="bannersPages")
+     * @ORM\JoinColumn(name="banner_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $banner;
 
