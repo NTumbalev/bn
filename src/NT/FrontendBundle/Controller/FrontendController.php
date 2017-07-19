@@ -179,7 +179,7 @@ class FrontendController extends Controller
     public function custom404Action()
     {
         $em = $this->getDoctrine()->getManager();
-        $content = $em->getRepository("NTContentBundle:Content")->findOneById(5);
+        $content = $em->getRepository("NTContentBundle:Content")->findOneById(11);
 
         if (!$content) {
             throw $this->createNotFoundException("Page not found");
