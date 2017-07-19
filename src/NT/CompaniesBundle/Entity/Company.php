@@ -160,6 +160,7 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="NT\LocationsBundle\Entity\Location", inversedBy="companies")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $location;
 
