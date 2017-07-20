@@ -2,25 +2,27 @@
 
 {% block main %}
     {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
-    
-    <div class="row">
+
+    <div class="row mobileHidden">
         <div class="col-lg-12">
-            {{ 
+            {{
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'top',
                     'isMain': true,
-                })) 
+                }))
             }}
         </div>
     </div>
 
-    <hr/>
+    <div class="mobileHidden">
+        <hr/>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">
             {{ 'catalogue.letter_index'|trans({}, 'NTFrontendBundle')}}
             {% for letter,category in companiesCategories %}
-                <a href="#{{letter}}">{{letter}}</a>{% if not loop.last %}, {% endif %}    
+                <a href="#{{letter}}">{{letter}}</a>{% if not loop.last %}, {% endif %}
             {% endfor %}
             {# <a href="#Б">Б</a>,
             <a href="#В">В</a>,
@@ -55,11 +57,11 @@
 
     <div class="row">
         <div class="col-lg-2 mediumBanner">
-            {{ 
+            {{
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'left',
                     'isMain': true,
-                })) 
+                }))
             }}
         </div>
         <div class="col-lg-8">
@@ -85,7 +87,7 @@
             </table>
         </div>
         <div class="col-lg-2 mediumBanner">
-            {{ 
+            {{
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'right',
                     'isMain': true,

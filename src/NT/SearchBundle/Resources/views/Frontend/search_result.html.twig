@@ -2,37 +2,39 @@
 
 {% block main %}
     {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
-    
+
     <div class="row">
         <div class="col-lg-9">
             {% if totalResults > 0 %}
                 {% if companies is defined and companies is not null and companies|length %}
                     {% for company in companies %}
                         <div class="result">
-                            <h3>{{ company.title }}</h3>
-                            {% if company.description is defined and company.description is not null and company.description|length %}
-                                {{ company.description|raw }} 
-                            {% endif %}
+                            <h3>
+                                <a href="{{ path('company_without_category', {'slug':company.slug}) }}">
+                                    {{ company.title }}
+                                </a>
+                            </h3>
 
-                            <a href="{{ path('company_without_category', {'slug':company.slug}) }}">
-                                {{ 'search.see_more'|trans({}, 'NTFrontendBundle')}}
-                            </a>
+                            {% if company.description is defined and company.description is not null and company.description|length %}
+                                {{ company.description|raw }}
+                            {% endif %}
                         </div>
                         <hr />
                     {% endfor %}
                 {% endif %}
-                
+
                 {% if companyCategories is defined and companyCategories is not null and companyCategories|length %}
                     {% for companyCategory in companyCategories %}
                         <div class="result">
-                            <h3>{{ companyCategory.title }}</h3>
-                            {% if companyCategory.description is defined and companyCategory.description is not null and companyCategory.description|length %}
-                                {{ companyCategory.description|raw }} 
-                            {% endif %}
+                            <h3>
+                                <a href="{{ path('companies_list', {'categorySlug':companyCategory.slug}) }}">
+                                    {{ companyCategory.title }}
+                                </a>
+                            </h3>
 
-                            <a href="{{ path('companies_list', {'categorySlug':companyCategory.slug}) }}">
-                                {{ 'search.see_more'|trans({}, 'NTFrontendBundle')}}
-                            </a>
+                            {% if companyCategory.description is defined and companyCategory.description is not null and companyCategory.description|length %}
+                                {{ companyCategory.description|raw }}
+                            {% endif %}
                         </div>
                         <hr />
                     {% endfor %}
@@ -41,9 +43,14 @@
                 {% if contentPages is defined and contentPages is not null and contentPages|length %}
                     {% for contentPage in contentPages %}
                         <div class="result">
-                            <h3>{{ contentPage.title }}</h3>
+                            <h3>
+                                <a href="{{ path('content', {'slug':contentPage.slug}) }}">
+                                    {{ contentPage.title }}
+                                </a>
+                            </h3>
+
                             {% if contentPage.description is defined and contentPage.description is not null and contentPage.description|length %}
-                                {{ contentPage.description|slice(0, 300)|raw }} ...  
+                                {{ contentPage.description|slice(0, 300)|raw }} ...
                             {% endif %}
 
                             <a href="{{ path('content', {'slug':contentPage.slug}) }}">
@@ -59,7 +66,7 @@
         </div>
 
         <div class="col-lg-3 smallBanner">
-            {{ 
+            {{
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'right',
                     'isMain': null,
