@@ -4,7 +4,7 @@
 <footer>
     <div class="row">
         <div class="col-lg-12">
-            <p>Copyright &copy; Бизнес навигатор 2017</p>
+            <p>{{ 'all_rights_reserved'|trans({}, 'NTFrontendBundle')}}</p>
         </div>
     </div>
 </footer>
@@ -12,9 +12,9 @@
 <script type="text/javascript">
     $(document).ready(function(){
         {% if 'NTSliderBundle'|bundle_exists %}
-            
+
         {% endif %}
-        
+
         $(window).scroll(function () {
             if ($(this).scrollTop() != 0) {
                 $('#toTop').fadeIn();
