@@ -1,21 +1,19 @@
 <?php
 namespace NT\SEOBundle\Event;
 
-use \Stneik\SEOBundle\SeoAwareInterface;
+use \NT\SEOBundle\SeoAwareInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 
 /**
  * SeoEvent. Used to dispatch object to SeoListener.
- *
- * @author Hristo Hristov <hristo.hristov@stneik.bg>
  */
 class SeoEvent extends Event
 {
     /**
      * Object which implements SeoAwareInterface
      *
-     * @var Stneik\SEOBundle\SeoAwareInterface
+     * @var NT\SEOBundle\SeoAwareInterface
      */
     private $data;
 
@@ -52,7 +50,7 @@ class SeoEvent extends Event
     /**
      * The Constructor.
      *
-     * @param Stneik\SEOBundle\SeoAwareInterface $data
+     * @param NT\SEOBundle\SeoAwareInterface $data
      */
     public function __construct($data = null, $suffix = true)
     {
@@ -94,7 +92,7 @@ class SeoEvent extends Event
     /**
      * Gets the value of data.
      *
-     * @return Stneik\SEOBundle\SeoAwareInterface
+     * @return NT\SEOBundle\SeoAwareInterface
      */
     public function getData()
     {

@@ -151,10 +151,14 @@ class CompaniesFrontendController extends Controller
 
         $dispatcher = $this->get('event_dispatcher');
         $event = new \NT\SEOBundle\Event\SeoEvent($company);
+        if ($company->getLocation() != null) {
+            $event->setTitle($event->getTitle() . ' - ' . $company->getLocation()->getTitle());
+        }
+
         $dispatcher->dispatch('nt.seo', $event);
 
         $params = $this->getImageUrlFromGallery($company->getTranslations()->get($locale)->getGallery());
-        $this->generateSeoAndOgTags($company, $params);
+        $this->generateOgTags($company, $params);
 
         $this->addVisit($company);
 
