@@ -142,7 +142,8 @@ class CompanyRepository extends EntityRepository
         $qb = $this->getPublishWorkFlowQueryBuilder(null);
         $qb
             ->leftJoin('c.translations', 't')
-            ->andWhere("t.title LIKE '%$search%'");
+            ->andWhere("t.title LIKE '%$search%'")
+            ->orWhere("t.description LIKE '%$search%'");
 
         if (!empty($location)) {
             $qb
