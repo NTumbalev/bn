@@ -1,0 +1,9 @@
+{% extends base_template %}
+
+{% block content %}
+    <h1>Промяна посещенията на всички компании</h1>
+    <form action="{{ admin.generateUrl('update_visits') }}" method="POST">
+        <input type="text" name="visits" id="visits" placeholder="Въведете число." />
+        <button type="submit">Запази</button>
+    </form>
+{% endblock %}

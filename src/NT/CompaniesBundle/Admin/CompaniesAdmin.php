@@ -77,6 +77,11 @@ class CompaniesAdmin extends Admin
                 );
             }
         }
+        
+        $menu->addChild(
+            "Промяна на посещенията",
+            array('uri' => $this->generateUrl('update_visits'))
+        );
     }
 
     /**
@@ -103,6 +108,7 @@ class CompaniesAdmin extends Admin
         // $collection->add('history_view_revision', $this->getRouterIdParameter().'/preview/{revision}');
         // $collection->add('history_revert_to_revision', $this->getRouterIdParameter().'/revert/{revision}');
         $collection->add('order', 'order');
+        $collection->add('update_visits', 'update_visits');
     }
 
     /**

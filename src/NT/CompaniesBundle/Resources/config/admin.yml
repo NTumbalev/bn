@@ -10,11 +10,11 @@ services:
     nt.companies.admin.companies:
         class: NT\CompaniesBundle\Admin\CompaniesAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "nt_site_companies", label: "nt_companies" }
+            - { name: sonata.admin, manager_type: orm, group: "nt_site_companies", label: "nt_companies", audit: true }
         arguments:
             - ~
             - NT\CompaniesBundle\Entity\Company
-            - NTCoreBundle:SortableCRUD
+            - NTCompaniesBundle:CompaniesBackend
         calls:
             - [ setTranslationDomain, [%nt.companies.admin.companies.translation%]]
             - [ setTemplates, [outer_list_rows_mosaic: NTCoreBundle:Admin:list_outer_rows_mosaic.html.twig]]
