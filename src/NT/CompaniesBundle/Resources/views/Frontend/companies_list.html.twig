@@ -80,6 +80,12 @@
         </div>
 
         {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
+
+        <div class="banner desktopHidden">
+            {{ 
+                render(controller('NTBannersBundle:BannersFrontend:renderHomepageBanner')) 
+            }}
+        </div>
     </div>
     <!-- /.row -->
 {% endblock %}
