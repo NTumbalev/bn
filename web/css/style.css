@@ -148,9 +148,11 @@ nav .navCustom {
 .desktopHidden { display: none; }
 .desktopHiddenIB { display: none; }
 
+.gallery-thumbnails { margin-top: 15px; }
+
 .gallery-thumbnails .slick-arrow { width: 30px; height: 30px; padding: 0px; background: #fff; border: 1px solid #e4e4e4; position: absolute; z-index: 30; bottom: 0px; font-size: 1px; text-indent: -999px; -webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear; }
-.gallery-thumbnails .slick-arrow.slick-prev { left: 0px; top: 30%;}
-.gallery-thumbnails .slick-arrow.slick-next { left: auto; right: 33px; top: 30%; }
+.gallery-thumbnails .slick-arrow.slick-prev { left: 0px; top: 15%;}
+.gallery-thumbnails .slick-arrow.slick-next { left: auto; right: 0px; top: 15%; }
 .gallery-thumbnails .slick-arrow.slick-prev:before { 
     content: '';
     width: 0;
@@ -176,6 +178,7 @@ nav .navCustom {
     border-left: 8px solid #999;
 }
 .gallery-thumbnails .slick-arrow:hover { background: #eaeaea; }
+.thumb { margin-left: 135px; }
 
 .main-image img { min-width: 521px; }
 

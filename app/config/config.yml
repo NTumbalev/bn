@@ -288,8 +288,8 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                index:  { width: 500, height: 500, quality: 75 }
-                thumb:  { width: 78, height: 78, quality: 75 }
+                index:  { width: 555, height: 350, quality: 75 }
+                thumb:  { width: 130, height: 78, quality: 75 }
 
         # inline_gallery:
         #     download:

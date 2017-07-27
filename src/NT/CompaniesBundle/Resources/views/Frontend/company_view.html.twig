@@ -18,14 +18,6 @@
                 arrows: false,
                 fade: true,
                 asNavFor: '.gallery-thumbnails',
-                responsive: [
-                    {
-                      breakpoint: 768,
-                      settings: {
-                        dots: true
-                      }
-                    }
-                ]
             });
 
             $('.gallery-thumbnails').slick({
@@ -37,21 +29,6 @@
                 vertical: false,
                 verticalSwiping: false,
                 asNavFor: '.gallery-main-images',
-                responsive: [
-                    {
-                      breakpoint: 992,
-                      settings: {
-                        slidesToShow: 4,
-                        vertical: false,
-                        verticalSwiping: false,
-                        arrows: false
-                      }
-                    },
-                    {
-                      breakpoint: 768,
-                      settings: "unslick"                          
-                    }
-                ]
             });
 
             $('#searchRow').addClass('mobileHidden');
@@ -186,9 +163,7 @@
                 <div id="galleryBox" class="mobileHidden">
                     <div class="gallery-main-images">
                         {% for image in gallery %}
-                            <a class="main-image" href="{% path image, 'index' %}">
-                                <img src="{% path image.media, 'index' %}" alt="main img">
-                            </a>
+                            <img src="{% path image.media, 'index' %}" alt="main img">
                         {% endfor %}
                     </div>
                     <div class="gallery-thumbnails">
