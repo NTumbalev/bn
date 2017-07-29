@@ -51,6 +51,12 @@
 			</td>
 			<td style="border-bottom: 1px solid #e6e6e6;">{{data.email}}</td>
 		</tr>
+		<tr>
+			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+				<strong>{{ 'publish_company.phone'|trans({}, "NTFrontendBundle")}}</strong>
+			</td>
+			<td style="border-bottom: 1px solid #e6e6e6;">{{data.phone}}</td>
+		</tr>
 
 		{% if data.webpage is defined and data.webpage is not null and data.webpage|length %}
 			<tr>
