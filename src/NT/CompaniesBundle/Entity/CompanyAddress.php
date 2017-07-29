@@ -68,6 +68,7 @@ class CompanyAddress implements PublishWorkflowInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="addresses", cascade={"persist"})
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $company;
 
