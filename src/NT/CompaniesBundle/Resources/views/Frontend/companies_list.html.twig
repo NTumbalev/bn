@@ -17,7 +17,7 @@
             {{ 
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'left',
-                    'isMain': false,
+                    'random': false,
                     'pageId': category.id,
                     'locationId': location
                 }))
@@ -72,7 +72,7 @@
             {{ 
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'right',
-                    'isMain': false,
+                    'random': false,
                     'pageId': category.id,
                     'locationId': location
                 }))
@@ -81,9 +81,12 @@
 
         {% include 'NTCompaniesBundle:Frontend:publish_box_bottom.html.twig' %}
 
-        <div class="banner desktopHidden">
-            {{ 
-                render(controller('NTBannersBundle:BannersFrontend:renderHomepageBanner')) 
+        <div class="banner">
+            {{
+                render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
+                    'position': 'top',
+                    'random': true,
+                }))
             }}
         </div>
     </div>

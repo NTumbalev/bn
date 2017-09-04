@@ -12,13 +12,21 @@ class BannersFrontendController extends Controller
     /**
      * @Template("NTBannersBundle:Frontend:renderBanners.html.twig")
      */
-    public function renderBannersAction(Request $request, $position, $isMain, $pageId = null, $locationId = null, $offset = null, $limit = null)
+    public function renderBannersAction(
+        Request $request,
+        $position,
+        $random,
+        $pageId = null,
+        $locationId = null,
+        $offset = null,
+        $limit = null
+    )
     {
         return array(
             'banners' => $this->getBanners(
                 $request->getLocale(),
                 $position,
-                $isMain,
+                $random,
                 $pageId,
                 $locationId,
                 $offset,
@@ -34,33 +42,41 @@ class BannersFrontendController extends Controller
     {
         $banners = $this->getBanners($request->getLocale(), 'homepage', false);
 
-        $number = rand(0, count($banners) - 1);
-
         return array(
-            'banners' => [count($banners) > 0 ? $banners[$number] : []],
+            'banners' => $this->getRandomBanner($banners),
         );
     }
 
     private function getBanners(
         $locale,
-        $position, 
-        $isMain, 
-        $pageId = null, 
-        $locationId = null, 
-        $offset = null, 
+        $position,
+        $random,
+        $pageId = null,
+        $locationId = null,
+        $offset = null,
         $limit = null
     )
     {
         $em = $this->getDoctrine()->getManager();
-        
-        return $em->getRepository('NTBannersBundle:BannersPages')->findAllBannersByCriteria(
+        $banners = $em->getRepository('NTBannersBundle:BannersPages')->findAllBannersByCriteria(
             $locale,
             $position,
-            $isMain,
             $pageId,
             $locationId,
             $offset,
             $limit
-        );   
+        );
+
+        if ($random === true) {
+            $banners = $this->getRandomBanner($banners);
+        }
+
+        return $banners;
+    }
+
+    private function getRandomBanner($banners)
+    {
+        $number = rand(0, count($banners) - 1);
+        return count($banners) > 0 ? [$banners[$number]] : [];
     }
 }

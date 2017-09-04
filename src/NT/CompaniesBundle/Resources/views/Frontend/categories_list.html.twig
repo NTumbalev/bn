@@ -8,7 +8,7 @@
             {{
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'top',
-                    'isMain': true,
+                    'random': true,
                 }))
             }}
         </div>
@@ -60,7 +60,7 @@
             {{
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'left',
-                    'isMain': true,
+                    'random': false,
                 }))
             }}
         </div>
@@ -90,7 +90,7 @@
             {{
                 render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
                     'position': 'right',
-                    'isMain': true,
+                    'random': false,
                 }))
             }}
         </div>
@@ -99,7 +99,10 @@
 
         <div class="banner desktopHidden">
             {{ 
-                render(controller('NTBannersBundle:BannersFrontend:renderHomepageBanner')) 
+                render(controller('NTBannersBundle:BannersFrontend:renderBanners', {
+                    'position': 'top',
+                    'random': true,
+                }))
             }}
         </div>
     </div>
