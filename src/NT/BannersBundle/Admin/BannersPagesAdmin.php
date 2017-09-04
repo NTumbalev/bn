@@ -109,6 +109,10 @@ class BannersPagesAdmin extends Admin
                     'label' => 'form.isMain',
                     'required' => false
                 ))
+                ->add('onAllCategories', null, array(
+                    'label' => 'На всички категории',
+                    'required' => false
+                ))
             ->end()
         ->end();
     }

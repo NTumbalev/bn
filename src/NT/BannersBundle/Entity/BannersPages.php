@@ -57,6 +57,12 @@ class BannersPages
     protected $isMain = false;
 
     /**
+     * @var bool
+     * @ORM\Column(name="on_all_categories", type="boolean")
+     */
+    protected $onAllCategories = false;
+
+    /**
      * @Gedmo\Versioned
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
@@ -261,6 +267,26 @@ class BannersPages
     public function setIsMain($isMain)
     {
         $this->isMain = $isMain;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOnAllCategories()
+    {
+        return $this->onAllCategories;
+    }
+
+    /**
+     * @param bool $onAllCategories
+     *
+     * @return self
+     */
+    public function setOnAllCategories($onAllCategories)
+    {
+        $this->onAllCategories = $onAllCategories;
 
         return $this;
     }
