@@ -163,14 +163,18 @@
                 <div id="galleryBox" class="mobileHidden">
                     <div class="gallery-main-images">
                         {% for image in gallery %}
-                            <img src="{% path image.media, 'index' %}" alt="main img">
+                            {% if image.enabled %}
+                                <img src="{% path image.media, 'index' %}" alt="main img">
+                            {% endif %}
                         {% endfor %}
                     </div>
                     <div class="gallery-thumbnails">
                         {% for image in gallery %}
-                            <div class="thumb">
-                                <img src="{% path image.media, 'thumb' %}" alt="thumb">
-                            </div>
+                            {% if image.enabled %}
+                                <div class="thumb">
+                                    <img src="{% path image.media, 'thumb' %}" alt="thumb">
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
