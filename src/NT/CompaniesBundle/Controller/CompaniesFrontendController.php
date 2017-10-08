@@ -283,7 +283,8 @@ class CompaniesFrontendController extends Controller
 
     private function getGalleryImages($entity, $locale, $first = false)
     {
-        if (($gallery = $entity->getTranslations()->get($locale)->getGallery()) != null) {
+        if (($gallery = $entity->getTranslations()->get($locale)->getGallery()) != null 
+            && $gallery->getEnabled()) {
             $gallery = $this->get('doctrine')->getManager()->getRepository('ApplicationSonataMediaBundle:GalleryHasMedia')
             ->findBy(
                 array('gallery' => $gallery->getId()),
