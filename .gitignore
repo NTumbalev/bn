@@ -25,3 +25,7 @@ UPGRADE.md
 /web/uploads/*
 node-modules
 /web/static
+error_log
+web/.well-known/
+web/adminer.php
+web/error_log
