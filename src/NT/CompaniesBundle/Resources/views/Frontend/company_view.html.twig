@@ -12,8 +12,8 @@
             $('#toTop').css('bottom', '75px');
 
             $('.gallery-main-images').slick({
-                slidesToShow: 1,
-                slidesToScroll: 1,
+                // slidesToShow: 1,
+                // slidesToScroll: 1,
                 autoplay: false,
                 arrows: false,
                 fade: true,
@@ -21,7 +21,7 @@
             });
 
             $('.gallery-thumbnails').slick({
-                slidesToShow: 5,
+                slidesToShow: {{ gallery|length < 5 ? gallery|length : 5 }},
                 slidesToScroll: 1,
                 dots: false,
                 arrows: true,
@@ -163,18 +163,12 @@
                 <div id="galleryBox" class="mobileHidden">
                     <div class="gallery-main-images">
                         {% for image in gallery %}
-                            {% if image.enabled %}
-                                <img src="{% path image.media, 'index' %}" alt="main img">
-                            {% endif %}
+                            <img src="{% path image, 'index' %}" alt="main img">
                         {% endfor %}
                     </div>
                     <div class="gallery-thumbnails">
                         {% for image in gallery %}
-                            {% if image.enabled %}
-                                <div class="thumb">
-                                    <img src="{% path image.media, 'thumb' %}" alt="thumb">
-                                </div>
-                            {% endif %}
+                            <img src="{% path image, 'thumb' %}" alt="thumb">
                         {% endfor %}
                     </div>
                 </div>

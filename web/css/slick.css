@@ -1,4 +1,8 @@
 /* Slider */
+.gallery-thumbnails .slick-slide {
+    max-width: 145px !important;
+    padding-right: 5px;
+}
 .slick-slider
 {
     position: relative;

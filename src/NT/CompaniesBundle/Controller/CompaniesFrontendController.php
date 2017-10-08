@@ -165,7 +165,7 @@ class CompaniesFrontendController extends Controller
         $this->generateOgTags($company, $params);
 
         $this->addVisit($company);
-
+        
         return array(
             'company' => $company,
             'gallery' => $this->getGalleryImages($company, $locale)
@@ -283,18 +283,27 @@ class CompaniesFrontendController extends Controller
 
     private function getGalleryImages($entity, $locale, $first = false)
     {
-        if (($gallery = $entity->getTranslations()->get($locale)->getGallery()) != null 
-            && $gallery->getEnabled()) {
-            $gallery = $this->get('doctrine')->getManager()->getRepository('ApplicationSonataMediaBundle:GalleryHasMedia')
-            ->findBy(
-                array('gallery' => $gallery->getId()),
-                array('position' => 'ASC')
-            );
+        $gallery = $entity->getTranslations()->get($locale)->getGallery();
+        if ($gallery != null && $gallery->getEnabled() === true) {
+            $em = $this->get('doctrine')->getManager();
+            $qb = $em->createQueryBuilder()
+                ->select('m')
+                ->from('ApplicationSonataMediaBundle:Media', 'm')
+                ->join('m.galleryHasMedias', 'ghm')
+                ->where('ghm.gallery = :galleryId')
+                ->andWhere('ghm.enabled = 1')
+                ->orderBy('ghm.position', 'ASC')
+                ->setParameter(':galleryId', $gallery->getId());
+
+            $query = $qb->getQuery();
+            if ($first) {
+                return $query->getOneOrNullResult();      
+            }
+
+            return $query->getResult();
         }
-        if ($first && isset($gallery[0])) {
-            return $gallery[0];
-        }
-        return $gallery;
+
+        return [];
     }
 
     private function addVisit(\NT\CompaniesBundle\Entity\Company $company)
