@@ -154,13 +154,21 @@ class CompaniesAdmin extends Admin
         $ffds['image']->setAssociationAdmin($mediaAdmin);
         $ffds['gallery']->setAssociationAdmin($galleryAdmin);
 
+        $em = $this->modelManager->getEntityManager('NT\CompaniesBundle\Entity\CompanyCategory');
+
+        $query = $em->createQueryBuilder('c')
+            ->select('c')
+            ->from('NTCompaniesBundle:CompanyCategory', 'c')
+            ->orderBy('c.title', 'ASC');
+
         $formMapper
             ->with('tab.general', array('tab' => true))
                 ->add('companyCategories', 'sonata_type_model', array(
                     'label' => 'form.categories',
                     'required' => false,
                     'multiple' => true,
-                    'btn_add' => false
+                    'btn_add' => false,
+                    'query' => $query
                 ))
                 ->add('location', null, array(
                     'required' => false,
