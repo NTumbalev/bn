@@ -99,7 +99,7 @@
                                     
                                     {% if address.phone is defined and address.phone is not null and address.phone|length %}
                                         <p>
-                                            <a class="clearHref desktopHiddenIB" href="tel:{{ address.phone }}">
+                                            <a class="clearHref" href="tel:{{ address.phone }}">
                                                 <span class="glyphicon glyphicon-phone" style="color: #000"></span>
                                                 <span>{{ address.phone }}</span>
                                                 {#{ 'catalogue.call'|trans({}, 'NTFrontendBundle')}#}
