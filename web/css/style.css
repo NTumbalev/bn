@@ -311,6 +311,13 @@ ul.nav li.first { text-align: center; }
         text-indent: -9999em;
         background-size: 420px;
     }
+
+    .disabled {
+        background-color: #6f6e6e;
+    }
+    .disabled a {
+        opacity: 0.3;
+    }
 }
 
 @media(max-width:767px) {

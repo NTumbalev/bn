@@ -198,15 +198,42 @@
     <div class="menuWrapper menuWrapperOpen desktopHidden">
         {# <div class="mobileActionsMenuknob"></div> #}
         <div id="MOBILE_ACTIONS_MENUmenuContainer" class="mobileActionsMenumenuContainer">
+            {% set hasPhone = false %}
+            {% if company.phone is defined and company.phone is not null and company.phone|length %}
+                {% set hasPhone = true %}
+            {% endif %}
+
+            {% set hasEmail = false %}
+            {% if company.email is defined and company.email is not null and company.email|length %}
+                {% set hasEmail = true %}
+            {% endif %}
+
+            {% set hasNav = false %}
+            {% if company.latitude is defined and company.latitude is not null and company.latitude|length and company.longitude is defined and company.longitude is not null and company.longitude|length %}
+                {% set hasNav = true %}
+            {% endif %}
+
             <ul>
-                <li class="mobileActionsMenu_phone">
-                    <a href="tel:{{ company.phone }}"></a>
+                <li class="mobileActionsMenu_phone{% if hasPhone == false %} disabled{% endif %}">
+                    {% if hasPhone == false %}
+                        <a href="javascript:;"></a>
+                    {% else %}
+                        <a href="tel:{{ company.phone }}"></a>
+                    {% endif %}
                 </li>
-                <li class="mobileActionsMenu_email">
-                    <a href="mailto:{{ company.email }}"></a>
+                <li class="mobileActionsMenu_email{% if hasEmail == false %} disabled{% endif %}">
+                    {% if hasEmail == false %}
+                        <a href="javascript:;"></a>
+                    {% else %}
+                        <a href="mailto:{{ company.email }}"></a>
+                    {% endif %}
                 </li>
-                <li class="mobileActionsMenu_address">
-                    <a onclick="navigate({{ company.latitude }},{{ company.longitude }})"></a>
+                <li class="mobileActionsMenu_address{% if hasNav == false %} disabled{% endif %}">
+                    {% if hasNav == false %}
+                        <a href="javascript:;"></a>
+                    {% else %}
+                        <a onclick="navigate({{ company.latitude }},{{ company.longitude }})"></a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
