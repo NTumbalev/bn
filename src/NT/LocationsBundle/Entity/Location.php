@@ -49,7 +49,7 @@ class Location implements PublishWorkflowInterface
     protected $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="NT\CompaniesBundle\Entity\Company", mappedBy="location")
+     * @ORM\ManyToMany(targetEntity="NT\CompaniesBundle\Entity\Company", mappedBy="locations")
      */
     protected $companies;
 

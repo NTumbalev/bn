@@ -123,7 +123,8 @@ class CompanyRepository extends EntityRepository
 
             if ($locationId != null) {
                 $qb
-                ->andWhere('c.location = :locationId')
+                ->leftJoin('c.locations', 'l')
+                ->andWhere('l.id = :locationId')
                 ->setParameter('locationId', $locationId)
                 ;
             }
@@ -147,7 +148,8 @@ class CompanyRepository extends EntityRepository
 
         if (!empty($location)) {
             $qb
-                ->andWhere('c.location = :location')
+                ->leftJoin('c.locations', 'l')
+                ->andWhere('l.id = :location')
                 ->setParameter('location', $location)
             ;
         }

@@ -119,7 +119,7 @@ class CompaniesAdmin extends Admin
         $datagridMapper
             ->add('title', null, array('label' => 'form.title'))
             ->add('companyCategories', null, array('label' => 'Категории'))
-            ->add('location', null, array('label' => 'form.location'))
+            ->add('locations', null, array('label' => 'form.location'))
         ;
     }
 
@@ -170,7 +170,7 @@ class CompaniesAdmin extends Admin
                     'btn_add' => false,
                     'query' => $query
                 ))
-                ->add('location', null, array(
+                ->add('locations', null, array(
                     'required' => false,
                     'label' => 'form.location'
                 ))

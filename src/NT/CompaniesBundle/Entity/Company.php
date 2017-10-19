@@ -159,10 +159,10 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
     protected $isTop = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NT\LocationsBundle\Entity\Location", inversedBy="companies")
-     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\ManyToMany(targetEntity="NT\LocationsBundle\Entity\Location", inversedBy="companies")
+     * @ORM\JoinTable(name="companies_locations")
      */
-    protected $location;
+    protected $locations;
 
     /**
      * @var \DateTime
@@ -191,6 +191,7 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
         $this->translations = new ArrayCollection();
         $this->companyCategories = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
     /**
@@ -465,9 +466,9 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
      *
      * @return mixed
      */
-    public function getLocation()
+    public function getLocations()
     {
-        return $this->location;
+        return $this->locations;
     }
 
     /**
@@ -477,9 +478,9 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
      *
      * @return self
      */
-    public function setLocation($location)
+    public function setLocations($locations)
     {
-        $this->location = $location;
+        $this->locations = $locations;
 
         return $this;
     }
