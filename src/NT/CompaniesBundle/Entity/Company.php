@@ -75,7 +75,7 @@ class Company implements PublishWorkflowInterface, SeoAwareInterface
     protected $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyAddress", mappedBy="company", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="CompanyAddress", mappedBy="company", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $addresses;
 

@@ -19,12 +19,12 @@ use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
- *  Admin class for CompaniesAddresses
+ *  Admin class for CompaniesPhones
  *
  * @package NTCompaniesBundle
  * @author Nikolay Tumbalev <ntumbalev@gmail.com>
  */
-class CompaniesAddressesAdmin extends Admin
+class CompaniesPhonesAdmin extends Admin
 {
     /**
      * @inheritdoc
@@ -85,7 +85,7 @@ class CompaniesAddressesAdmin extends Admin
     {
         $showMapper
             ->with('General')
-                ->add('title')
+                ->add('phone')
                 ->add('created_at')
                 ->add('updated_at')
             ->end()
@@ -121,7 +121,7 @@ class CompaniesAddressesAdmin extends Admin
     {
         $list
             ->addIdentifier('id', null, array('label' => 'list.id'))
-            ->add('publishWorkflow.isActive', null, array('label' => 'list.isActive', 'editable' => true))
+            // ->add('publishWorkflow.isActive', null, array('label' => 'list.isActive', 'editable' => true))
             ->add('_action', 'actions', array(
                     'actions' => array(
                         'edit' => array(),
@@ -139,47 +139,10 @@ class CompaniesAddressesAdmin extends Admin
     {
         $formMapper
             ->with('tab.general', array('tab' => true))
-                ->add('translations', 'a2lix_translations', array(
-                    'fields' => array(
-                        'address' => array(
-                            'field_type' => 'textarea',
-                            'label' => 'form.address',
-                            'required' => false,
-                            // 'attr' => array(
-                            //     'class' => 'tinymce',
-                            //     'data-theme' => 'bbcode'
-                            // )
-                        )
-                    ),
-                    'translation_domain' => 'NTCompaniesBundle',
-                    'label' => 'form.translations',
-                ))
-                ->add('latitude', null, array(
+                ->add('phone', null, array(
                     'required' => false,
-                    'label' => 'form.latitude'
+                    'label' => 'form.phone'
                 ))
-                ->add('longitude', null, array(
-                    'required' => false,
-                    'label' => 'form.longitude'
-                ))
-                ->add('phones', 'sonata_type_collection', array(
-                    'required' => false,
-                    'by_reference' => false,
-                    'label' => 'form.phones',
-                    'cascade_validation' => true,
-                ), array(
-                    'edit'       => 'inline',
-                    'inline'     => 'table',
-                    'admin_code' => 'nt.companies.admin.companies_phones',
-                    
-                ))
-                ->end()
-            ->end()
-            ->with('tab.publish_workflow', array('tab' => true))
-                ->with('Publish Workflow', array('class' => 'col-md-12', 'label' => 'form.general', 'translation_domain' => 'NTAttributesBundle'))
-                    ->add('publishWorkflow', 'nt_publish_workflow', array(
-                        'is_active' => $this->getSubject() ? $this->getSubject()->getPublishWorkflow() ? $this->getSubject()->getPublishWorkflow()->getIsActive() : true : true,
-                    ))
                 ->end()
             ->end();
     }

@@ -14,11 +14,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use NT\PublishWorkflowBundle\PublishWorkflowTrait;
 use NT\PublishWorkflowBundle\PublishWorkflowInterface;
-use NT\SEOBundle\SeoAwareInterface;
-use NT\SEOBundle\SeoAwareTrait;
 
 /**
- * Company's entity
+ * CompanyAddress's entity
  *
  * @ORM\Table(name="company_addresses")
  * @ORM\Entity
@@ -61,13 +59,12 @@ class CompanyAddress implements PublishWorkflowInterface
     protected $longitude;
 
     /**
-     * @var string
-     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity="NT\CompaniesBundle\Entity\CompanyPhone", mappedBy="companyAddress", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $phone;
+    protected $phones;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="addresses", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="addresses")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $company;
@@ -97,6 +94,7 @@ class CompanyAddress implements PublishWorkflowInterface
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+        $this->phones = new ArrayCollection();
     }
 
     /**
@@ -261,9 +259,9 @@ class CompanyAddress implements PublishWorkflowInterface
      *
      * @return string
      */
-    public function getPhone()
+    public function getPhones()
     {
-        return $this->phone;
+        return $this->phones;
     }
 
     /**
@@ -273,10 +271,30 @@ class CompanyAddress implements PublishWorkflowInterface
      *
      * @return self
      */
-    public function setPhone($phone)
+    public function setPhones($phones)
     {
-        $this->phone = $phone;
+        foreach ($phones as $phone) {
+            $this->addPhone($phone);
+        }
 
         return $this;
+    }
+
+    public function addPhone($phone)
+    {
+        if (!$this->phones->contains($phone)) {
+            $this->phones->add($phone);
+            $phone->setCompanyAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhone($phone)
+    {
+        if ($this->phones->contains($phone)) {
+            $this->phones->removeElement($phone);
+            $phone->setCompanyAddress(null);
+        }
     }
 }

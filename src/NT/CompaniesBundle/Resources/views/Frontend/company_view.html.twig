@@ -97,14 +97,16 @@
                                         </p>
                                     {% endif %}
                                     
-                                    {% if address.phone is defined and address.phone is not null and address.phone|length %}
-                                        <p>
-                                            <a class="clearHref" href="tel:{{ address.phone }}">
-                                                <span class="glyphicon glyphicon-phone" style="color: #000"></span>
-                                                <span>{{ address.phone }}</span>
-                                                {#{ 'catalogue.call'|trans({}, 'NTFrontendBundle')}#}
-                                            </a>
-                                        </p>
+                                    {% if address.phones is defined and address.phones is not null and address.phones|length %}
+                                        {% for addressPhone in address.phones %}
+                                            <p>
+                                                <a class="clearHref" href="tel:{{ addressPhone.phone }}">
+                                                    <span class="glyphicon glyphicon-phone" style="color: #000"></span>
+                                                    <span>{{ addressPhone.phone }}</span>
+                                                    {#{ 'catalogue.call'|trans({}, 'NTFrontendBundle')}#}
+                                                </a>
+                                            </p>
+                                        {% endfor %}
                                     {% endif %}
                                 </td>
                             </tr>

@@ -119,8 +119,8 @@ class CompaniesFrontendController extends Controller
 
         $dispatcher = $this->get('event_dispatcher');
         $event = new \NT\SEOBundle\Event\SeoEvent($company);
-        if ($company->getLocation() != null) {
-            $event->setTitle($event->getTitle() . ' - ' . $company->getLocation()->getTitle());
+        if ($company->getLocations() != null) {
+            $event->setTitle($event->getTitle() . ' - ' . $company->getLocations()[0]->getTitle());
         }
 
         $dispatcher->dispatch('nt.seo', $event);
@@ -155,8 +155,8 @@ class CompaniesFrontendController extends Controller
 
         $dispatcher = $this->get('event_dispatcher');
         $event = new \NT\SEOBundle\Event\SeoEvent($company);
-        if ($company->getLocation() != null) {
-            $event->setTitle($event->getTitle() . ' - ' . $company->getLocation()->getTitle());
+        if ($company->getLocations() != null) {
+            $event->setTitle($event->getTitle() . ' - ' . $company->getLocations()[0]->getTitle());
         }
 
         $dispatcher->dispatch('nt.seo', $event);

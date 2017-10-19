@@ -261,6 +261,7 @@ class CompaniesAdmin extends Admin
                 ))
                 ->add('addresses', 'sonata_type_collection', array(
                     'required' => false,
+                    'by_reference' => false,
                     'label' => 'form.addresses',
                     'cascade_validation' => true,
                 ), array(
@@ -301,23 +302,6 @@ class CompaniesAdmin extends Admin
                     ))
                 ->end()
             ->end();
-    }
-
-    public function prePersist($item)
-    {
-        $this->saveAddresses($item);
-    }
-
-    public function preUpdate($item)
-    {
-        $this->saveAddresses($item);
-    }
-
-    private function saveAddresses($item)
-    {
-        foreach ($item->getAddresses() as $address) {
-            $address->setCompany($item);
-        }
     }
 
     public function validate(\Sonata\AdminBundle\Validator\ErrorElement $errorElement, $object)

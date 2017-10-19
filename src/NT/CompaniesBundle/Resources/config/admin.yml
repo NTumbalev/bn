@@ -58,3 +58,15 @@ services:
         calls:
             - [ setTranslationDomain, [%nt.companies.admin.companies.translation%]]
             - [ setTemplates, [outer_list_rows_mosaic: NTCoreBundle:Admin:list_outer_rows_mosaic.html.twig]]
+
+    nt.companies.admin.companies_phones:
+        class: NT\CompaniesBundle\Admin\CompaniesPhonesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "nt_site_companies_phones", label: "nt_companies_phones" }
+        arguments:
+            - ~
+            - NT\CompaniesBundle\Entity\CompanyPhone
+            - NTCoreBundle:SortableCRUD
+        calls:
+            - [ setTranslationDomain, [%nt.companies.admin.companies.translation%]]
+            - [ setTemplates, [outer_list_rows_mosaic: NTCoreBundle:Admin:list_outer_rows_mosaic.html.twig]]
