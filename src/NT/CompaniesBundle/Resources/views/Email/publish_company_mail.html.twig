@@ -39,12 +39,14 @@
 			</td>
 			<td style="border-bottom: 1px solid #e6e6e6;">{{allParams.address}}</td>
 		</tr>
-		<tr>
-			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
-				<strong>{{ 'publish_company.location'|trans({}, "NTFrontendBundle")}}</strong>
-			</td>
-			<td style="border-bottom: 1px solid #e6e6e6;">{{data.location}}</td>
-		</tr>
+		{% if data.locations is defined and data.locations is not null and data.locations|length %}
+			<tr>
+				<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+					<strong>{{ 'publish_company.location'|trans({}, "NTFrontendBundle")}}</strong>
+				</td>
+				<td style="border-bottom: 1px solid #e6e6e6;">{{data.locations[0]}}</td>
+			</tr>
+		{% endif %}
 		<tr>
 			<td style="width: 25%; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
 				<strong>{{ 'publish_company.email'|trans({}, "NTFrontendBundle")}}</strong>

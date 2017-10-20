@@ -11,6 +11,7 @@ use Knp\Menu\MenuFactory;
 use Knp\Menu\Renderer\ListRenderer;
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\Matcher\Voter\UriVoter;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class CompaniesFrontendController extends Controller
 {
@@ -239,8 +240,8 @@ class CompaniesFrontendController extends Controller
 
                 $data->setPublishWorkflow($publishWorkflow);
 
-                // echo "<pre>";var_dump();echo "</pre>";exit;
-                $data->setCompanyCategories(new \Doctrine\Common\Collections\ArrayCollection(array($data->getCompanyCategories())));
+                $data->setCompanyCategories(new ArrayCollection(array($data->getCompanyCategories())));
+                $data->setLocations(new ArrayCollection(array($data->getLocations())));
 
                 $em->flush();
 

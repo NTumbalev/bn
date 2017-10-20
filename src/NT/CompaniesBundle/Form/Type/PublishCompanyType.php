@@ -87,7 +87,7 @@ class PublishCompanyType extends AbstractType
                 ),
                 'mapped' => false
             ))
-            ->add('location', 'entity', array(
+            ->add('locations', 'entity', array(
                 'class' => 'NTLocationsBundle:Location',
                 'label' => 'publish_company.location',
                 'translation_domain' => 'NTFrontendBundle',
