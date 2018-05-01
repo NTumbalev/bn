@@ -86,7 +86,7 @@ class CompaniesFrontendController extends Controller
 
         $content = $this->getContentPage();
 
-        $this->generateSeoAndOgTags($content);
+        $this->generateSeoAndOgTags($category);
 
         return array(
             'content'   => $content,
