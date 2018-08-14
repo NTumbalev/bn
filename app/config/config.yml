@@ -52,12 +52,12 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    node: /usr/bin/node
+    node: /usr/local/bin/node
     bundles:        [ ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        uglifyjs2:
+        uglifyjs:
             bin: %kernel.root_dir%/Resources/node_modules/.bin/uglifyjs
         uglifycss:
             bin: %kernel.root_dir%/Resources/node_modules/.bin/uglifycss
@@ -319,7 +319,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 index:  { width: 700, height: 450, quality: 75 }
-        
+
         nt_banners_images:
             providers:
                 - sonata.media.provider.file

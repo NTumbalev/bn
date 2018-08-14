@@ -9,41 +9,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        
+
         <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
-        <!-- Bootstrap Core CSS -->
-        <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="/css/style.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="/css/search.css" rel="stylesheet" type="text/css">
-
-        <!-- jQuery -->
-        <script src="/js/jquery.js"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="/js/bootstrap.min.js"></script>
-        
+        <link href="/vendor/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/vendor/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         {% block stylesheets %}
-            {# {% stylesheets 'assets/css/*' filter='?uglifycss, cssrewrite' output='generatedCss/*.css' %}
+            {% stylesheets 'css/*' filter='?uglifycss, cssrewrite' output='generatedCss/*.css' %}
                 <link rel="stylesheet"  type="text/css" href="{{ asset_url }}">
-            {% endstylesheets %} #}
+            {% endstylesheets %}
         {% endblock %}
 
+        <script src="/vendor/js/jquery.min.js"></script>
+        <script src="/vendor/js/bootstrap.min.js"></script>
+
         {% block javascripts %}
-            {# {% javascripts 'assets/js/*' filter='?uglifyjs2' output='generatedJs/*.js' %}
+            {% javascripts 'js/*' filter='?uglifyjs' output='generatedJs/*.js' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %} #}
+            {% endjavascripts %}
         {% endblock %}
 
         {{ render(controller('NTSettingsBundle:Settings:render', {'key':'header_miscellanous'})) }}
     </head>
     <body>
         {{ render(controller('NTFrontendBundle:Frontend:renderHeader', { 'locale': app.request.locale, 'route': app.request.attributes.get('_route'), 'route_params': app.request.attributes.get('_route_params') })) }}
-        
+
         <div class="container">
             {% block main %}{% endblock %}
             {{ render(controller('NTFrontendBundle:Frontend:renderFooter')) }}
@@ -52,6 +42,6 @@
 
             {% block footerJS %}
             {% endblock %}
-        </div> 
+        </div>
     </body>
 </html>
