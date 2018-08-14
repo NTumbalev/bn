@@ -15,9 +15,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-7">
-                                <p class="text-justify">
-                                    {{ accent.description|raw }}
-                                </p>
+                                {{ accent.description|raw }}
                             </div>
                             
                             {% if accent.translations[app.request.locale].image is defined and accent.translations[app.request.locale].image is not null and accent.translations[app.request.locale].image|length %}

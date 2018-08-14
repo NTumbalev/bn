@@ -12,7 +12,7 @@
         <div class="carousel-inner">
             {% for slide in slides %}
                 <div class="item{% if loop.index0 == 0 %} active{% endif %}">
-                    <a {% if slide.url is not null and slide.url|length %}href="{{ slide.url }}" target="{{ slide.target }}"{% else %}href="javascript:;"{% endif %}">
+                    <a {% if slide.url is not null and slide.url|length %}href="{{ slide.url }}" target="{{ slide.target }}"{% else %}href="javascript:;"{% endif %}>
                         <div class="fill" style="background-image:url({% path slide.translations[app.request.locale].image, 'index' %});"></div>
                         {% if slide.title is defined and slide.title is not null and slide.title|length %}
                             <div class="carousel-caption">
@@ -33,7 +33,7 @@
         </a>
     </header>
 
-    <script type="text/javascript">
+    <script>
         $('.carousel').carousel({
             interval: 5000 //changes the speed
         });

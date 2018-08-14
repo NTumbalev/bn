@@ -2,8 +2,8 @@
 
 {% block main %}
     <div class="banner desktopHidden">
-        {{ 
-            render(controller('NTBannersBundle:BannersFrontend:renderHomepageBanner')) 
+        {{
+            render(controller('NTBannersBundle:BannersFrontend:renderHomepageBanner'))
         }}
     </div>
 
@@ -14,8 +14,4 @@
     {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
     {{ render(controller("NTCompaniesBundle:CompaniesFrontend:homepageCompanyCategories")) }}
     {{ render(controller("NTAccentsBundle:AccentsFrontend:homepageAccents")) }}
-{% endblock %}
-
-{% block javascripts %}
-    {{parent()}}
 {% endblock %}
