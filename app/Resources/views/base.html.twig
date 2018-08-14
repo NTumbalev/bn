@@ -12,23 +12,6 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
-        <link href="/vendor/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="/vendor/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        {% block stylesheets %}
-            {% stylesheets 'css/*' filter='?uglifycss, cssrewrite' output='generatedCss/*.css' %}
-                <link rel="stylesheet"  type="text/css" href="{{ asset_url }}">
-            {% endstylesheets %}
-        {% endblock %}
-
-        <script src="/vendor/js/jquery.min.js"></script>
-        <script src="/vendor/js/bootstrap.min.js"></script>
-
-        {% block javascripts %}
-            {% javascripts 'js/*' filter='?uglifyjs' output='generatedJs/*.js' %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-
         {{ render(controller('NTSettingsBundle:Settings:render', {'key':'header_miscellanous'})) }}
     </head>
     <body>
@@ -39,9 +22,26 @@
             {{ render(controller('NTFrontendBundle:Frontend:renderFooter')) }}
             {{ render(controller('NTSettingsBundle:Settings:render', {'key':'footer_miscellanous'})) }}
             {{ render(controller('NTSettingsBundle:Settings:render', {'key':'ga_code'})) }}
-
-            {% block footerJS %}
-            {% endblock %}
         </div>
+        {% block footerCSS %}
+            {% block stylesheets %}
+                {% stylesheets 'css/*' filter='?uglifycss, cssrewrite' output='generatedCss/*.css' %}
+                    <link rel="stylesheet"  type="text/css" href="{{ asset_url }}">
+                {% endstylesheets %}
+            {% endblock %}
+            
+            <link href="/vendor/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="/vendor/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        {% endblock %}
+
+        {% block footerJS %}
+            {% block javascripts %}
+                {% javascripts 'js/*' filter='?uglifyjs' output='generatedJs/*.js' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            {% endblock %}
+            <script src="/vendor/js/jquery.min.js"></script>
+            <script src="/vendor/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 </html>
