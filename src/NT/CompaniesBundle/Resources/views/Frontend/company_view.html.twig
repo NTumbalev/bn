@@ -1,10 +1,11 @@
 {% extends '::base.html.twig' %}
 
-{% block stylesheets %}
+{% block headerCSS %}
+    {{ parent() }}
     <link href="/css/slick.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
-{% block javascripts %}
+{% block headerJS %}
     {{ parent() }}
     <script src="/js/slick.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -44,7 +45,7 @@
                         return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
                     }
                 }
-            
+
                 var ver = iOSversion() || [0];
 
                 if (ver[0] >= 6) {
@@ -64,10 +65,10 @@
 
 {% block main %}
     {{ render(controller("NTSearchBundle:SearchFrontend:search")) }}
-    
+
     <div class="row">
         <h1>{{ company.title }}</h1>
-        
+
         <div class="col-lg-6">
             <table class="table table-striped">
                 <tbody>
@@ -87,7 +88,7 @@
                                     {% if address.address is defined and address.address is not null and address.address|length %}
                                         <p>{{ address.address }}</p>
                                     {% endif %}
-                                    
+
                                     {% if address.latitude is defined and address.latitude is not null and address.latitude|length and address.longitude is defined and address.longitude is not null and address.longitude|length %}
                                         <p>
                                             <span class="glyphicon glyphicon-map-marker"></span>
@@ -96,7 +97,7 @@
                                             </a>
                                         </p>
                                     {% endif %}
-                                    
+
                                     {% if address.phones is defined and address.phones is not null and address.phones|length %}
                                         {% for addressPhone in address.phones %}
                                             <p>
@@ -110,10 +111,10 @@
                                     {% endif %}
                                 </td>
                             </tr>
-                            
+
                         {% endfor %}
                     {% endif %}
-                    
+
                     {% if company.phones is defined and company.phones is not null and company.phones|length %}
                         <tr>
                             <td>{{ 'catalogue.phones'|trans({}, 'NTFrontendBundle')}}</td>
@@ -175,7 +176,7 @@
                     </div>
                 </div>
             {% endif %}
-            
+
             {% if company.translations[app.request.locale].image is defined and company.translations[app.request.locale].image is not null and company.translations[app.request.locale].image|length %}
                 <div class="desktopHidden">
                     <img src="{% path company.translations[app.request.locale].image, 'reference' %}" alt="">

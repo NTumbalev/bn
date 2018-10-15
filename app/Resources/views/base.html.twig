@@ -12,6 +12,9 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
+        {% block headerCSS %}{% endblock %}
+        {% block headerJS %}{% endblock %}
+
         {{ render(controller('NTSettingsBundle:Settings:render', {'key':'header_miscellanous'})) }}
     </head>
     <body>
