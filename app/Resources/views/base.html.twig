@@ -29,19 +29,19 @@
                     <link rel="stylesheet"  type="text/css" href="{{ asset_url }}">
                 {% endstylesheets %}
             {% endblock %}
-            
+
             <link href="/vendor/css/bootstrap.min.css" rel="stylesheet" type="text/css">
             <link href="/vendor/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         {% endblock %}
 
         {% block footerJS %}
+            <script src="/vendor/js/jquery.min.js"></script>
+            <script src="/vendor/js/bootstrap.min.js"></script>
             {% block javascripts %}
                 {% javascripts 'js/*' filter='?uglifyjs' output='generatedJs/*.js' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
                 {% endjavascripts %}
             {% endblock %}
-            <script src="/vendor/js/jquery.min.js"></script>
-            <script src="/vendor/js/bootstrap.min.js"></script>
         {% endblock %}
     </body>
 </html>
